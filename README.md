@@ -1,1 +1,1 @@
-# Wildfire_Visualization_and_HCI
+# Visualization_and_HCI
