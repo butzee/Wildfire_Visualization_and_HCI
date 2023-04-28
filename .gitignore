@@ -1,3 +1,6 @@
+#Dataset
+*.sqlite
+
 # Logs
 logs
 *.log
