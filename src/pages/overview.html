@@ -2,30 +2,31 @@
 <html>
   <head>
       <meta charset="UTF-8">
-      <title>Exercise!</title>
+      <title>Overview!</title>
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';" />
-      <link rel="stylesheet" type="text/css" href="../../styles.css">
+      <link rel="stylesheet" type="text/css" href="../styles/styling.css">
+      <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
   </head>
 
   <body>
-    <!-- Side Bar -->
-    <div class="main-container">
-        <div class="flex-container">
-        <div><a href="overview.html">Exercise</a></div>
-        <div><a href="">Dataset Table</a></div>
-        <div><a href="../index.html">Home</a></div>
-        <button id="toggle-dark-mode">Toggle Dark Mode</button>
+    <main>
+      <div class="side">
+          <div class="side-decorator">Actions</div>
+          <nav aria-label="actions">
+            <button class="btn-sidebar" onclick="location.href='./task.html'">Task</button>
+            <button class="btn-sidebar" onclick="location.href='./overview.html'">Overview</button>
+            <button class="btn-sidebar" onclick="location.href='./map.html'" >Map</button>
+            <button class="btn-sidebar" onclick="location.href='./statistic.html'">Statistics</button>
+          </nav>
       </div>
-        
-        <!-- Page Content -->
-        <div class="body-text">
-        <h1>Exercise</h1>
-        <h2>Overview about the given task</h1>
-        <p>Current theme source: <strong id="theme-source">System</strong></p>
 
-        <script src="../../renderer.js"></script>
-        </div>
-    </div>
+      <div class="main">
+        <div class="statistics">OVERVIEW.</div>
+      </div>
+    </main>
+
+    <script src="../../renderer.js"></script>
   </body>
 </html>

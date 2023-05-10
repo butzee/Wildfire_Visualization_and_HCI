@@ -11,7 +11,7 @@ const createWindow = () => {
     }
   })
 
-  win.loadFile('src/index.html')
+  win.loadFile('src/pages/task.html')
 
   ipcMain.handle('dark-mode:toggle', () => {
     if (nativeTheme.shouldUseDarkColors) {
@@ -42,8 +42,6 @@ app.on('window-all-closed', () => {
     app.quit()
   }
 })
-
-
 
 // Print the first 10 rows from fires table
 ipcMain.on('get-data-from-db', (event, tableName) => {

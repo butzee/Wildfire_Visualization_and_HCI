@@ -1,0 +1,90 @@
+:root {
+    color-scheme: light dark;
+}
+  
+@media (prefers-color-scheme: dark) {
+    body { background: #333; color: white; }
+}
+  
+@media (prefers-color-scheme: light) {
+    body { background: #ddd; color: black; }
+}
+
+::-webkit-scrollbar {
+    display: none;
+}
+
+/* CSS */
+a {
+    color: #ffffff;
+    text-decoration: none;
+}
+a:hover {
+    color: rgba(255, 255, 255, 0.483);
+    text-decoration: underline;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+html, body {
+    width: 100%;
+    height: 100vh;
+}
+
+button {
+    border-radius: .2rem;
+}
+
+main {
+    height: 100%;
+    display: grid;
+    grid-template-columns: min-content 1fr;
+    grid-template-rows: min-content 1fr;
+    grid-template-areas:
+        "side top"
+        "side main"
+        "side bottom";
+}
+
+.main {
+    background: #5080a8;
+    grid-area: main ;
+}
+
+.side {
+    background: #474747;
+    grid-area: side;
+    padding: 0.4rem;
+}
+
+nav[aria-label="actions"] {
+    margin-top: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start ;
+    gap: 1rem;
+}
+
+.btn-sidebar {
+    width: 1fr;
+    padding: 1rem;
+    font-size: 1em;
+}
+
+
+div[aria-label="controls"] {
+    height: 100%;
+    display: grid;
+    grid-template-columns: repeat(4, 2rem) 1fr;
+}
+
+.side-decorator {
+    font-size: 1.5rem;
+    font-weight: bold;
+    line-height: 3rem;
+    vertical-align: middle;
+    text-align: center;
+}

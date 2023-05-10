@@ -1,0 +1,48 @@
+main {
+    height: 100%;
+    display: grid;
+    grid-template-columns: min-content 1fr;
+    grid-template-rows: min-content 1fr 2.5rem;
+    grid-template-areas:
+        "side top"
+        "side main"
+        "side bottom";
+}
+
+.top {
+    background: #c4c4c4;
+    grid-area: top;
+    display:flex;
+    flex-direction: row;
+    padding: 0.25rem;
+}
+
+.top-decorator {
+    font-size: 1.5rem;
+    font-weight: bold;
+    line-height: 3rem;
+    vertical-align: middle;
+    text-align: center;
+}
+
+div[aria-label="filters"] {
+    margin-left: 0.5rem;
+    display: flex;
+    gap: 1rem;
+}
+
+.main {
+    background: #5080a8;
+    grid-area: main;
+}
+
+.bottom {
+    background: #c4c4c4;
+    grid-area: bottom;
+    padding: 0.25rem;
+}
+
+.btn-filters {
+    padding: 1rem 2rem;
+    font-size: 1rem;
+}
