@@ -35,6 +35,9 @@
       </div>
 
       <div id="map" class ="main" style="border-style:dotted!"></div>
+      <button style="position:absolute;top:80px;right:10px" onclick="fit_to_extend()" class="btn-controls">
+          <span class="material-symbols-rounded">resize</span>
+      </button>
 
       <div class="bottom">
         <div aria-label="controls">
@@ -48,8 +51,9 @@
     </main>
     <script>
         var map = new maptalks.Map('map', {
-          center: [0, 0],
-          zoom: 2,
+          center: [-98, 37],
+          zoom: 4.4,
+          minZoom : 4.4,
           baseLayer: new maptalks.TileLayer('base', {
             'urlTemplate' : 'http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png',
             'subdomains'  : ['a','b','c','d'],
@@ -57,6 +61,13 @@
             '&copy; <a href="https://carto.com/attributions">CARTO</a>'
           })
         });
+
+        const extent = map.getExtent();
+        map.setMaxExtent(extent);
+
+        function fit_to_extend() {
+            map.fitExtent(extent, 0);
+        }
     </script>
     <script src="../../renderer.js"></script>
   </body>
