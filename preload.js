@@ -1,9 +1,19 @@
 const { contextBridge, ipcRenderer } = require('electron')
 const testMgr = require('./models/testmgr')
 
-const getShapes = () => {
-    return testMgr.getShapes();
-}
+const getShapes = (sliderValue) => {
+  console.log("Preload > getShapes");
+  return new Promise((resolve, reject) => {
+    ipcRenderer.once('getShapesResponse', (event, arg) => {
+      if (arg.error) {
+        reject(arg.error);
+      } else {
+        resolve(arg.data);
+      }
+    });
+    ipcRenderer.send('getShapes', sliderValue);
+  });
+};
 
 contextBridge.exposeInMainWorld('api', {
   getShapes: getShapes
@@ -14,11 +24,6 @@ contextBridge.exposeInMainWorld('versions', {
   chrome: () => process.versions.chrome,
   electron: () => process.versions.electron,
   ping: () => ipcRenderer.invoke('ping'),
-})
-
-contextBridge.exposeInMainWorld('darkMode', {
-    toggle: () => ipcRenderer.invoke('dark-mode:toggle'),
-    system: () => ipcRenderer.invoke('dark-mode:system')
 })
 
 window.addEventListener('DOMContentLoaded', () => {

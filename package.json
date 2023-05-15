@@ -16,6 +16,7 @@
   "dependencies": {
     "electron-builder": "^24.2.1",
     "maptalks": "^1.0.0-rc.20",
+    "maptalks.markercluster": "^0.8.5",
     "sqlite3": "https://github.com/mapbox/node-sqlite3/tarball/master"
   }
 }

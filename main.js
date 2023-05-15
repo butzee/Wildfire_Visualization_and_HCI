@@ -1,5 +1,6 @@
 const { app, BrowserWindow, ipcMain, nativeTheme } = require('electron')
 const path = require('path')
+const testMgr = require('./models/testmgr');
 
 const createWindow = () => {
   const win = new BrowserWindow({
@@ -43,9 +44,11 @@ app.on('window-all-closed', () => {
   }
 })
 
-// Print the first 10 rows from fires table
-ipcMain.on('get-data-from-db', (event, tableName) => {
-  db.all(`SELECT * FROM ${tableName} LIMIT 10`, (err, rows) => {
-    event.reply('db-data', rows);
-  });
+ipcMain.on('getShapes', async (event, sliderValue) => {
+  try {
+    const rows = await testMgr.getShapes(sliderValue);
+    event.reply('getShapesResponse', { data: rows });
+  } catch (error) {
+    event.reply('getShapesResponse', { error: error.message });
+  }
 });
