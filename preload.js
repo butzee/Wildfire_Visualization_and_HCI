@@ -2,7 +2,6 @@ const { contextBridge, ipcRenderer } = require('electron')
 const testMgr = require('./models/testmgr')
 
 const getShapes = (sliderValue) => {
-  console.log("Preload > getShapes");
   return new Promise((resolve, reject) => {
     ipcRenderer.once('getShapesResponse', (event, arg) => {
       if (arg.error) {

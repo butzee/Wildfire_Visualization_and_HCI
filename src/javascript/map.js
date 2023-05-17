@@ -36,7 +36,7 @@ var geometries = [[],[]];
 // Create the clusterLayer and add it to the map
 const clusterLayer = new maptalks.ClusterLayer('cluster', [], {
     'noClusterWithOneMarker' : true,
-    'maxClusterZoom' : 18,
+    'maxClusterZoom' : 9,
     symbol:{
         'markerType' : 'ellipse',
         'markerFill' : { property:'count', type:'interval', stops: [[0, '#fef001'], [100, '#ffce03'], [500, '#fd9a01'], [1000, '#fd6104'], [1500, '#ff2c05'],[2500, '#f00505']] },
@@ -51,7 +51,6 @@ const clusterLayer = new maptalks.ClusterLayer('cluster', [], {
     'geometryEvents' : true,
     'single': true
   });
-
   
 // Function to update clustering options based on zoom level
 function updateClusterOptions() {
@@ -70,23 +69,6 @@ function updateClusterOptions() {
 // Listen for the zoomend event on the map
 map.addEventListener('zoomend', updateClusterOptions);
 
-/* Fetch data and create geometries
-window.api.getShapes()
-.then(rows => {
-    rows.forEach(row => {
-        geometries[0].push(new maptalks.Circle([row.LONGITUDE, row.LATITUDE], Math.sqrt((row.FIRE_SIZE * 4046.86) / Math.PI)));
-    });
-
-    // Add the geometries to the clusterLayer
-    clusterLayer.addGeometry(geometries[0]);
-
-    // Add the clusterLayer to the map
-    map.addLayer(clusterLayer);
-})
-.catch(error => {
-    console.error(error);
-});
-*/
 fetchandupdate(0);
 const slider = document.getElementById("rangeSlider");
 
@@ -98,26 +80,49 @@ slider.addEventListener("input", function(event) {
 function fetchandupdate(sliderValue) {
     // Clear existing geometries
     geometries[0] = [];
-  
     // Call window.api.getShapes with the appropriate parameters based on the slider position
     window.api.getShapes(sliderValue)
       .then(rows => {
         rows.forEach(row => {
             geometries[0].push(new maptalks.Circle([row.LONGITUDE, row.LATITUDE], Math.sqrt((row.FIRE_SIZE * 4046.86) / Math.PI)));
         });
-  
+      
         // Update the clusterLayer with the new geometries
         clusterLayer.clear();
         clusterLayer.addGeometry(geometries[0]);
         map.addLayer(clusterLayer);
+
       })
-      .catch(error => {
+       .catch(error => {
         console.error(error);
       });
   }
 
 const extent = map.getExtent();
 map.setMaxExtent(extent);
+
+map.on('click', function (e) {
+  console.log(clusterLayer.identify(e.coordinate));
+  //print count of markers in cluster with count property
+  console.log(clusterLayer.getClusters());
+  clusterLayer.getClusters().forEach(function(cluster) {
+    //Sum of _radiuses of all markers in cluster
+    console.log(cluster['children'].reduce(function (accumulator, currentValue) {
+      return accumulator + currentValue._radius;
+    }, 0));
+    console.log(cluster['children'].length);
+  });
+});
+
+function onClick(e) {
+  console.log(e.target);
+  // Sum of _radiuses of all markers in cluster
+  clusterLayer.getClusters().forEach(function(cluster) {
+    console.log(cluster['children'].reduce(function (accumulator, currentValue) {
+      return accumulator + currentValue._radius;
+    }, 0));
+  });
+}
 
 function fit_to_extend() {
     map.fitExtent(extent, 0);
