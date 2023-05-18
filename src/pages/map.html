@@ -29,7 +29,7 @@
           <div class="top-decorator">Filters</div>
           <div aria-label="filters">
               <select id="year" name="year" aria-label="Select a year"
-                onchange="filterBy(this);">
+                onchange="filterBy();">
                   <option value="-1" disabled selected hidden >1992</option>
                   <option value="0">All years</option>
                   <option value="2023">2023</option>
@@ -39,7 +39,7 @@
                   <option value="2027">2027</option>
               </select>
               <select id="cause" name="cause" aria-label="Select a cause"
-                onchange="filterBy(this);">
+                onchange="filterBy();">
                   <option value="-1" disabled selected hidden>Cause</option>
                   <option value="0">All causes</option>
                   <option value="2023">2023</option>
@@ -49,14 +49,16 @@
                   <option value="2027">2027</option>
               </select>
               <select id="size" name="size" aria-label="Select a size"
-                onchange="filterBy(this);">
+                onchange="filterBy();">
                   <option value="-1" disabled selected hidden>Size</option>
-                  <option value="0">All sizes</option>
-                  <option value="2023">2023</option>
-                  <option value="2024">2024</option>
-                  <option value="2025">2025</option>
-                  <option value="2026">2026</option>
-                  <option value="2027">2027</option>
+                  <option value="-1">All sizes</option>
+                  <option value="A">A</option>
+                  <option value="B">B</option>
+                  <option value="C">C</option>
+                  <option value="D">D</option>
+                  <option value="E">E</option>
+                  <option value="F">F</option>
+                  <option value="G">G+</option>
               </select>
           </div>
       </div>

@@ -84,7 +84,10 @@ function fetchandupdate(sliderValue) {
     // Clear existing geometries
     removeFires()
     // Call window.api.getShapes with the appropriate parameters based on the slider position
-    window.api.getShapes(sliderValue)
+
+    const fireSizeClass = document.getElementById("size").value
+    const fireCause = document.getElementById("cause").value
+    window.api.getShapes(sliderValue, fireCause, fireSizeClass)
       .then(rows => {
         rows.forEach(row => {
             geometries[0].push(new maptalks.Circle([row.LONGITUDE, row.LATITUDE], Math.sqrt((row.FIRE_SIZE * 4046.86) / Math.PI)));
@@ -173,17 +176,6 @@ d3.select("#stop").on("click", function() {
       fetchandupdate(0);
 });
 
-let year = -1;
-let cause = -1;
-let size = -1;
-
-function filterBy(selector) {
-    removeFires();
-    if (selector.id === "year") {
-        year = parseInt(selector.value)
-    } else if (selector.id === "cause") {
-        cause = selector.value
-    } else {
-        size = selector.value
-    }
+function filterBy() {
+    fetchandupdate(parseInt(document.getElementById('rangeSlider').value));
 }

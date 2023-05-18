@@ -3,15 +3,22 @@ var db = dbmgr.db;
 
 
 // return all fetched rows
-exports.getShapes = (sliderValue) => {
+exports.getShapes = (sliderValue, fireCause, fireSizeClass) => {
     var year;
     if (sliderValue == NaN || sliderValue == undefined || sliderValue == null || sliderValue == 0) {
-      year = parseInt(1992);
+      year = 1992;
     } else {
-      year = parseInt(1992) + parseInt(sliderValue);
+      year = 1992 + parseInt(sliderValue);
     }
+    let sql = "SELECT OBJECTID, DISCOVERY_DOY, CONT_DOY, FIRE_SIZE, FIRE_SIZE_CLASS, LONGITUDE, LATITUDE FROM Fires " +
+            "WHERE FIRE_YEAR='" + year + "' AND FIRE_SIZE_CLASS='"+fireSizeClass+"' LIMIT 10000"
+    if (fireSizeClass === "-1" || fireSizeClass === undefined ) {
+         sql = "SELECT OBJECTID, DISCOVERY_DOY, CONT_DOY, FIRE_SIZE, FIRE_SIZE_CLASS, LONGITUDE, LATITUDE FROM Fires " +
+            "WHERE FIRE_YEAR='" + year + "' LIMIT 10000"
+    }
+    console.log(sql)
     return new Promise((resolve, reject) => {
-      fetchDataFromDatabase("SELECT OBJECTID, DISCOVERY_DOY, CONT_DOY, FIRE_SIZE, LONGITUDE, LATITUDE FROM Fires WHERE FIRE_YEAR='"+year+"' LIMIT 10000")
+      fetchDataFromDatabase(sql)
         .then(rows => {
           resolve(rows);
         })
