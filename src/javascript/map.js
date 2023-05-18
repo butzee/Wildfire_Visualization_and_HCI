@@ -1,7 +1,3 @@
-const options = {
-    'position' : 'top-right'
-};
-
 var map = new maptalks.Map('map', {
     center: [-98, 37],
     zoom: 4,
@@ -16,17 +12,20 @@ var map = new maptalks.Map('map', {
   });
 
 class ResizeButton extends maptalks.control.Control {
-buildOn(map) {
-  var dom = maptalks.DomUtil.createEl("button");
-  dom.className = "btn-controls";
-  dom.onclick = fit_to_extend;
-  var span = maptalks.DomUtil.createEl("span");
-  span.className = "material-symbols-rounded";
-  span.textContent = "resize";
-  dom.appendChild(span);
-  return dom;
+    buildOn(map) {
+      var dom = maptalks.DomUtil.createEl("button");
+      dom.className = "btn-controls";
+      dom.onclick = fit_to_extend;
+      var span = maptalks.DomUtil.createEl("span");
+      span.className = "material-symbols-rounded";
+      span.textContent = "resize";
+      dom.appendChild(span);
+      return dom;
+    }
 }
-}
+const options = {
+    'position' : 'top-right'
+};
 ResizeButton.mergeOptions(options);
 
 var center = map.getCenter();
@@ -77,9 +76,13 @@ slider.addEventListener("input", function(event) {
   fetchandupdate(sliderPosition);
 });
 
+function removeFires() {
+    geometries[0] = [];
+    clusterLayer.clear();
+}
 function fetchandupdate(sliderValue) {
     // Clear existing geometries
-    geometries[0] = [];
+    removeFires()
     // Call window.api.getShapes with the appropriate parameters based on the slider position
     window.api.getShapes(sliderValue)
       .then(rows => {
@@ -88,7 +91,7 @@ function fetchandupdate(sliderValue) {
         });
       
         // Update the clusterLayer with the new geometries
-        clusterLayer.clear();
+
         clusterLayer.addGeometry(geometries[0]);
         map.addLayer(clusterLayer);
 
@@ -183,3 +186,18 @@ class TextBanner extends maptalks.control.Control {
 
 const textBannerControl = new TextBanner({ position: 'top-middle' });
 map.addControl(textBannerControl);
+
+let year = -1;
+let cause = -1;
+let size = -1;
+
+function filterBy(selector) {
+    removeFires();
+    if (selector.id === "year") {
+        year = parseInt(selector.value)
+    } else if (selector.id === "cause") {
+        cause = selector.value
+    } else {
+        size = selector.value
+    }
+}
