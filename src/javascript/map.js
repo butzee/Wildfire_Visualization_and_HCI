@@ -135,57 +135,43 @@ function fit_to_extend() {
 var resizeButton = new ResizeButton();
 map.addControl(resizeButton);
 
-class TextBanner extends maptalks.control.Control {
-  buildOn(map) {
-    var div = document.createElement('div');
-    div.className = 'text-banner';
-    div.textContent = 'Slider Value: ';
+let myTimer;
 
-    var sliderValue = document.createElement('span');
-    sliderValue.textContent = '1992';
-    div.appendChild(sliderValue);
+const updateSliderValue = () => {
+      document.getElementById("year").options[0].text =
+          parseInt(document.getElementById('rangeSlider').value)+1992;
+};
 
-    // Update the slider value dynamically
-    const updateSliderValue = () => {
-      sliderValue.textContent = parseInt(document.getElementById('rangeSlider').value)+parseInt(1992);
-    };
+// Listen for the 'input' event on the slider
+d3.select('#rangeSlider').on('input', function() {
+  updateSliderValue();
+  fetchandupdate(Number(this.value));
+});
 
-    // Listen for the 'input' event on the slider
-    d3.select('#rangeSlider').on('input', function() {
+d3.select("#start").on("click", function() {
+  clearInterval (myTimer);
+  myTimer = setInterval (function() {
+      var b= d3.select("#rangeSlider");
+      var t = (+b.property("value") + 1) % (+b.property("max") + 1);
+      if (t === 0) {
+        clearInterval (myTimer);
+        fetchandupdate(Number(1992));
+      };
+      b.property("value", t);
       updateSliderValue();
-      fetchandupdate(Number(this.value));
-    });
-    var myTimer;
-    d3.select("#start").on("click", function() {
-      clearInterval (myTimer);
-      myTimer = setInterval (function() {
-          var b= d3.select("#rangeSlider");
-          var t = (+b.property("value") + 1) % (+b.property("max") + 1);
-          if (t == 0) { 
-            clearInterval (myTimer); 
-            fetchandupdate(Number(1992));
-          };
-          b.property("value", t);
-          updateSliderValue();
-          fetchandupdate(parseInt(b.property("value")));
-      }, 1000);
-    });
-    d3.select("#stop").on("click", function() {
+      fetchandupdate(parseInt(b.property("value")));
+  }, 1000);
+});
+d3.select("#pause").on("click", function() {
+  clearInterval (myTimer);
+});
+
+d3.select("#stop").on("click", function() {
       d3.select("#rangeSlider").property("value", 0);
       updateSliderValue();
       clearInterval (myTimer)
-    });
-    d3.select("#pause").on("click", function() {
-      clearInterval (myTimer);
-    });
-    
-
-    return div;
-  }
-}
-
-const textBannerControl = new TextBanner({ position: 'top-middle' });
-map.addControl(textBannerControl);
+      fetchandupdate(0);
+});
 
 let year = -1;
 let cause = -1;
