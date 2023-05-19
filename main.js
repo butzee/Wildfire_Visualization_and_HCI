@@ -44,9 +44,18 @@ app.on('window-all-closed', () => {
   }
 })
 
-ipcMain.on('getShapes', async (event, sliderValue) => {
+ipcMain.on('getShapesForYear', async (event, sliderValue, fireCause, fireSizeClass) => {
   try {
-    const rows = await testMgr.getShapes(sliderValue);
+    const rows = await testMgr.getShapesForYear(sliderValue, fireCause, fireSizeClass);
+    event.reply('getShapesResponse', { data: rows });
+  } catch (error) {
+    event.reply('getShapesResponse', { error: error.message });
+  }
+});
+
+ipcMain.on('getShapesForDay', async (event, sliderValue, year, fireCause, fireSizeClass) => {
+  try {
+    const rows = await testMgr.getShapesForDay(sliderValue, year, fireCause, fireSizeClass);
     event.reply('getShapesResponse', { data: rows });
   } catch (error) {
     event.reply('getShapesResponse', { error: error.message });

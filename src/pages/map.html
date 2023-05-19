@@ -28,28 +28,29 @@
       <div class="top">
           <div class="top-decorator">Filters</div>
           <div aria-label="filters">
+              <div id="current-year">1992</div>
               <select id="year" name="year" aria-label="Select a year"
-                onchange="filterBy();">
-                  <option value="-1" disabled selected hidden >1992</option>
-                  <option value="0">All years</option>
-                  <option value="2023">2023</option>
-                  <option value="2024">2024</option>
-                  <option value="2025">2025</option>
-                  <option value="2026">2026</option>
-                  <option value="2027">2027</option>
+                onchange="showYear(this.value);">
+                  <option value="-1" selected>All years</option>
+                  <option value="30">2022</option>
+                  <option value="29">2021</option>
+                  <option value="28">2020</option>
+                  <option value="27">2019</option>
+                  <option value="26">2018</option>
               </select>
               <select id="cause" name="cause" aria-label="Select a cause"
-                onchange="filterBy();">
+                onchange="filterBy();" multiple>
                   <option value="-1" disabled selected hidden>Cause</option>
                   <option value="0">All causes</option>
-                  <option value="2023">2023</option>
-                  <option value="2024">2024</option>
-                  <option value="2025">2025</option>
-                  <option value="2026">2026</option>
-                  <option value="2027">2027</option>
+                  <option value="natural">Natural</option>
+                  <option value="arson">Arson</option>
+                  <option value="open burning">Open burning</option>
+                  <option value="explosives">Explosives</option>
+                  <option value="minors">Minors</option>
+                  <option value="other">Other</option>
               </select>
               <select id="size" name="size" aria-label="Select a size"
-                onchange="filterBy();">
+                onchange="filterBy();" multiple>
                   <option value="-1" disabled selected hidden>Size</option>
                   <option value="-1">All sizes</option>
                   <option value="A">A</option>
@@ -71,7 +72,7 @@
           <button id="start" class="btn-controls"><span class="material-symbols-rounded">play_arrow</span></button>
           <button id="pause" class="btn-controls"><span class="material-symbols-rounded">pause</span></button>
           <button id="stop" class="btn-controls"><span class="material-symbols-rounded">stop</span></button>
-          <input id="rangeSlider" type="range" name="range" id="range" min="0" max="30" step="1" value="0" >
+          <input id="rangeSlider" type="range" name="range" min="0" max="30" step="1" value="0">
         </div>
       </div>
     </main>

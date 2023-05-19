@@ -4,7 +4,7 @@ var map = new maptalks.Map('map', {
     minZoom: 3,
     maxZoom: 18,
     baseLayer: new maptalks.TileLayer('base', {
-      'urlTemplate' : 'http://{s}.basemaps.cartocdn.com/dark_nolabels/{z}/{x}/{y}.png',
+      'urlTemplate' : 'http://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}.png',
       'subdomains'  : ['a','b','c','d'],
       'attribution'  : '&copy; <a href="http://www.osm.org/copyright">OSM</a> contributors, '+
       '&copy; <a href="https://carto.com/attributions">CARTO</a>'
@@ -28,9 +28,11 @@ const options = {
 };
 ResizeButton.mergeOptions(options);
 
-var center = map.getCenter();
+let center = map.getCenter();
 
-var geometries = [[],[]];
+let geometries = [[],[]];
+
+let year = -1 // start with all years
 
 // Create the clusterLayer and add it to the map
 const clusterLayer = new maptalks.ClusterLayer('cluster', [], {
@@ -68,27 +70,43 @@ function updateClusterOptions() {
 // Listen for the zoomend event on the map
 map.addEventListener('zoomend', updateClusterOptions);
 
-fetchandupdate(0);
-const slider = document.getElementById("rangeSlider");
-
-slider.addEventListener("input", function(event) {
-  sliderPosition = event.target.value;
-  fetchandupdate(sliderPosition);
-});
+fetchAndUpdate(0);
 
 function removeFires() {
     geometries[0] = [];
     clusterLayer.clear();
 }
-function fetchandupdate(sliderValue) {
+
+function getSelectedOptions(causeOptions) {
+    let causes = []
+    for (let i = 0, iLen = causeOptions.length; i < iLen; i++) {
+        let opt = causeOptions[i];
+
+        if (opt.selected) {
+            causes.push(opt.value || opt.text);
+        }
+    }
+    return causes
+}
+
+function fetchAndUpdate(sliderValue) {
     // Clear existing geometries
     removeFires()
     // Call window.api.getShapes with the appropriate parameters based on the slider position
 
-    const fireSizeClass = document.getElementById("size").value
-    const fireCause = document.getElementById("cause").value
-    window.api.getShapes(sliderValue, fireCause, fireSizeClass)
-      .then(rows => {
+    const fireSizeClass = document.getElementById("size").options
+    let causeOptions = document.getElementById("cause").options
+    let causes = getSelectedOptions(causeOptions);
+    let classes = getSelectedOptions(fireSizeClass);
+
+    let dbRows;
+    if (year === -1) { // display overview of year
+        dbRows = window.api.getShapesForYear(sliderValue, "1", "2") // Argumente "1" und "2" nur placeholder, weil filtering noch nicht implementiert!
+    } else { // year-specific
+        dbRows = window.api.getShapesForDay(sliderValue, year, "1", "2")
+    }
+    dbRows.then(rows => {
+        console.log(rows)
         rows.forEach(row => {
             geometries[0].push(new maptalks.Circle([row.LONGITUDE, row.LATITUDE], Math.sqrt((row.FIRE_SIZE * 4046.86) / Math.PI)));
         });
@@ -102,7 +120,7 @@ function fetchandupdate(sliderValue) {
        .catch(error => {
         console.error(error);
       });
-  }
+}
 
 const extent = map.getExtent();
 map.setMaxExtent(extent);
@@ -140,42 +158,80 @@ map.addControl(resizeButton);
 
 let myTimer;
 
-const updateSliderValue = () => {
-      document.getElementById("year").options[0].text =
-          parseInt(document.getElementById('rangeSlider').value)+1992;
+const updateYearDisplay = () => {
+      document.getElementById("current-year").innerText =
+          String(Number(document.getElementById('rangeSlider').value)+1992);
 };
 
 // Listen for the 'input' event on the slider
 d3.select('#rangeSlider').on('input', function() {
-  updateSliderValue();
-  fetchandupdate(Number(this.value));
+  updateYearDisplay();
+  fetchAndUpdate(Number(this.value));
 });
 
-d3.select("#start").on("click", function() {
-  clearInterval (myTimer);
+function timelineYearly() {
+  clearInterval(myTimer);
+  let b= d3.select("#rangeSlider");
+  b.property("min", 0)
+  b.property("max", 30)
+  let maxValue = +b.property("max");
   myTimer = setInterval (function() {
-      var b= d3.select("#rangeSlider");
-      var t = (+b.property("value") + 1) % (+b.property("max") + 1);
-      if (t === 0) {
-        clearInterval (myTimer);
-        fetchandupdate(Number(1992));
-      };
-      b.property("value", t);
-      updateSliderValue();
-      fetchandupdate(parseInt(b.property("value")));
+      let value = +b.property("value");
+      b.property("value", value + 1);
+      updateYearDisplay();
+      fetchAndUpdate(+b.property("value"));
+      if (value === maxValue) {
+          clearInterval(myTimer);
+      }
   }, 1000);
-});
+}
+
+function timelineYear() {
+  clearInterval(myTimer);
+  let b= d3.select("#rangeSlider");
+  b.property("min", 1)
+  b.property("max", 365) // Slider goes over every day of the year
+  let maxValue = +b.property("max");
+  myTimer = setInterval (function() {
+      let value = +b.property("value");
+      b.property("value", value + 1);
+      fetchAndUpdate(+b.property("value"));
+      if (value === maxValue) {
+          clearInterval(myTimer);
+      }
+  }, 1000);
+}
+
+d3.select("#start").on("click", timelineYearly);
 d3.select("#pause").on("click", function() {
   clearInterval (myTimer);
 });
 
 d3.select("#stop").on("click", function() {
       d3.select("#rangeSlider").property("value", 0);
-      updateSliderValue();
+      updateYearDisplay();
       clearInterval (myTimer)
-      fetchandupdate(0);
+      fetchAndUpdate(0);
 });
 
 function filterBy() {
-    fetchandupdate(parseInt(document.getElementById('rangeSlider').value));
+    fetchAndUpdate(parseInt(document.getElementById('rangeSlider').value));
+}
+
+function showYear(selectedYear) {
+    if (selectedYear === "-1") {
+        year = -1
+        d3.select("#start").on("click", timelineYearly);
+        d3.select("#rangeSlider").property("value", 0);
+        updateYearDisplay();
+        clearInterval(myTimer);
+        fetchAndUpdate(0);
+    } else {
+        year = Number(selectedYear)
+        d3.select("#start").on("click", timelineYear);
+        d3.select("#rangeSlider").property("value", 0);
+        document.getElementById("current-year").innerText = year+1992;
+        clearInterval(myTimer);
+        fetchAndUpdate(0);
+    }
 }

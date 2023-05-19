@@ -1,7 +1,7 @@
 const { contextBridge, ipcRenderer } = require('electron')
 const testMgr = require('./models/testmgr')
 
-const getShapes = (sliderValue) => {
+const getShapesForYear = (sliderValue, fireCause, fireSizeClass) => {
   return new Promise((resolve, reject) => {
     ipcRenderer.once('getShapesResponse', (event, arg) => {
       if (arg.error) {
@@ -10,12 +10,26 @@ const getShapes = (sliderValue) => {
         resolve(arg.data);
       }
     });
-    ipcRenderer.send('getShapes', sliderValue);
+    ipcRenderer.send('getShapesForYear', sliderValue, fireCause, fireSizeClass);
+  });
+};
+
+const getShapesForDay = (sliderValue, year, fireCause, fireSizeClass) => {
+  return new Promise((resolve, reject) => {
+    ipcRenderer.once('getShapesResponse', (event, arg) => {
+      if (arg.error) {
+        reject(arg.error);
+      } else {
+        resolve(arg.data);
+      }
+    });
+    ipcRenderer.send('getShapesForDay', sliderValue, year, fireCause, fireSizeClass);
   });
 };
 
 contextBridge.exposeInMainWorld('api', {
-  getShapes: getShapes
+  getShapesForYear: getShapesForYear,
+  getShapesForDay: getShapesForDay
 })
 
 contextBridge.exposeInMainWorld('versions', {
