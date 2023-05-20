@@ -1,73 +1,156 @@
-main {
+.main {
+    width: 100%;
     height: 100%;
     display: grid;
     grid-template-columns: min-content 1fr;
     grid-template-rows: min-content 1fr 2.5rem;
     grid-template-areas:
-        "side top"
-        "side main"
-        "side bottom";
-}
-
+      "side top"
+      "side main"
+      "side bottom";
+  }
+  
 .top {
-    background: #c4c4c4;
-    grid-area: top;
-    display:flex;
-    flex-direction: row;
-    padding: 0.25rem;
+  background: #c4c4c4;
+  grid-area: top;
+  display: flex;
+  align-items: center;
+  padding: 0.25rem;
 }
-
-.top-decorator {
+  
+  .top-decorator {
     font-size: 1.5rem;
     font-weight: bold;
     line-height: 3rem;
     vertical-align: middle;
     text-align: center;
-}
-
-div[aria-label="filters"] {
+  }
+  
+  div[aria-label="filters"] {
     margin-left: 0.5rem;
     display: flex;
     gap: 1rem;
-}
-
-.main {
+  }
+  
+  .main {
     background: #5080a8;
     grid-area: main;
-}
-
-.bottom {
+  }
+  
+  .bottom {
     background: #c4c4c4;
     grid-area: bottom;
     padding: 0.25rem;
-}
-
-.btn-filters {
+  }
+  
+  .btn-filters {
     padding: 1rem 2rem;
     font-size: 1rem;
-}
-
-select {
-  background-color: #f2f2f2;
-  border: none;
-  color: black;
-  padding: 5px 10px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  margin: 4px 2px;
-  cursor: pointer;
-}
-
-#current-year {
-  background-color: #f2f2f2;
-  border: none;
-  color: black;
-  padding: 5px 10px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  margin: 4px 2px;
-}
+  }
+  
+  select {
+    background-color: #f2f2f2;
+    border: none;
+    color: black;
+    padding: 5px 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+  }
+  
+  #current-year {
+    background-color: #f2f2f2;
+    border: none;
+    color: black;
+    padding: 5px 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+  }
+  
+  .dropdown {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .dropdown-btn {
+    background-color: #f1f1f1;
+    color: black;
+    padding: 10px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+  }
+  
+  .dropdown-content a {
+    color: black;
+    padding: 8px 0;
+    text-decoration: none;
+    display: block;
+  }
+  
+  .dropdown-content a:hover {
+    background-color: #f1f1f1;
+  }
+  
+  .show {
+    display: block;
+  }
+  
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    padding: 12px 16px;
+    z-index: 1;
+    overflow-y: scroll; /* Enable scrolling */
+    max-height: 200px; /* Set a max height for the dropdown content */
+  }
+  
+  .dropdown-content.show-options {
+    display: block;
+  }
+  
+  .dropdown-content input[type="checkbox"] {
+    margin-right: 8px;
+  }
+  
+  .dropdown-content label {
+    display: block;
+    margin-bottom: 8px;
+    color: black;
+  }
+  
+  .scrollable-list {
+    color: black;
+    max-height: 35px; /* Set the desired maximum height */
+    overflow-y: auto;
+    scrollbar-width: thin; /* Add a small scrollbar (works in Firefox) */
+    scrollbar-color: rgba(0, 0, 0, 0.5) rgba(0, 0, 0, 0.1); /* Customize the scrollbar color */
+  }
+  
+  p {
+    color: black;
+    min-width: 100px;
+  }
+  
+  .fixed-width {
+    width: 150px; /* Set the desired width */
+    color: black;
+  }

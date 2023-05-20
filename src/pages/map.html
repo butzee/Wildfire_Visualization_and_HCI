@@ -11,7 +11,7 @@
       <link rel="stylesheet" href="../../node_modules/maptalks/dist/maptalks.css">
       <script type="text/javascript" src="../../node_modules/maptalks/dist/maptalks.js"></script>
       <script type="text/javascript" src="../../node_modules/maptalks.markercluster/dist/maptalks.markercluster.min.js"></script>
-  </head>
+    </head>
 
   <body>
     <main>
@@ -28,39 +28,84 @@
       <div class="top">
           <div class="top-decorator">Filters</div>
           <div aria-label="filters">
-              <div id="current-year">1992</div>
-              <select id="year" name="year" aria-label="Select a year"
-                onchange="showYear(this.value);">
-                  <option value="-1" selected>All years</option>
-                  <option value="30">2022</option>
-                  <option value="29">2021</option>
-                  <option value="28">2020</option>
-                  <option value="27">2019</option>
-                  <option value="26">2018</option>
-              </select>
-              <select id="cause" name="cause" aria-label="Select a cause"
-                onchange="filterBy();" multiple>
-                  <option value="-1" disabled selected hidden>Cause</option>
-                  <option value="0">All causes</option>
-                  <option value="natural">Natural</option>
-                  <option value="arson">Arson</option>
-                  <option value="open burning">Open burning</option>
-                  <option value="explosives">Explosives</option>
-                  <option value="minors">Minors</option>
-                  <option value="other">Other</option>
-              </select>
-              <select id="size" name="size" aria-label="Select a size"
-                onchange="filterBy();" multiple>
-                  <option value="-1" disabled selected hidden>Size</option>
-                  <option value="-1">All sizes</option>
-                  <option value="A">A</option>
-                  <option value="B">B</option>
-                  <option value="C">C</option>
-                  <option value="D">D</option>
-                  <option value="E">E</option>
-                  <option value="F">F</option>
-                  <option value="G">G+</option>
-              </select>
+            <div id="current-year">Current year: 1992</div>
+            <div class="dropdown">
+              <input type="hidden" class="dropdown-year" value="-1">
+              <button class="dropdown-btn" id="yearDropdownBtn" onclick="toggleDropdown('year')">Select a year</button>
+              <div data-simplebar class="dropdown-content scrollable-dropdown" id="yearDropdownContent" >
+                <a href="#" onclick="showYear(-1)">All years</a>
+                <a href="#" onclick="showYear(2020)">2020</a>
+                <a href="#" onclick="showYear(2019)">2019</a>
+                <a href="#" onclick="showYear(2018)">2018</a>
+                <a href="#" onclick="showYear(2017)">2017</a>
+                <a href="#" onclick="showYear(2016)">2016</a>
+                <a href="#" onclick="showYear(2015)">2015</a>
+                <a href="#" onclick="showYear(2014)">2014</a>
+                <a href="#" onclick="showYear(2013)">2013</a>
+                <a href="#" onclick="showYear(2012)">2012</a>
+                <a href="#" onclick="showYear(2011)">2011</a>
+                <a href="#" onclick="showYear(2010)">2010</a>
+                <a href="#" onclick="showYear(2009)">2009</a>
+                <a href="#" onclick="showYear(2008)">2008</a>
+                <a href="#" onclick="showYear(2007)">2007</a>
+                <a href="#" onclick="showYear(2006)">2006</a>
+                <a href="#" onclick="showYear(2005)">2005</a>
+                <a href="#" onclick="showYear(2004)">2004</a>
+                <a href="#" onclick="showYear(2003)">2003</a>
+                <a href="#" onclick="showYear(2002)">2002</a>
+                <a href="#" onclick="showYear(2001)">2001</a>
+                <a href="#" onclick="showYear(2000)">2000</a>
+                <a href="#" onclick="showYear(1999)">1999</a>
+                <a href="#" onclick="showYear(1998)">1998</a>
+                <a href="#" onclick="showYear(1997)">1997</a>
+                <a href="#" onclick="showYear(1996)">1996</a>
+                <a href="#" onclick="showYear(1995)">1995</a>
+                <a href="#" onclick="showYear(1994)">1994</a>
+                <a href="#" onclick="showYear(1993)">1993</a>
+                <a href="#" onclick="showYear(1992)">1992</a>
+              </div>
+            </div>
+
+            <div class="dropdown">
+              <button class="dropdown-btn" id="causeDropdownBtn" onclick="toggleDropdown('cause')">Select causes</button>
+              <div class="dropdown-content" id="causeDropdownContent">
+                <label><input type="checkbox" id="causeCheckbox" value="0" onchange="handleCheckboxChangeCause(this)">All causes</label>
+                <label><input type="checkbox" value="Power generation/transmission/distribution" onchange="handleCheckboxChangeCause(this)">Power generation/transmission/distribution</label>
+                <label><input type="checkbox" value="Natural" onchange="handleCheckboxChangeCause(this)">Natural</label>
+                <label><input type="checkbox" value="Debris and open burning" onchange="handleCheckboxChangeCause(this)">Debris and open burning</label>
+                <label><input type="checkbox" value="Missing data/not specified/undetermined" onchange="handleCheckboxChangeCause(this)">Missing data/not specified/undetermined</label>
+                <label><input type="checkbox" value="Recreation and ceremony" onchange="handleCheckboxChangeCause(this)">Recreation and ceremony</label>
+                <label><input type="checkbox" value="Equipment and vehicle use" onchange="handleCheckboxChangeCause(this)">Equipment and vehicle use</label>
+                <label><input type="checkbox" value="Arson/incendiarism" onchange="handleCheckboxChangeCause(this)">Arson/incendiarism</label>
+                <label><input type="checkbox" value="Fireworks" onchange="handleCheckboxChangeCause(this)">Fireworks</label>
+                <label><input type="checkbox" value="Other causes" onchange="handleCheckboxChangeCause(this)">Other causes</label>
+                <label><input type="checkbox" value="Railroad operations and maintenance" onchange="handleCheckboxChangeCause(this)">Railroad operations and maintenance</label>
+                <label><input type="checkbox" value="Smoking" onchange="handleCheckboxChangeCause(this)">Smoking</label>
+                <label><input type="checkbox" value="Misuse of fire by a minor" onchange="handleCheckboxChangeCause(this)">Misuse of fire by a minor</label>
+                <label><input type="checkbox" value="Firearms and explosives use" onchange="handleCheckboxChangeCause(this)">Firearms and explosives use</label>
+              </div>
+            </div>
+
+            <div class="dropdown">
+              <button class="dropdown-btn" id="sizeDropdownBtn" onclick="toggleDropdown('size')">Select sizes</button>
+              <div class="dropdown-content" id="sizeDropdownContent">
+                <label><input type="checkbox" id="sizeCheckbox" value="-1" onchange="handleCheckboxChangeSize(this)">All sizes</label>
+                <label><input type="checkbox" value="A" onchange="handleCheckboxChangeSize(this)">A</label>
+                <label><input type="checkbox" value="B" onchange="handleCheckboxChangeSize(this)">B</label>
+                <label><input type="checkbox" value="C" onchange="handleCheckboxChangeSize(this)">C</label>
+                <label><input type="checkbox" value="D" onchange="handleCheckboxChangeSize(this)">D</label>
+                <label><input type="checkbox" value="E" onchange="handleCheckboxChangeSize(this)">E</label>
+                <label><input type="checkbox" value="F" onchange="handleCheckboxChangeSize(this)">F</label>
+                <label><input type="checkbox" value="G" onchange="handleCheckboxChangeSize(this)">G</label>
+              </div>
+            </div>
+            
+            <p>Selected year:</p>
+            <ul id="selectedYear" class="fixed-width"></ul> 
+            <p>Selected causes:</p>
+            <ul id="selectedCauses" class="scrollable-list fixed-width"></ul> 
+            <p>Selected sizes:</p>
+            <ul id="selectedSizes"class="scrollable-list fixed-width"></ul>
           </div>
       </div>
 
@@ -76,8 +121,24 @@
         </div>
       </div>
     </main>
-
+    
     <script src="../../renderer.js"></script>
-    <script type="text/javascript" src="../javascript/map.js"></script>
+    <script src="../javascript/map.js"></script>
+    <script src="../javascript/data.js"></script>
+    <script src="../javascript/cluster.js"></script>
+    <script src="../javascript/controls.js"></script>
+    <script src="../javascript/visualization.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function() {
+        // Pre-click the checkbox
+        const causeCheckbox = document.getElementById("causeCheckbox");
+        causeCheckbox.checked = true;
+        const sizeCheckbox = document.getElementById("sizeCheckbox");
+        sizeCheckbox.checked = true;
+        document.getElementById("selectedYear").innerHTML = "All years";
+        document.getElementById("selectedCauses").innerHTML = "All causes";
+        document.getElementById("selectedSizes").innerHTML = "All sizes";
+      });
+      </script>
   </body>
 </html>
