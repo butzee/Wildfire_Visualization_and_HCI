@@ -1,4 +1,5 @@
 function createClusterLayer() {
+    // Erstellt eine Cluster-Schicht mit den angegebenen Optionen und Symbolen
     const clusterLayer = new maptalks.ClusterLayer('cluster', [], {
         'noClusterWithOneMarker': true,
         'maxClusterZoom': 9,
@@ -19,11 +20,11 @@ function createClusterLayer() {
   
     return clusterLayer;
 }
-  
+
 function updateClusters(clusterLayer, map, geometries) {
+    // Aktualisiert die Cluster-Schicht mit den neuen Feuern
     geometries[0] = [];
     clusterLayer.clear();
     clusterLayer.addGeometry(geometries);
     map.addLayer(clusterLayer);
 }
-  

@@ -1,52 +1,36 @@
-const { contextBridge, ipcRenderer } = require('electron')
-const testMgr = require('./models/testmgr')
+const { contextBridge, ipcRenderer } = require('electron');
+const testMgr = require('./models/testmgr');
 
-const getShapesForYear = (sliderValue, fireCause, fireSizeClass) => {
+// Funktion zum Abrufen von Feuer für ein bestimmtes Jahr
+const getFiresForYear = (sliderValue, fireCause, fireSizeClass) => {
   return new Promise((resolve, reject) => {
-    ipcRenderer.once('getShapesResponse', (event, arg) => {
+    ipcRenderer.once('getFiresResponse', (event, arg) => {
       if (arg.error) {
         reject(arg.error);
       } else {
         resolve(arg.data);
       }
     });
-    ipcRenderer.send('getShapesForYear', sliderValue, fireCause, fireSizeClass);
+    ipcRenderer.send('getFiresForYear', sliderValue, fireCause, fireSizeClass);
   });
 };
 
-const getShapesForDay = (sliderValue, year, fireCause, fireSizeClass) => {
+// Funktion zum Abrufen von Feuer für einen bestimmten Tag
+const getFiresForDay = (sliderValue, year, fireCause, fireSizeClass) => {
   return new Promise((resolve, reject) => {
-    ipcRenderer.once('getShapesResponse', (event, arg) => {
+    ipcRenderer.once('getFiresResponse', (event, arg) => {
       if (arg.error) {
         reject(arg.error);
       } else {
         resolve(arg.data);
       }
     });
-    ipcRenderer.send('getShapesForDay', sliderValue, year, fireCause, fireSizeClass);
+    ipcRenderer.send('getFiresForDay', sliderValue, year, fireCause, fireSizeClass);
   });
 };
 
+// Brücke zur Hauptwelt, um Funktionen und Objekte zugänglich zu machen
 contextBridge.exposeInMainWorld('api', {
-  getShapesForYear: getShapesForYear,
-  getShapesForDay: getShapesForDay
-})
-
-contextBridge.exposeInMainWorld('versions', {
-  node: () => process.versions.node,
-  chrome: () => process.versions.chrome,
-  electron: () => process.versions.electron,
-  ping: () => ipcRenderer.invoke('ping'),
-})
-
-window.addEventListener('DOMContentLoaded', () => {
-    const replaceText = (selector, text) => {
-      const element = document.getElementById(selector)
-      if (element) element.innerText = text
-    }
-  
-    for (const type of ['chrome', 'node', 'electron']) {
-      replaceText(`${type}-version`, process.versions[type])
-    }
-})
-
+  getFiresForYear: getFiresForYear,
+  getFiresForDay: getFiresForDay
+});

@@ -10,13 +10,13 @@
       "side bottom";
   }
   
-.top {
-  background: #c4c4c4;
-  grid-area: top;
-  display: flex;
-  align-items: center;
-  padding: 0.25rem;
-}
+  .top {
+    background: #c4c4c4;
+    grid-area: top;
+    display: flex;
+    align-items: center;
+    padding: 0.25rem;
+  }
   
   .top-decorator {
     font-size: 1.5rem;
@@ -48,19 +48,7 @@
     font-size: 1rem;
   }
   
-  select {
-    background-color: #f2f2f2;
-    border: none;
-    color: black;
-    padding: 5px 10px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 4px 2px;
-    cursor: pointer;
-  }
-  
+  select,
   #current-year {
     background-color: #f2f2f2;
     border: none;
@@ -71,6 +59,7 @@
     display: inline-block;
     font-size: 16px;
     margin: 4px 2px;
+    cursor: pointer;
   }
   
   .dropdown {
@@ -119,8 +108,8 @@
     box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
     padding: 12px 16px;
     z-index: 1;
-    overflow-y: scroll; /* Enable scrolling */
-    max-height: 200px; /* Set a max height for the dropdown content */
+    overflow-y: scroll;
+    max-height: 200px;
   }
   
   .dropdown-content.show-options {
@@ -139,10 +128,10 @@
   
   .scrollable-list {
     color: black;
-    max-height: 35px; /* Set the desired maximum height */
+    max-height: 35px;
     overflow-y: auto;
-    scrollbar-width: thin; /* Add a small scrollbar (works in Firefox) */
-    scrollbar-color: rgba(0, 0, 0, 0.5) rgba(0, 0, 0, 0.1); /* Customize the scrollbar color */
+    scrollbar-width: thin;
+    scrollbar-color: rgba(0, 0, 0, 0.5) rgba(0, 0, 0, 0.1);
   }
   
   p {
@@ -151,6 +140,6 @@
   }
   
   .fixed-width {
-    width: 150px; /* Set the desired width */
+    width: 150px;
     color: black;
   }

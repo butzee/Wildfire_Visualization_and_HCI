@@ -44,20 +44,20 @@ app.on('window-all-closed', () => {
   }
 })
 
-ipcMain.on('getShapesForYear', async (event, sliderValue, fireCause, fireSizeClass) => {
+ipcMain.on('getFiresForYear', async (event, sliderValue, fireCause, fireSizeClass) => {
   try {
-    const rows = await testMgr.getShapesForYear(sliderValue, fireCause, fireSizeClass);
-    event.reply('getShapesResponse', { data: rows });
+    const rows = await testMgr.getFiresForYear(sliderValue, fireCause, fireSizeClass);
+    event.reply('getFiresResponse', { data: rows });
   } catch (error) {
-    event.reply('getShapesResponse', { error: error.message });
+    event.reply('getFiresResponse', { error: error.message });
   }
 });
 
-ipcMain.on('getShapesForDay', async (event, sliderValue, year, fireCause, fireSizeClass) => {
+ipcMain.on('getFiresForDay', async (event, sliderValue, year, fireCause, fireSizeClass) => {
   try {
-    const rows = await testMgr.getShapesForDay(sliderValue, year, fireCause, fireSizeClass);
-    event.reply('getShapesResponse', { data: rows });
+    const rows = await testMgr.getFiresForDay(sliderValue, year, fireCause, fireSizeClass);
+    event.reply('getFiresResponse', { data: rows });
   } catch (error) {
-    event.reply('getShapesResponse', { error: error.message });
+    event.reply('getFiresResponse', { error: error.message });
   }
 });

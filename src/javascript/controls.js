@@ -1,15 +1,18 @@
 class TimelineButton {
   constructor(elementId, intervalFn) {
+    // Konstruktor für die Timeline-Schaltfläche
     this.elementId = elementId;
     this.intervalFn = intervalFn;
     this.timer = null;
     this.maxValue = 0;
 
+    // Event Listener für den Klick auf die Schaltfläche
     const button = document.getElementById(this.elementId);
     button.addEventListener('click', this.handleClick.bind(this));
   }
 
   handleClick() {
+    // Behandelt den Klick auf die Schaltfläche
     clearInterval(this.timer);
 
     const slider = document.getElementById('rangeSlider');
@@ -31,6 +34,7 @@ class TimelineButton {
 
 class ResizeButton extends maptalks.control.Control {
   buildOn(map) {
+    // Erstellt das DOM-Element für die Resize-Schaltfläche
     var dom = maptalks.DomUtil.createEl("button");
     dom.className = "btn-controls";
     dom.onclick = fit_to_extend;
@@ -43,6 +47,7 @@ class ResizeButton extends maptalks.control.Control {
 }
 
 function showYear(selectedYear) {
+  // Zeigt das ausgewählte Jahr an
   var selectedYearElement = document.getElementById("selectedYear");
   if (selectedYear === "-1") {
     selectedYearElement.textContent = "All years";
@@ -55,138 +60,144 @@ function showYear(selectedYear) {
 }
 
 function toggleDropdown(dropdown) {
+  // Öffnet oder schließt das Dropdown-Menü
   var dropdownContent = document.getElementById(dropdown + "DropdownContent");
   dropdownContent.classList.toggle("show-options");
 }
 
 function handleCheckboxChangeCause(checkbox) {
+  // Behandelt die Änderung der Ursache-Checkboxen
   var selectedCausesElement = document.getElementById("selectedCauses");
   var checkboxes = document.querySelectorAll('#causeDropdownContent input[type="checkbox"]');
 
   if (checkbox.value === "0") {
-      // If "All causes" checkbox is checked, uncheck all other checkboxes
-      checkboxes.forEach(function (cb) {
+    // Wenn die "All causes" Checkbox ausgewählt ist, werden alle anderen Checkboxen abgewählt
+    checkboxes.forEach(function (cb) {
       if (cb !== checkbox) {
-          cb.checked = false;
+        cb.checked = false;
       }
-      });
+    });
   } else {
-      // If any other checkbox is checked, uncheck the "All causes" checkbox
-      var allCausesCheckbox = document.querySelector('#causeDropdownContent input[value="0"]');
-      allCausesCheckbox.checked = false;
+    // Wenn eine andere Checkbox ausgewählt ist, wird die "All causes" Checkbox abgewählt
+    var allCausesCheckbox = document.querySelector('#causeDropdownContent input[value="0"]');
+    allCausesCheckbox.checked = false;
   }
 
-  var selectedCauses = Array.from(document.querySelectorAll('#causeDropdownContent input[type="checkbox"]:checked')).map(function(checkbox) {
-      return checkbox.value;
+  var selectedCauses = Array.from(document.querySelectorAll('#causeDropdownContent input[type="checkbox"]:checked')).map(function (checkbox) {
+    return checkbox.value;
   });
-  selectedCausesElement.innerHTML = selectedCauses.map(function(cause) {
-      return "<li>" + cause + "</li>";
+  selectedCausesElement.innerHTML = selectedCauses.map(function (cause) {
+    return "<li>" + cause + "</li>";
   }).join("");
-  // get Current Slider Value
   fetchAndUpdate(document.getElementById("rangeSlider").value);
 }
 
 function handleCheckboxChangeSize(checkbox) {
+  // Behandelt die Änderung der Größen-Checkboxen
   var selectedSizesElement = document.getElementById("selectedSizes");
   var checkboxes = document.querySelectorAll('#sizeDropdownContent input[type="checkbox"]');
 
   if (checkbox.value === "-1") {
-      // If "All sizes" checkbox is checked, uncheck all other checkboxes
-      checkboxes.forEach(function (cb) {
+    // Wenn die "All sizes" Checkbox ausgewählt ist, werden alle anderen Checkboxen abgewählt
+    checkboxes.forEach(function (cb) {
       if (cb !== checkbox) {
-          cb.checked = false;
+        cb.checked = false;
       }
-      });
+    });
   } else {
-      // If any other checkbox is checked, uncheck the "All sizes" checkbox
-      var allSizesCheckbox = document.querySelector('#sizeDropdownContent input[value="-1"]');
-      allSizesCheckbox.checked = false;
+    // Wenn eine andere Checkbox ausgewählt ist, wird die "All sizes" Checkbox abgewählt
+    var allSizesCheckbox = document.querySelector('#sizeDropdownContent input[value="-1"]');
+    allSizesCheckbox.checked = false;
   }
 
-  var selectedSizes = Array.from(document.querySelectorAll('#sizeDropdownContent input[type="checkbox"]:checked')).map(function(checkbox) {
-      return checkbox.value;
+  var selectedSizes = Array.from(document.querySelectorAll('#sizeDropdownContent input[type="checkbox"]:checked')).map(function (checkbox) {
+    return checkbox.value;
   });
-  selectedSizesElement.innerHTML = selectedSizes.map(function(size) {
-      return "<li>" + size + "</li>";
+  selectedSizesElement.innerHTML = selectedSizes.map(function (size) {
+    return "<li>" + size + "</li>";
   }).join("");
   fetchAndUpdate(document.getElementById("rangeSlider").value);
 }
+
 let myTimer;
 
 const updateYearDisplay = () => {
-      document.getElementById("current-year").innerText = "Current year "+
-          String(Number(document.getElementById('rangeSlider').value)+1992);
+  // Aktualisiert die Anzeige des aktuellen Jahres
+  document.getElementById("current-year").innerText = "Current year " +
+    String(Number(document.getElementById('rangeSlider').value) + 1992);
 };
 
-// Listen for the 'input' event on the slider
-d3.select('#rangeSlider').on('input', function() {
+// Hört auf das 'input' Ereignis des Sliders
+d3.select('#rangeSlider').on('input', function () {
   updateYearDisplay();
   fetchAndUpdate(Number(this.value));
 });
 
 function timelineYearly() {
+  // Zeitleiste im jährlichen Modus
   clearInterval(myTimer);
-  let b= d3.select("#rangeSlider");
+  let b = d3.select("#rangeSlider");
   b.property("min", 0)
   b.property("max", 30)
   let maxValue = +b.property("max");
-  myTimer = setInterval (function() {
-      let value = +b.property("value");
-      b.property("value", value + 1);
-      updateYearDisplay();
-      fetchAndUpdate(+b.property("value"));
-      if (value === maxValue) {
-          clearInterval(myTimer);
-      }
+  myTimer = setInterval(function () {
+    let value = +b.property("value");
+    b.property("value", value + 1);
+    updateYearDisplay();
+    fetchAndUpdate(+b.property("value"));
+    if (value === maxValue) {
+      clearInterval(myTimer);
+    }
   }, 1500);
 }
 
 function timelineYear() {
+  // Zeitleiste im täglichen Modus
   clearInterval(myTimer);
-  let b= d3.select("#rangeSlider");
+  let b = d3.select("#rangeSlider");
   b.property("min", 1)
-  b.property("max", 365) // Slider goes over every day of the year
+  b.property("max", 365) // Slider geht über jeden Tag des Jahres
   let maxValue = +b.property("max");
-  myTimer = setInterval (function() {
-      let value = +b.property("value");
-      b.property("value", value + 1);
-      fetchAndUpdate(+b.property("value"));
-      if (value === maxValue) {
-          clearInterval(myTimer);
-      }
+  myTimer = setInterval(function () {
+    let value = +b.property("value");
+    b.property("value", value + 1);
+    fetchAndUpdate(+b.property("value"));
+    if (value === maxValue) {
+      clearInterval(myTimer);
+    }
   }, 1000);
 }
 
 d3.select("#start").on("click", timelineYearly);
-d3.select("#pause").on("click", function() {
-  clearInterval (myTimer);
+d3.select("#pause").on("click", function () {
+  clearInterval(myTimer);
 });
 
-d3.select("#stop").on("click", function() {
-      d3.select("#rangeSlider").property("value", 0);
-      updateYearDisplay();
-      clearInterval (myTimer)
-      fetchAndUpdate(0);
+d3.select("#stop").on("click", function () {
+  d3.select("#rangeSlider").property("value", 0);
+  updateYearDisplay();
+  clearInterval(myTimer)
+  fetchAndUpdate(0);
 });
 
 function filterBy() {
-    fetchAndUpdate(parseInt(document.getElementById('rangeSlider').value));
+  fetchAndUpdate(parseInt(document.getElementById('rangeSlider').value));
 }
 
 function showYear(selectedYear) {
-    if (selectedYear === "-1") {
-        year = -1
-        d3.select("#start").on("click", timelineYearly);
-        d3.select("#rangeSlider").property("value", 0);
-        updateYearDisplay();
-        clearInterval(myTimer);
-        fetchAndUpdate(0);
-    } else {
-        year = Number(selectedYear)
-        d3.select("#start").on("click", timelineYear);
-        d3.select("#rangeSlider").property("value", 0);
-        document.getElementById("current-year").innerText ="Current year "+ year+1992;
-        clearInterval(myTimer);
-        fetchAndUpdate(0);
-    }
+  if (selectedYear === "-1") {
+    year = -1
+    d3.select("#start").on("click", timelineYearly);
+    d3.select("#rangeSlider").property("value", 0);
+    updateYearDisplay();
+    clearInterval(myTimer);
+    fetchAndUpdate(0);
+  } else {
+    year = Number(selectedYear)
+    d3.select("#start").on("click", timelineYear);
+    d3.select("#rangeSlider").property("value", 0);
+    document.getElementById("current-year").innerText = "Current year " + year + 1992;
+    clearInterval(myTimer);
+    fetchAndUpdate(0);
+  }
 }

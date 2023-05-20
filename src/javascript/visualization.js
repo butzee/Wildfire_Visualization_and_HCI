@@ -16,18 +16,20 @@ let geometries = [];
 const clusterLayer = createClusterLayer();
 
 function removeFires() {
+  // Entfernt alle Feuergeometrien
   geometries = [];
   clusterLayer.clear();
 }
 
 function fetchAndUpdate(sliderValue) {
+  // Holt Daten und aktualisiert die Karte
   removeFires();
  
-  const causeOptions = Array.from(document.querySelectorAll('#causeDropdownContent input[type="checkbox"]:checked')).map(function(checkbox) {
+  const causeOptions = Array.from(document.querySelectorAll('#causeDropdownContent input[type="checkbox"]:checked')).map(function (checkbox) {
     return checkbox.value;
   });
 
-  const sizeOptions = Array.from(document.querySelectorAll('#sizeDropdownContent input[type="checkbox"]:checked')).map(function(checkbox) {
+  const sizeOptions = Array.from(document.querySelectorAll('#sizeDropdownContent input[type="checkbox"]:checked')).map(function (checkbox) {
     return checkbox.value;
   });
 
@@ -44,6 +46,7 @@ function fetchAndUpdate(sliderValue) {
 }
 
 map.addEventListener('zoomend', () => {
+  // Aktualisiert die Cluster beim Zoomen der Karte
   updateClusters(clusterLayer, map, geometries);
 });
 

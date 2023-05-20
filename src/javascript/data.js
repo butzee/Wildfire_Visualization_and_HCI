@@ -6,14 +6,14 @@ function fetchData(sliderValue, year, causeOptions, sizeOptions) {
       // sliderValue: current year
       // fireCause: cause of fire
       // fireSizeClass: size of fire
-      dbRows = window.api.getShapesForYear(sliderValue, causeOptions, sizeOptions);
+      dbRows = window.api.getFiresForYear(sliderValue, causeOptions, sizeOptions);
     } else {
       // Parameters:
       // sliderValue: day of year
       // year: year
       // fireCause: cause of fire
       // fireSizeClass: size of fire
-      dbRows = window.api.getShapesForDay(sliderValue, year, causeOptions, sizeOptions);
+      dbRows = window.api.getFiresForDay(sliderValue, year, causeOptions, sizeOptions);
     }
   
     return dbRows.then(rows => {
