@@ -33,7 +33,6 @@ exports.getFiresForYear = (sliderValue, fireCause, fireSizeClass) => {
 
   // Die whereClause in der SQL-Abfrage verwenden
   const sqlStatement = `SELECT OBJECTID, DISCOVERY_DOY, CONT_DOY, FIRE_SIZE, FIRE_SIZE_CLASS, LONGITUDE, LATITUDE FROM Fires ${whereClause}`;
-  console.log(sqlStatement);
 
   return new Promise((resolve, reject) => {
     fetchDataFromDatabase(sqlStatement)

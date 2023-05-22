@@ -25,7 +25,6 @@ function fetchData(sliderValue, year, causeOptions, sizeOptions) {
 }
   
 function processRows(rows) {
-    console.log("VERARBEITE ALLE ROWS")
     let geometries = [];
   
     rows.forEach(row => {

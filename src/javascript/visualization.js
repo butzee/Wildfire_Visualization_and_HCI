@@ -51,3 +51,19 @@ map.addEventListener('zoomend', () => {
 });
 
 fetchAndUpdate(0);
+
+const extent = map.getExtent();
+map.setMaxExtent(extent);
+
+map.on('click', function (e) {
+  console.log(clusterLayer.identify(e.coordinate));
+  //print count of markers in cluster with count property
+  console.log(clusterLayer.getClusters());
+  clusterLayer.getClusters().forEach(function(cluster) {
+    //Sum of _radiuses of all markers in cluster
+    console.log(cluster['children'].reduce(function (accumulator, currentValue) {
+      return accumulator + currentValue._radius;
+    }, 0));
+    console.log(cluster['children'].length);
+  });
+});
