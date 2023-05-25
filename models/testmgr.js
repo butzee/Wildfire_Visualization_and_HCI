@@ -81,12 +81,6 @@ exports.getFiresForDay = (sliderValue, year, fireCause, fireSizeClass) => {
 // Funktion zum Abrufen von Daten aus der Datenbank
 function fetchDataFromDatabase(sql) {
   return new Promise((resolve, reject) => {
-    db.all(sql, (err, rows) => {
-      if (err) {
-        reject(err); // Promise ablehnen, wenn ein Fehler auftritt
-      } else {
-        resolve(rows); // Promise mit den abgerufenen Zeilen auflösen
-      }
-    });
+    resolve(db.prepare(sql).all());
   });
 }

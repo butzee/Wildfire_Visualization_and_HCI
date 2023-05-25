@@ -15,15 +15,8 @@ let geometries = [];
 
 const clusterLayer = createClusterLayer();
 
-function removeFires() {
-  // Entfernt alle Feuergeometrien
-  geometries = [];
-  clusterLayer.clear();
-}
-
 function fetchAndUpdate(sliderValue) {
   // Holt Daten und aktualisiert die Karte
-  removeFires();
  
   const causeOptions = Array.from(document.querySelectorAll('#causeDropdownContent input[type="checkbox"]:checked')).map(function (checkbox) {
     return checkbox.value;

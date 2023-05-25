@@ -1,6 +1,6 @@
 function fetchData(sliderValue, year, causeOptions, sizeOptions) {
     let dbRows;
-      
+    const start = performance.now();
     if (year == -1) {
       // Parameters:
       // sliderValue: current year
@@ -17,6 +17,8 @@ function fetchData(sliderValue, year, causeOptions, sizeOptions) {
     }
   
     return dbRows.then(rows => {
+      const end = performance.now();
+    console.log(`Execution time: ${end - start} ms`);
       return rows;
     })
     .catch(error => {
