@@ -1,6 +1,8 @@
 var dbmgr = require('./dbmgr');
 var db = dbmgr.db;
 
+const ALL_FIRES= `'C','D','E','F','G'`;
+
 // Funktion, um Formen für ein bestimmtes Jahr abzurufen
 // Parameter:
 // - sliderValue: aktuelles Jahr
@@ -29,6 +31,8 @@ exports.getFiresForYear = (sliderValue, fireCause, fireSizeClass) => {
   // Bedingungen für fireSizeClass hinzufügen, wenn die Array-Länge größer als 0 ist und der erste Eintrag nicht '-1' ist. Steht für "Alle Größen"
   if (fireSizeClass.length > 0 && fireSizeClass[0] !== '-1') {
     whereClause += ` AND FIRE_SIZE_CLASS IN('${fireSizeClass.join("','")}')`;
+  } else {
+    whereClause += ` AND FIRE_SIZE_CLASS IN(${ALL_FIRES})`;
   }
 
   // Die whereClause in der SQL-Abfrage verwenden
