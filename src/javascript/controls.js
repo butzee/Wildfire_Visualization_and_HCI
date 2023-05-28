@@ -12,7 +12,6 @@ class TimelineButton {
   }
 
   handleClick() {
-    // Behandelt den Klick auf die Schaltfläche
     clearInterval(this.timer);
 
     const slider = document.getElementById('rangeSlider');
@@ -29,20 +28,6 @@ class TimelineButton {
         clearInterval(this.timer);
       }
     }, 1000);
-  }
-}
-
-class ResizeButton extends maptalks.control.Control {
-  buildOn(map) {
-    // Erstellt das DOM-Element für die Resize-Schaltfläche
-    var dom = maptalks.DomUtil.createEl("button");
-    dom.className = "btn-controls";
-    dom.onclick = fit_to_extend;
-    var span = maptalks.DomUtil.createEl("span");
-    span.className = "material-symbols-rounded";
-    span.textContent = "resize";
-    dom.appendChild(span);
-    return dom;
   }
 }
 
@@ -89,7 +74,6 @@ function handleCheckboxChangeCause(checkbox) {
   selectedCausesElement.innerHTML = selectedCauses.map(function (cause) {
     return "<li>" + cause + "</li>";
   }).join("");
-  fetchAndUpdate(document.getElementById("rangeSlider").value);
 }
 
 function handleCheckboxChangeSize(checkbox) {
@@ -116,10 +100,8 @@ function handleCheckboxChangeSize(checkbox) {
   selectedSizesElement.innerHTML = selectedSizes.map(function (size) {
     return "<li>" + size + "</li>";
   }).join("");
-  fetchAndUpdate(document.getElementById("rangeSlider").value);
 }
 
-let myTimer;
 
 const updateYearDisplay = () => {
   // Aktualisiert die Anzeige des aktuellen Jahres
@@ -127,11 +109,7 @@ const updateYearDisplay = () => {
     String(Number(document.getElementById('rangeSlider').value) + 1992);
 };
 
-// Hört auf das 'input' Ereignis des Sliders
-d3.select('#rangeSlider').on('input', function () {
-  updateYearDisplay();
-  fetchAndUpdate(Number(this.value));
-});
+
 
 function timelineYearly() {
   // Zeitleiste im jährlichen Modus
@@ -144,7 +122,6 @@ function timelineYearly() {
     let value = +b.property("value");
     b.property("value", value + 1);
     updateYearDisplay();
-    fetchAndUpdate(+b.property("value"));
     if (value === maxValue) {
       clearInterval(myTimer);
     }
@@ -161,28 +138,19 @@ function timelineYear() {
   myTimer = setInterval(function () {
     let value = +b.property("value");
     b.property("value", value + 1);
-    fetchAndUpdate(+b.property("value"));
     if (value === maxValue) {
       clearInterval(myTimer);
     }
   }, 1000);
 }
 
-d3.select("#start").on("click", timelineYearly);
-d3.select("#pause").on("click", function () {
-  clearInterval(myTimer);
-});
+
 
 d3.select("#stop").on("click", function () {
   d3.select("#rangeSlider").property("value", 0);
   updateYearDisplay();
   clearInterval(myTimer)
-  fetchAndUpdate(0);
 });
-
-function filterBy() {
-  fetchAndUpdate(parseInt(document.getElementById('rangeSlider').value));
-}
 
 function showYear(selectedYear) {
   if (selectedYear === "-1") {
@@ -191,13 +159,11 @@ function showYear(selectedYear) {
     d3.select("#rangeSlider").property("value", 0);
     updateYearDisplay();
     clearInterval(myTimer);
-    fetchAndUpdate(0);
   } else {
     year = Number(selectedYear)
     d3.select("#start").on("click", timelineYear);
     d3.select("#rangeSlider").property("value", 0);
     document.getElementById("current-year").innerText = "Current year " + year + 1992;
     clearInterval(myTimer);
-    fetchAndUpdate(0);
   }
 }

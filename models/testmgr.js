@@ -1,51 +1,50 @@
 var dbmgr = require('./dbmgr');
 var db = dbmgr.db;
 
-const ALL_FIRES= `'C','D','E','F','G'`;
-
-// Funktion, um Formen für ein bestimmtes Jahr abzurufen
-// Parameter:
-// - sliderValue: aktuelles Jahr
-// - fireCause: Ursache des Feuers
-// - fireSizeClass: Größe des Feuers
-exports.getFiresForYear = (sliderValue, fireCause, fireSizeClass) => {
-  let year;
-
-  // Überprüfen, ob sliderValue gültig ist, andernfalls den Standardwert 1992 setzen
-  if (isNaN(sliderValue) || sliderValue == undefined || sliderValue == null || sliderValue == 0) {
-    year = 1992;
-  } else {
-    year = 1992 + parseInt(sliderValue);
-  }
-
+exports.getFiresForYear = (fireCause, fireSizeClass) => {
+  const queries = [];
+  const validFireSizeClasses = ['C', 'D', 'E', 'F', 'G'];
   let whereClause = '';
 
-  // Bedingung für sliderValue hinzufügen
-  whereClause += ` WHERE FIRE_YEAR = '${year}'`;
+  // Wenn keine Ursache ausgewählt wurde, wird die Abfrage nicht eingeschränkt
+  for (let year = 1992; year <= 2020; year++) {
+    // Einer oder andere Bedingung
+    if (fireCause[0] !== '0' || fireSizeClass[0] !== '-1') {
+      whereClause = ' AND';
+    }
+    
+    if (fireCause.length > 0 && fireCause[0] !== '0') {
+      whereClause += ` NWCG_GENERAL_CAUSE IN('`;
+      for(let i = 0; i < fireCause.length; i++) {
+        whereClause += fireCause[i];
+      }
+      whereClause += `')`;
+    }
 
-  // Bedingung für fireCause hinzufügen, wenn die Array-Länge größer als 0 ist und der erste Eintrag nicht '0' ist. Steht für "Alle Ursachen"
-  if (fireCause.length > 0 && fireCause[0] !== '0') {
-    whereClause += ` AND NWCG_GENERAL_CAUSE IN('${fireCause.join("','")}')`;
+    if (fireSizeClass.length > 0 && fireSizeClass[0] !== '-1') {
+      if (whereClause.length > 4) {
+        whereClause += ' AND';
+      }
+      whereClause += ` FIRE_SIZE_CLASS IN('`;
+      for(let i = 0; i < fireSizeClass.length; i++) {
+        whereClause += fireSizeClass[i];
+      }
+      whereClause += `')`;
+    }
+
+    //const sqlStatement = `SELECT OBJECTID, DISCOVERY_DOY, CONT_DOY, FIRE_SIZE, FIRE_SIZE_CLASS, LONGITUDE, LATITUDE FROM Fires WHERE FIRE_YEAR = ${year} ${whereClause}`
+    const sqlStatement = `SELECT OBJECTID, DISCOVERY_DOY, CONT_DOY, FIRE_SIZE, FIRE_SIZE_CLASS, LONGITUDE, LATITUDE FROM Fires WHERE FIRE_YEAR = ${year};
+    
+    // FIRE_SIZE_CLASS IN('${validFireSizeClasses.join("','")}')`;
+    queries.push(fetchDataFromDatabase(sqlStatement));
   }
-
-  // Bedingungen für fireSizeClass hinzufügen, wenn die Array-Länge größer als 0 ist und der erste Eintrag nicht '-1' ist. Steht für "Alle Größen"
-  if (fireSizeClass.length > 0 && fireSizeClass[0] !== '-1') {
-    whereClause += ` AND FIRE_SIZE_CLASS IN('${fireSizeClass.join("','")}')`;
-  } else {
-    whereClause += ` AND FIRE_SIZE_CLASS IN(${ALL_FIRES})`;
-  }
-
-  // Die whereClause in der SQL-Abfrage verwenden
-  const sqlStatement = `SELECT OBJECTID, DISCOVERY_DOY, CONT_DOY, FIRE_SIZE, FIRE_SIZE_CLASS, LONGITUDE, LATITUDE FROM Fires ${whereClause}`;
-
-  return new Promise((resolve, reject) => {
-    fetchDataFromDatabase(sqlStatement)
-      .then(rows => {
-        resolve(rows);
-      })
-      .catch(error => {
-        reject(error);
-      });
+  return Promise.all(queries)
+  .then(results => {
+    return results.map(result => result);
+  })
+  .catch(error => {
+    console.error(error);
+    throw error;
   });
 };
 
@@ -85,6 +84,12 @@ exports.getFiresForDay = (sliderValue, year, fireCause, fireSizeClass) => {
 // Funktion zum Abrufen von Daten aus der Datenbank
 function fetchDataFromDatabase(sql) {
   return new Promise((resolve, reject) => {
-    resolve(db.prepare(sql).all());
+    db.all(sql, (err, rows) => {
+      if (err) {
+        reject(err); // Promise ablehnen, wenn ein Fehler auftritt
+      } else {
+        resolve(rows); // Promise mit den abgerufenen Zeilen auflösen
+      }
+    });
   });
 }

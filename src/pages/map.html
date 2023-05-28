@@ -9,8 +9,10 @@
       <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
       <script src="https://d3js.org/d3.v6.min.js"></script>
       <link rel="stylesheet" href="../../node_modules/maptalks/dist/maptalks.css">
+
       <script type="text/javascript" src="../../node_modules/maptalks/dist/maptalks.js"></script>
-      <script type="text/javascript" src="../../node_modules/maptalks.markercluster/dist/maptalks.markercluster.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/deck.gl@7.1.11/dist.min.js"></script>
+      <script type="text/javascript" src="../dist/maptalks-deckgllayer.js"></script>
     </head>
 
   <body>
@@ -90,11 +92,13 @@
               <button class="dropdown-btn" id="sizeDropdownBtn" onclick="toggleDropdown('size')">Select sizes</button>
               <div class="dropdown-content" id="sizeDropdownContent">
                 <label><input type="checkbox" id="sizeCheckbox" value="-1" onchange="handleCheckboxChangeSize(this)">All sizes</label>
-                <label><input type="checkbox" value="C" onchange="handleCheckboxChangeSize(this)">10.0-99.9 acres</label>
-                <label><input type="checkbox" value="D" onchange="handleCheckboxChangeSize(this)">100-299 acres</label>
-                <label><input type="checkbox" value="E" onchange="handleCheckboxChangeSize(this)">300-999 acres</label>
-                <label><input type="checkbox" value="F" onchange="handleCheckboxChangeSize(this)">1000-4999 acres</label>
-                <label><input type="checkbox" value="G" onchange="handleCheckboxChangeSize(this)">5000+ acres</label>
+                <label><input type="checkbox" value="A" onchange="handleCheckboxChangeSize(this)">A</label>
+                <label><input type="checkbox" value="B" onchange="handleCheckboxChangeSize(this)">B</label>
+                <label><input type="checkbox" value="C" onchange="handleCheckboxChangeSize(this)">C</label>
+                <label><input type="checkbox" value="D" onchange="handleCheckboxChangeSize(this)">D</label>
+                <label><input type="checkbox" value="E" onchange="handleCheckboxChangeSize(this)">E</label>
+                <label><input type="checkbox" value="F" onchange="handleCheckboxChangeSize(this)">F</label>
+                <label><input type="checkbox" value="G" onchange="handleCheckboxChangeSize(this)">G</label>
               </div>
             </div>
             
@@ -104,6 +108,9 @@
             <ul id="selectedCauses" class="scrollable-list fixed-width"></ul> 
             <p>Selected sizes:</p>
             <ul id="selectedSizes"class="scrollable-list fixed-width"></ul>
+            <button id="queryButton">Execute Query</button>
+            <button id="queryButton2">Execute QUERY NEW</button>
+            
           </div>
       </div>
 
@@ -121,11 +128,8 @@
     </main>
     
     <script src="../../renderer.js"></script>
-    <script src="../javascript/map.js"></script>
-    <script src="../javascript/data.js"></script>
-    <script src="../javascript/cluster.js"></script>
     <script src="../javascript/controls.js"></script>
-    <script src="../javascript/visualization.js"></script>
+    
     <script>
       document.addEventListener("DOMContentLoaded", function() {
         // Pre-click the checkbox

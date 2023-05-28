@@ -1,24 +1,18 @@
-function fetchData(sliderValue, year, causeOptions, sizeOptions) {
+let years = [];
+
+function getYearsArray() {
+  return years;
+};
+
+function fetchData(year, causeOptions, sizeOptions) {
     let dbRows;
-    const start = performance.now();
     if (year == -1) {
-      // Parameters:
-      // sliderValue: current year
-      // fireCause: cause of fire
-      // fireSizeClass: size of fire
-      dbRows = window.api.getFiresForYear(sliderValue, causeOptions, sizeOptions);
+      dbRows = window.api.getFiresForYear(causeOptions, sizeOptions);
     } else {
-      // Parameters:
-      // sliderValue: day of year
-      // year: year
-      // fireCause: cause of fire
-      // fireSizeClass: size of fire
-      dbRows = window.api.getFiresForDay(sliderValue, year, causeOptions, sizeOptions);
+      dbRows = window.api.getFiresForDay(year, causeOptions, sizeOptions);
     }
-  
+    console.log("Nachher")
     return dbRows.then(rows => {
-      const end = performance.now();
-    console.log(`Execution time: ${end - start} ms`);
       return rows;
     })
     .catch(error => {
@@ -35,3 +29,20 @@ function processRows(rows) {
   
     return geometries;
 }
+
+const queryButton = document.getElementById('queryButton');
+
+
+// Add an event listener to the button
+queryButton.addEventListener('click', () => {
+  console.log('Query button clicked');
+  const year = document.querySelector('.dropdown-year').value;
+  fetchData(year, causeOptions, sizeOptions)
+    .then(rows => {
+      years.push(rows);
+    })
+    .catch(error => {
+      console.error(error);
+    });
+});
+
