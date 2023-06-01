@@ -35,36 +35,36 @@
               <input type="hidden" class="dropdown-year" value="-1">
               <button class="dropdown-btn" id="yearDropdownBtn" onclick="toggleDropdown('year')">Select a year</button>
               <div data-simplebar class="dropdown-content scrollable-dropdown" id="yearDropdownContent" >
-                <a href="#" onclick="showYear(-1)">All years</a>
-                <a href="#" onclick="showYear(2020)">2020</a>
-                <a href="#" onclick="showYear(2019)">2019</a>
-                <a href="#" onclick="showYear(2018)">2018</a>
-                <a href="#" onclick="showYear(2017)">2017</a>
-                <a href="#" onclick="showYear(2016)">2016</a>
-                <a href="#" onclick="showYear(2015)">2015</a>
-                <a href="#" onclick="showYear(2014)">2014</a>
-                <a href="#" onclick="showYear(2013)">2013</a>
-                <a href="#" onclick="showYear(2012)">2012</a>
-                <a href="#" onclick="showYear(2011)">2011</a>
-                <a href="#" onclick="showYear(2010)">2010</a>
-                <a href="#" onclick="showYear(2009)">2009</a>
-                <a href="#" onclick="showYear(2008)">2008</a>
-                <a href="#" onclick="showYear(2007)">2007</a>
-                <a href="#" onclick="showYear(2006)">2006</a>
-                <a href="#" onclick="showYear(2005)">2005</a>
-                <a href="#" onclick="showYear(2004)">2004</a>
-                <a href="#" onclick="showYear(2003)">2003</a>
-                <a href="#" onclick="showYear(2002)">2002</a>
-                <a href="#" onclick="showYear(2001)">2001</a>
-                <a href="#" onclick="showYear(2000)">2000</a>
-                <a href="#" onclick="showYear(1999)">1999</a>
-                <a href="#" onclick="showYear(1998)">1998</a>
-                <a href="#" onclick="showYear(1997)">1997</a>
-                <a href="#" onclick="showYear(1996)">1996</a>
-                <a href="#" onclick="showYear(1995)">1995</a>
-                <a href="#" onclick="showYear(1994)">1994</a>
-                <a href="#" onclick="showYear(1993)">1993</a>
-                <a href="#" onclick="showYear(1992)">1992</a>
+                <label><input type="checkbox" id="yearCheckbox" value="-1" onchange="handleCheckboxChangeYear(this)">All Years</label>
+                <label><input type="checkbox" value="2020" onchange="handleCheckboxChangeYear(this)">2020</label>
+                <label><input type="checkbox" value="2019" onchange="handleCheckboxChangeYear(this)">2019</label>
+                <label><input type="checkbox" value="2018" onchange="handleCheckboxChangeYear(this)">2018</label>
+                <label><input type="checkbox" value="2017" onchange="handleCheckboxChangeYear(this)">2017</label>
+                <label><input type="checkbox" value="2016" onchange="handleCheckboxChangeYear(this)">2016</label>
+                <label><input type="checkbox" value="2015" onchange="handleCheckboxChangeYear(this)">2015</label>
+                <label><input type="checkbox" value="2014" onchange="handleCheckboxChangeYear(this)">2014</label>
+                <label><input type="checkbox" value="2013" onchange="handleCheckboxChangeYear(this)">2013</label>
+                <label><input type="checkbox" value="2012" onchange="handleCheckboxChangeYear(this)">2012</label>
+                <label><input type="checkbox" value="2011" onchange="handleCheckboxChangeYear(this)">2011</label>
+                <label><input type="checkbox" value="2010" onchange="handleCheckboxChangeYear(this)">2010</label>
+                <label><input type="checkbox" value="2009" onchange="handleCheckboxChangeYear(this)">2009</label>
+                <label><input type="checkbox" value="2008" onchange="handleCheckboxChangeYear(this)">2008</label>
+                <label><input type="checkbox" value="2007" onchange="handleCheckboxChangeYear(this)">2007</label>
+                <label><input type="checkbox" value="2006" onchange="handleCheckboxChangeYear(this)">2006</label>
+                <label><input type="checkbox" value="2005" onchange="handleCheckboxChangeYear(this)">2005</label>
+                <label><input type="checkbox" value="2004" onchange="handleCheckboxChangeYear(this)">2004</label>
+                <label><input type="checkbox" value="2003" onchange="handleCheckboxChangeYear(this)">2003</label>
+                <label><input type="checkbox" value="2002" onchange="handleCheckboxChangeYear(this)">2002</label>
+                <label><input type="checkbox" value="2001" onchange="handleCheckboxChangeYear(this)">2001</label>
+                <label><input type="checkbox" value="2000" onchange="handleCheckboxChangeYear(this)">2000</label>
+                <label><input type="checkbox" value="1999" onchange="handleCheckboxChangeYear(this)">1999</label>
+                <label><input type="checkbox" value="1998" onchange="handleCheckboxChangeYear(this)">1998</label>
+                <label><input type="checkbox" value="1997" onchange="handleCheckboxChangeYear(this)">1997</label>
+                <label><input type="checkbox" value="1996" onchange="handleCheckboxChangeYear(this)">1996</label>
+                <label><input type="checkbox" value="1995" onchange="handleCheckboxChangeYear(this)">1995</label>
+                <label><input type="checkbox" value="1994" onchange="handleCheckboxChangeYear(this)">1994</label>
+                <label><input type="checkbox" value="1993" onchange="handleCheckboxChangeYear(this)">1993</label>
+                <label><input type="checkbox" value="1992" onchange="handleCheckboxChangeYear(this)">1992</label>
               </div>
             </div>
 
@@ -108,8 +108,7 @@
             <ul id="selectedCauses" class="scrollable-list fixed-width"></ul> 
             <p>Selected sizes:</p>
             <ul id="selectedSizes"class="scrollable-list fixed-width"></ul>
-            <button id="queryButton">Execute Query</button>
-            <button id="queryButton2">Execute QUERY NEW</button>
+            <button id="queryButton">Get Data</button>
             
           </div>
       </div>
@@ -127,7 +126,7 @@
       </div>
     </main>
     
-    <script src="../../renderer.js"></script>
+    <script src="../javascript/renderer.js"></script>
     <script src="../javascript/controls.js"></script>
     
     <script>
@@ -137,9 +136,13 @@
         causeCheckbox.checked = true;
         const sizeCheckbox = document.getElementById("sizeCheckbox");
         sizeCheckbox.checked = true;
+        const yearCheckbox = document.getElementById("yearCheckbox");
+        yearCheckbox.checked = true;
         document.getElementById("selectedYear").innerHTML = "All years";
         document.getElementById("selectedCauses").innerHTML = "All causes";
         document.getElementById("selectedSizes").innerHTML = "All sizes";
+        // STARTE ERSTE QUERY TODO
+
       });
       </script>
   </body>

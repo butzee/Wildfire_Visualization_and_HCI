@@ -1,12 +1,9 @@
 class TimelineButton {
   constructor(elementId, intervalFn) {
-    // Konstruktor für die Timeline-Schaltfläche
     this.elementId = elementId;
     this.intervalFn = intervalFn;
     this.timer = null;
     this.maxValue = 0;
-
-    // Event Listener für den Klick auf die Schaltfläche
     const button = document.getElementById(this.elementId);
     button.addEventListener('click', this.handleClick.bind(this));
   }
@@ -32,8 +29,8 @@ class TimelineButton {
 }
 
 function showYear(selectedYear) {
-  // Zeigt das ausgewählte Jahr an
   var selectedYearElement = document.getElementById("selectedYear");
+
   if (selectedYear === "-1") {
     selectedYearElement.textContent = "All years";
   } else {
@@ -45,74 +42,80 @@ function showYear(selectedYear) {
 }
 
 function toggleDropdown(dropdown) {
-  // Öffnet oder schließt das Dropdown-Menü
   var dropdownContent = document.getElementById(dropdown + "DropdownContent");
   dropdownContent.classList.toggle("show-options");
 }
 
 function handleCheckboxChangeCause(checkbox) {
-  // Behandelt die Änderung der Ursache-Checkboxen
+  var selectedCauses;
   var selectedCausesElement = document.getElementById("selectedCauses");
   var checkboxes = document.querySelectorAll('#causeDropdownContent input[type="checkbox"]');
 
   if (checkbox.value === "0") {
-    // Wenn die "All causes" Checkbox ausgewählt ist, werden alle anderen Checkboxen abgewählt
     checkboxes.forEach(function (cb) {
       if (cb !== checkbox) {
         cb.checked = false;
       }
     });
+    selectedCauses = ["All sizes"];
   } else {
-    // Wenn eine andere Checkbox ausgewählt ist, wird die "All causes" Checkbox abgewählt
     var allCausesCheckbox = document.querySelector('#causeDropdownContent input[value="0"]');
     allCausesCheckbox.checked = false;
+    selectedCauses = Array.from(document.querySelectorAll('#causeDropdownContent input[type="checkbox"]:checked')).map(function (checkbox) {
+      return checkbox.value;
+    });
   }
 
-  var selectedCauses = Array.from(document.querySelectorAll('#causeDropdownContent input[type="checkbox"]:checked')).map(function (checkbox) {
-    return checkbox.value;
-  });
   selectedCausesElement.innerHTML = selectedCauses.map(function (cause) {
     return "<li>" + cause + "</li>";
   }).join("");
 }
 
 function handleCheckboxChangeSize(checkbox) {
-  // Behandelt die Änderung der Größen-Checkboxen
+  var selectedSizes;
   var selectedSizesElement = document.getElementById("selectedSizes");
   var checkboxes = document.querySelectorAll('#sizeDropdownContent input[type="checkbox"]');
 
   if (checkbox.value === "-1") {
-    // Wenn die "All sizes" Checkbox ausgewählt ist, werden alle anderen Checkboxen abgewählt
     checkboxes.forEach(function (cb) {
       if (cb !== checkbox) {
         cb.checked = false;
       }
     });
+    selectedSizes = ["All sizes"];
   } else {
-    // Wenn eine andere Checkbox ausgewählt ist, wird die "All sizes" Checkbox abgewählt
     var allSizesCheckbox = document.querySelector('#sizeDropdownContent input[value="-1"]');
     allSizesCheckbox.checked = false;
+    selectedSizes = Array.from(document.querySelectorAll('#sizeDropdownContent input[type="checkbox"]:checked')).map(function (checkbox) {
+      return checkbox.value;
+    });
   }
 
-  var selectedSizes = Array.from(document.querySelectorAll('#sizeDropdownContent input[type="checkbox"]:checked')).map(function (checkbox) {
-    return checkbox.value;
-  });
   selectedSizesElement.innerHTML = selectedSizes.map(function (size) {
     return "<li>" + size + "</li>";
   }).join("");
 }
 
+function handleCheckboxChangeYear(checkbox) {
+  const checkboxes = document.querySelectorAll('#yearDropdownContent input[type="checkbox"]');
+  checkboxes.forEach(cb => {
+    if (cb !== checkbox) {
+      cb.checked = false;
+    }
+  });
+  if (checkbox.value === "-1") {
+    document.getElementById("selectedYear").innerHTML = "All years";
+  } else {
+    document.getElementById("selectedYear").innerHTML = checkbox.value;
+  }
+}
 
 const updateYearDisplay = () => {
-  // Aktualisiert die Anzeige des aktuellen Jahres
   document.getElementById("current-year").innerText = "Current year " +
     String(Number(document.getElementById('rangeSlider').value) + 1992);
 };
 
-
-
 function timelineYearly() {
-  // Zeitleiste im jährlichen Modus
   clearInterval(myTimer);
   let b = d3.select("#rangeSlider");
   b.property("min", 0)
@@ -143,8 +146,6 @@ function timelineYear() {
     }
   }, 1000);
 }
-
-
 
 d3.select("#stop").on("click", function () {
   d3.select("#rangeSlider").property("value", 0);
