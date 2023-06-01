@@ -90,11 +90,6 @@ function handleCheckboxChangeYear(checkbox) {
       cb.checked = false;
     }
   });
-  if (checkbox.value === "-1") {
-    document.getElementById("selectedYear").innerHTML = "All years";
-  } else {
-    document.getElementById("selectedYear").innerHTML = checkbox.value;
-  }
 }
 
 function getDate(day, year) {

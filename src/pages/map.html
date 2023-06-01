@@ -100,8 +100,6 @@
               </div>
             </div>
             
-            <p>Selected year:</p>
-            <ul id="selectedYear" class="fixed-width"></ul> 
             <p>Selected causes:</p>
             <ul id="selectedCauses" class="scrollable-list fixed-width"></ul> 
             <p>Selected sizes:</p>
@@ -136,7 +134,6 @@
         sizeCheckbox.checked = true;
         const yearCheckbox = document.getElementById("yearCheckbox");
         yearCheckbox.checked = true;
-        document.getElementById("selectedYear").innerHTML = "All years";
         document.getElementById("selectedCauses").innerHTML = "All causes";
         document.getElementById("selectedSizes").innerHTML = "All sizes";
         // STARTE ERSTE QUERY TODO
