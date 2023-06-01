@@ -34,10 +34,6 @@ html, body {
     height: 100vh;
 }
 
-button {
-    border-radius: .2rem;
-}
-
 main {
     height: 100%;
     display: grid;

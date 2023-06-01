@@ -92,6 +92,22 @@ function handleCheckboxChangeYear(checkbox) {
   });
 }
 
+function handleCheckboxChangeSpeed(checkbox) {
+  const checkboxes = document.querySelectorAll('#speedDropdownContent input[type="checkbox"]');
+  checkboxes.forEach(cb => {
+    if (cb !== checkbox) {
+      cb.disabled = false;
+      cb.checked = false;
+    }
+  });
+  checkbox.disabled = true;
+  checkbox.removeAttribute('style');
+  if (document.getElementById('rangeSlider').value > 0) {
+    d3.select("#pause").on("click")();
+    d3.select("#start").on("click")();
+  }
+}
+
 function getDate(day, year) {
   let date = new Date(year, 0);
   date.setDate(day);

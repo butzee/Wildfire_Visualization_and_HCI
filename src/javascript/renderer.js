@@ -83,6 +83,9 @@ d3.select("#start").on("click",
         clearInterval(myTimer);
         let b = d3.select("#rangeSlider");
         let maxValue = +b.property("max");
+
+        const speed = Number(Array.from(document.querySelectorAll('#speedDropdownContent input[type="checkbox"]:checked'))[0].value);
+        
         myTimer = setInterval(function () {
           let value = +b.property("value");
           b.property("value", value + 1);
@@ -91,7 +94,7 @@ d3.select("#start").on("click",
           if (value === maxValue) {
             clearInterval(myTimer);
           }
-        }, 1000);
+        }, 1000/speed);
     });
 
 d3.select("#pause").on("click", function () {
