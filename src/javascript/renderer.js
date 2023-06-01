@@ -54,7 +54,31 @@ slider.addEventListener('input', handleSliderChange);
 
 let myTimer;
 
-d3.select("#start").on("click", 
+function getDate(day, year) {
+    let date = new Date(year, 0);
+    date.setDate(day);
+    let options = { day: 'numeric', month: 'numeric', year: 'numeric' };
+    let string = date.toLocaleDateString('de-DE', options);
+    return string;
+}
+
+function updateTimeDisplay() {
+    if (document.getElementById("yearCheckbox").checked) {
+        document.getElementById("current-year").innerText = "Current year: " + String(Number(document.getElementById('rangeSlider').value)+1992);
+    } else {
+        const day = Number(document.getElementById('rangeSlider').value)+1;
+        const checkboxes = document.querySelectorAll('#yearDropdownContent input[type="checkbox"]');
+        let year;
+        checkboxes.forEach(cb => {
+            if (cb.checked) {
+                year = cb.value;
+            }
+        });
+        document.getElementById("current-year").innerText = "Current date: " + getDate(day, year);
+    }
+}
+
+d3.select("#start").on("click",
     function () {
         clearInterval(myTimer);
         let b = d3.select("#rangeSlider");
@@ -62,7 +86,7 @@ d3.select("#start").on("click",
         myTimer = setInterval(function () {
           let value = +b.property("value");
           b.property("value", value + 1);
-          document.getElementById("current-year").innerText = "Current year " + String(Number(document.getElementById('rangeSlider').value) + 1992);
+          updateTimeDisplay();
           updateScatter(value)
           if (value === maxValue) {
             clearInterval(myTimer);
@@ -80,6 +104,7 @@ function handleSliderChange(event) {
         const value = event.target.value;
         updateScatter(value);
     }
+    updateTimeDisplay();
   }
 
 function createMap() {
@@ -98,7 +123,25 @@ function createMap() {
     return map;
 }
 
+const options = {
+    'position' : 'top-left',
+};
+
+class ResizeButton extends maptalks.control.Control {
+    buildOn(map) {
+    var div = maptalks.DomUtil.createEl("div");
+    div.id = "current-year";
+    div.innerHTML = "Current year 1992";
+    return div;
+    }
+}
+
+ResizeButton.mergeOptions(options);
+
 const map = createMap();
+
+var resizeButton = new ResizeButton();
+map.addControl(resizeButton);
 
 function updateScatter(value) {
     //Wenn deckgllayer schon vorhanden, dann löschen

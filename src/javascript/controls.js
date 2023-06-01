@@ -28,19 +28,6 @@ class TimelineButton {
   }
 }
 
-function showYear(selectedYear) {
-  var selectedYearElement = document.getElementById("selectedYear");
-
-  if (selectedYear === "-1") {
-    selectedYearElement.textContent = "All years";
-  } else {
-    selectedYearElement.textContent = selectedYear;
-  }
-
-  document.querySelector('.dropdown-year').value = selectedYear;
-  toggleDropdown('year');
-}
-
 function toggleDropdown(dropdown) {
   var dropdownContent = document.getElementById(dropdown + "DropdownContent");
   dropdownContent.classList.toggle("show-options");
@@ -110,9 +97,30 @@ function handleCheckboxChangeYear(checkbox) {
   }
 }
 
+function getDate(day, year) {
+  let date = new Date(year, 0);
+  date.setDate(day);
+  let options = { day: 'numeric', month: 'numeric', year: 'numeric' };
+  let string = date.toLocaleDateString('de-DE', options);
+  return string;
+}
+
 const updateYearDisplay = () => {
-  document.getElementById("current-year").innerText = "Current year " +
-    String(Number(document.getElementById('rangeSlider').value) + 1992);
+  let text;
+  if (document.getElementById("yearCheckbox").checked) {
+    text = "Current year: " + String(Number(document.getElementById('rangeSlider').value) + 1992);
+  } else {
+    const checkboxes = document.querySelectorAll('#yearDropdownContent input[type="checkbox"]');
+    let year;
+    checkboxes.forEach(cb => {
+        if (cb.checked) {
+            year = cb.value;
+        }
+    });
+    text = "Current date: " + getDate(Number(document.getElementById('rangeSlider').value) + 1, year);
+    
+  }
+  document.getElementById("current-year").innerText = text;
 };
 
 function timelineYearly() {
@@ -153,6 +161,7 @@ d3.select("#stop").on("click", function () {
   clearInterval(myTimer)
 });
 
+// Nicht genutzt???
 function showYear(selectedYear) {
   if (selectedYear === "-1") {
     year = -1
