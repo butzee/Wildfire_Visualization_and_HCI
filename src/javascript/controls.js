@@ -28,6 +28,17 @@ class TimelineButton {
   }
 }
 
+/** Close dropdowns when clicking outside */
+document.addEventListener('click', function(event) {
+  for (const option of ['cause', 'size', 'year', 'speed']) {
+    const dropdown = document.getElementById(option + "DropdownContent");
+    const button = document.getElementById(option + "DropdownBtn");
+    if (!button.contains(event.target) && !dropdown.contains(event.target) && dropdown.classList.contains("show-options")) {
+      dropdown.classList.toggle("show-options");
+    }
+  }
+});
+
 function toggleDropdown(dropdown) {
   var dropdownContent = document.getElementById(dropdown + "DropdownContent");
   dropdownContent.classList.toggle("show-options");
