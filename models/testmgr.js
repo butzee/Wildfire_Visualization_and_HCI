@@ -11,7 +11,6 @@ exports.getFires = (selectedYear, fireCause, fireSizeClass) => {
     queries.push(fetchDataFromDatabase(sqlStatement));
   } else {
     for (let year = 1992; year <= 2020; year++) {
-      //console.log(sqlStatement+`${year}`);
       queries.push(fetchDataFromDatabase(sqlStatement+`${year}`));
     }
   }

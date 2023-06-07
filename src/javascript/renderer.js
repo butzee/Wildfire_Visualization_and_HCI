@@ -27,7 +27,9 @@ buttonSQL.addEventListener('click', async () => {
         return checkbox.value;
     });
     try {
+        showLoadingAnimation();
         yearsArray = await window.electronAPI.getFires(year, causeOptions, sizeOptions);
+        showLoadingAnimation();
         let b = d3.select("#rangeSlider");
         if (year[0] === "-1") {
             b.property("min", 0);
@@ -53,6 +55,10 @@ slider.addEventListener('change', handleSliderChange);
 slider.addEventListener('input', handleSliderChange);
 
 let myTimer;
+
+function showLoadingAnimation() {
+    document.getElementById("load").classList.toggle("show-options");
+}
 
 function getDate(day, year) {
     let date = new Date(year, 0);

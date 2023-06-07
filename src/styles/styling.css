@@ -3,7 +3,7 @@
 }
   
 @media (prefers-color-scheme: dark) {
-    body { background: #333; color: white; }
+    body { background: #F1F3F4; color: white; }
 }
   
 @media (prefers-color-scheme: light) {
@@ -46,12 +46,10 @@ main {
 }
 
 .main {
-    background: #5080a8;
     grid-area: main ;
 }
 
 .side {
-    background: #474747;
     grid-area: side;
     padding: 0.4rem;
 }
@@ -83,4 +81,31 @@ div[aria-label="controls"] {
     line-height: 3rem;
     vertical-align: middle;
     text-align: center;
+}
+
+.loader-container {
+    z-index: 1;
+    opacity: 0.6;
+    background-color: grey;
+    justify-content: center;
+    align-items: center;
+    display: none;
+}
+
+.loader-container.show-options {
+    display: flex;
+}
+
+.loader {
+    border: 5px solid #f3f3f3;
+    border-top: 5px solid #3498db;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 1s linear infinite;
+}
+  
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
 }
