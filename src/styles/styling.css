@@ -31,7 +31,7 @@ html, body {
     height: 100vh;
 }
 
-button, #queryButton {
+button {
     background-color: #1d1d1f;
     color: white;
     border: 2px solid #1d1d1f;
@@ -39,10 +39,22 @@ button, #queryButton {
     cursor: pointer;
 }
 
-button:hover, #queryButton:hover {
+.action-button {
+    background-color: #1675da;
+    border: 2px solid #1675da;
+    color: white;
+}
+
+button:hover {
     background-color: white;
     color: #1d1d1f;
     border: 2px solid #1d1d1f;
+}
+
+.action-button:hover {
+    background-color: #3b87d9;
+    border: 2px solid #3b87d9;
+    color: white;
 }
 
 main {

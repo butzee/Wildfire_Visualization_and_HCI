@@ -99,7 +99,7 @@
                 <label><input type="checkbox" value="G" onchange="handleCheckboxChangeSize(this)">G</label>
               </div>
             </div>
-            <button id="queryButton" class="dropdown-btn">Get Data</button>
+            <button id="queryButton" class="dropdown-btn action-button">Get Data</button>
       </div>
 
       <div id="map" class ="main"></div>
@@ -111,7 +111,7 @@
 
       <div class="bottom">
         <div aria-label="controls">
-          <button id="speedDropdownBtn" class="btn-controls" onclick="toggleDropdown('speed')"><span class="material-symbols-rounded">speed</span></button>
+          <button id="speedDropdownBtn" class="dropdown-btn" style="padding: 0%;"onclick="toggleDropdown('speed')"><span class="material-symbols-rounded">speed</span></button>
           <div class="dropdown-content" style="bottom: 36px; min-width: 50px;" id="speedDropdownContent">
             <label><input type="checkbox" value="2" onchange="handleCheckboxChangeSpeed(this)">2x</label>
             <label><input type="checkbox" value="1.5" onchange="handleCheckboxChangeSpeed(this)">1.5x</label>
@@ -120,8 +120,8 @@
             <label><input type="checkbox" value="0.5" onchange="handleCheckboxChangeSpeed(this)">0.5x</label>
           </div>
 
-          <button id="start_pause" class="btn-controls"><span class="material-symbols-rounded">play_arrow</span></button>
-          <button id="stop" class="btn-controls"><span class="material-symbols-rounded">stop</span></button>
+          <button id="start_pause" class="action-button"><span class="material-symbols-rounded">play_arrow</span></button>
+          <button id="stop" class="action-button"><span class="material-symbols-rounded">stop</span></button>
           <input id="rangeSlider" type="range" name="range" min="0" max="30" step="1" value="0">
         </div>
       </div>
