@@ -27,8 +27,6 @@
       </div>
 
       <div class="top">
-          <div class="top-decorator">Filters</div>
-          <div aria-label="filters">
             <div class="dropdown">
               <input type="hidden" class="dropdown-year" value="-1">
               <button class="dropdown-btn" id="yearDropdownBtn" onclick="toggleDropdown('year')">Select a year</button>
@@ -99,14 +97,7 @@
                 <label><input type="checkbox" value="G" onchange="handleCheckboxChangeSize(this)">G</label>
               </div>
             </div>
-            
-            <p>Selected causes:</p>
-            <ul id="selectedCauses" class="scrollable-list fixed-width"></ul> 
-            <p>Selected sizes:</p>
-            <ul id="selectedSizes"class="scrollable-list fixed-width"></ul>
-            <button id="queryButton">Get Data</button>
-            
-          </div>
+            <button id="queryButton" class="dropdown-btn">Get Data</button>
       </div>
 
       <div id="map" class ="main" style="border-style:dotted!"></div>
@@ -124,7 +115,6 @@
           </div>
 
           <button id="start" class="btn-controls"><span class="material-symbols-rounded">play_arrow</span></button>
-          <button id="pause" class="btn-controls"><span class="material-symbols-rounded">pause</span></button>
           <button id="stop" class="btn-controls"><span class="material-symbols-rounded">stop</span></button>
           <input id="rangeSlider" type="range" name="range" min="0" max="30" step="1" value="0">
         </div>

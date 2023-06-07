@@ -1,9 +1,6 @@
-:root {
-    color-scheme: light dark;
-}
-  
+
 @media (prefers-color-scheme: dark) {
-    body { background: #F1F3F4; color: white; }
+    body { background: #424244; color: white; }
 }
   
 @media (prefers-color-scheme: light) {
@@ -34,7 +31,22 @@ html, body {
     height: 100vh;
 }
 
+button, #queryButton {
+    background-color: #1d1d1f;
+    color: white;
+    border: 2px solid #1d1d1f;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover, #queryButton:hover {
+    background-color: white;
+    color: #1d1d1f;
+    border: 2px solid #1d1d1f;
+}
+
 main {
+    background-color: #f5f5f7;
     height: 100%;
     display: grid;
     grid-template-columns: min-content 1fr;
@@ -68,14 +80,8 @@ nav[aria-label="actions"] {
     font-size: 1em;
 }
 
-
-div[aria-label="controls"] {
-    height: 100%;
-    display: grid;
-    grid-template-columns: repeat(4, 2rem) 1fr;
-}
-
 .side-decorator {
+    color: #1d1d1f;
     font-size: 1.5rem;
     font-weight: bold;
     line-height: 3rem;
@@ -98,14 +104,28 @@ div[aria-label="controls"] {
 
 .loader {
     border: 5px solid #f3f3f3;
-    border-top: 5px solid #3498db;
+    border-top: 5px solid #1d1d1f;
     border-radius: 50%;
     width: 50px;
     height: 50px;
     animation: spin 1s linear infinite;
 }
-  
 @keyframes spin {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
+}
+
+#rangeSlider {
+    background: transparent;
+    cursor: pointer;
+}
+
+#rangeSlider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    background-color: #1d1d1f;
+}
+
+#rangeSlider::-moz-range-thumb {
+    -webkit-appearance: none;
+    background-color: #1d1d1f;
 }
