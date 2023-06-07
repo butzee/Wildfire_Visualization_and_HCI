@@ -181,11 +181,3 @@ function timelineYear() {
     }
   }, 1000);
 }
-
-d3.select("#stop").on("click", function () {
-  d3.select("#rangeSlider").property("value", 0);
-  updateYearDisplay();
-  clearInterval(myTimer)
-  button = document.getElementById("start_pause");
-  button.firstElementChild.innerHTML = "play_arrow";
-});

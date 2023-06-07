@@ -15,6 +15,13 @@ func();
 const buttonSQL = document.getElementById('queryButton');
 let yearsArray;
 
+function areAllYearsDisplayed() {
+    const year = Array.from(document.querySelectorAll('#yearDropdownContent input[type="checkbox"]:checked')).map(function (checkbox) {
+        return checkbox.value;
+    });
+    return year[0] === "-1";
+}
+
 // Send Message via exposed api from preload.js to main.js and receive answer
 buttonSQL.addEventListener('click', async () => {
     const year = Array.from(document.querySelectorAll('#yearDropdownContent input[type="checkbox"]:checked')).map(function (checkbox) {
@@ -31,7 +38,7 @@ buttonSQL.addEventListener('click', async () => {
         yearsArray = await window.electronAPI.getFires(year, causeOptions, sizeOptions);
         showLoadingAnimation();
         let b = d3.select("#rangeSlider");
-        if (year[0] === "-1") {
+        if (areAllYearsDisplayed()) {
             b.property("min", 0);
             b.property("max", 28);
         } else {
@@ -43,6 +50,8 @@ buttonSQL.addEventListener('click', async () => {
     } catch (error) {
         console.error(error);
     }
+    updateScatter(0); // Zeige Feuer für ersten Zeitpunkt
+    updateTimeDisplay();
 });
 
 
@@ -103,12 +112,13 @@ function play() {
     
     myTimer = setInterval(function () {
       let value = +b.property("value");
-      b.property("value", value + 1);
       updateTimeDisplay();
       updateScatter(value)
       if (value === maxValue) {
         clearInterval(myTimer);
+        displayNextAnimationState("play_arrow")
       }
+      b.property("value", value + 1);
     }, 1000/speed);
 }
 
@@ -118,12 +128,28 @@ function pause() {
 
 d3.select("#start_pause").on("click", () => {
     if (!isAnimating()) {
+        let b = d3.select("#rangeSlider");
+        let maxValue = +b.property("max");
+        if (+b.property("value") === maxValue) {
+            b.property("value", 0);
+            updateTimeDisplay();
+        }
         play()
         displayNextAnimationState("pause")
     } else {
         pause()
         displayNextAnimationState("play_arrow")
     }
+});
+
+d3.select("#stop").on("click", function () {
+    d3.select("#rangeSlider").property("value", 0);
+    updateYearDisplay();
+    clearInterval(myTimer)
+    button = document.getElementById("start_pause");
+    button.firstElementChild.innerHTML = "play_arrow";
+    updateScatter(0);
+    updateTimeDisplay();
 });
 
 
@@ -256,6 +282,8 @@ function updateScatter(value) {
     const minFiresize = Math.min(...data.map(d => d.firesize));
     const maxFiresize = Math.max(...data.map(d => d.firesize));
 
+    const scale = areAllYearsDisplayed() ? 10 : 50;
+
     const scatterplotLayer = {
         layerType: 'ScatterplotLayer',
         id: 'heatmap',
@@ -266,7 +294,7 @@ function updateScatter(value) {
         getRadius: d => Math.sqrt((d.firesize * 4046.86) / Math.PI),
         lightSettings: LIGHT_SETTINGS,
         opacity: 0.7,
-        radiusScale: 50,
+        radiusScale: scale,
         radiusMinPixels: 2,
         getColor: getColor
     };
