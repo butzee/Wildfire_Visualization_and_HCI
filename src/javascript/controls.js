@@ -44,35 +44,16 @@ function toggleDropdown(dropdown) {
   dropdownContent.classList.toggle("show-options");
 }
 
-function handleCheckboxChangeCause(checkbox) {
-  var selectedCauses;
-  var selectedCausesElement = document.getElementById("selectedCauses");
-  var checkboxes = document.querySelectorAll('#causeDropdownContent input[type="checkbox"]');
-
-  if (checkbox.value === "0") {
-    checkboxes.forEach(function (cb) {
-      if (cb !== checkbox) {
-        cb.checked = false;
-      }
-    });
-    selectedCauses = ["All sizes"];
-  } else {
-    var allCausesCheckbox = document.querySelector('#causeDropdownContent input[value="0"]');
-    allCausesCheckbox.checked = false;
-    selectedCauses = Array.from(document.querySelectorAll('#causeDropdownContent input[type="checkbox"]:checked')).map(function (checkbox) {
-      return checkbox.value;
-    });
+function anyCheckboxOptionSelected(checkboxes) {
+  for (let checkbox of checkboxes) {
+    if (checkbox.checked) return true;
   }
-
-  selectedCausesElement.innerHTML = selectedCauses.map(function (cause) {
-    return "<li>" + cause + "</li>";
-  }).join("");
+  return false;
 }
 
-function handleCheckboxChangeSize(checkbox) {
-  var selectedSizes;
-  var selectedSizesElement = document.getElementById("selectedSizes");
-  var checkboxes = document.querySelectorAll('#sizeDropdownContent input[type="checkbox"]');
+function handleCheckboxChangeCause(checkbox) {
+  var checkboxes = document.querySelectorAll('#causeDropdownContent input[type="checkbox"]');
+  let allCausesCheckbox = document.querySelector('#causeDropdownContent input[value="-1"]');
 
   if (checkbox.value === "-1") {
     checkboxes.forEach(function (cb) {
@@ -80,39 +61,63 @@ function handleCheckboxChangeSize(checkbox) {
         cb.checked = false;
       }
     });
-    selectedSizes = ["All sizes"];
+    allCausesCheckbox.checked = true;
   } else {
-    var allSizesCheckbox = document.querySelector('#sizeDropdownContent input[value="-1"]');
-    allSizesCheckbox.checked = false;
-    selectedSizes = Array.from(document.querySelectorAll('#sizeDropdownContent input[type="checkbox"]:checked')).map(function (checkbox) {
-      return checkbox.value;
-    });
+    if (!anyCheckboxOptionSelected(checkboxes)) {
+      allCausesCheckbox.checked = true;
+    } else {
+      allCausesCheckbox.checked = false;
+    }
   }
+}
 
-  selectedSizesElement.innerHTML = selectedSizes.map(function (size) {
-    return "<li>" + size + "</li>";
-  }).join("");
+function handleCheckboxChangeSize(checkbox) {
+  var checkboxes = document.querySelectorAll('#sizeDropdownContent input[type="checkbox"]');
+  var allSizesCheckbox = document.querySelector('#sizeDropdownContent input[value="-1"]');
+
+  if (checkbox.value === "-1") {
+    checkboxes.forEach(function (cb) {
+      if (cb !== checkbox) {
+        cb.checked = false;
+      }
+    });
+    allSizesCheckbox.checked = true;
+  } else {
+    if (!anyCheckboxOptionSelected(checkboxes)) {
+      allSizesCheckbox.checked = true;
+    } else {
+      allSizesCheckbox.checked = false;
+    }
+  }
 }
 
 function handleCheckboxChangeYear(checkbox) {
   const checkboxes = document.querySelectorAll('#yearDropdownContent input[type="checkbox"]');
+  var allYearsCheckbox = document.querySelector('#yearDropdownContent input[value="-1"]');
+
   checkboxes.forEach(cb => {
     if (cb !== checkbox) {
       cb.checked = false;
     }
   });
+  if (!anyCheckboxOptionSelected(checkboxes)) {
+    allYearsCheckbox.checked = true;
+  }
 }
 
 function handleCheckboxChangeSpeed(checkbox) {
   const checkboxes = document.querySelectorAll('#speedDropdownContent input[type="checkbox"]');
+  const normalSpeedCheckbox = document.querySelector('#speedDropdownContent input[value="1"]');
+  
   checkboxes.forEach(cb => {
     if (cb !== checkbox) {
-      cb.disabled = false;
       cb.checked = false;
     }
   });
-  checkbox.disabled = true;
-  checkbox.removeAttribute('style');
+  if (!anyCheckboxOptionSelected(checkboxes)) {
+    normalSpeedCheckbox.checked = true;
+  }
+
   if (document.getElementById('rangeSlider').value > 0) {
     d3.select("#start_pause").on("click")();
     d3.select("#start_pause").on("click")();

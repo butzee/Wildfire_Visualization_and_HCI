@@ -67,7 +67,7 @@
             <div class="dropdown">
               <button class="dropdown-btn" id="causeDropdownBtn" onclick="toggleDropdown('cause')">Select causes</button>
               <div class="dropdown-content" id="causeDropdownContent">
-                <label><input type="checkbox" id="causeCheckbox" value="0" onchange="handleCheckboxChangeCause(this)">All causes</label>
+                <label><input type="checkbox" id="causeCheckbox" value="-1" onchange="handleCheckboxChangeCause(this)">All causes</label>
                 <label><input type="checkbox" value="Power generation/transmission/distribution" onchange="handleCheckboxChangeCause(this)">Power generation/transmission/distribution</label>
                 <label><input type="checkbox" value="Natural" onchange="handleCheckboxChangeCause(this)">Natural</label>
                 <label><input type="checkbox" value="Debris and open burning" onchange="handleCheckboxChangeCause(this)">Debris and open burning</label>
@@ -136,7 +136,6 @@
 
         const speedCheckbox = document.getElementById("defaultSpeedOption");
         speedCheckbox.checked = true;
-        speedCheckbox.disabled = true;
         // STARTE ERSTE QUERY TODO
 
       });
