@@ -265,10 +265,10 @@ function updateScatter(value) {
         getPosition: d => d.coordinates,
         getRadius: d => Math.sqrt((d.firesize * 4046.86) / Math.PI),
         lightSettings: LIGHT_SETTINGS,
-        opacity: 1,
-        radiusScale: 1,
+        opacity: 0.7,
+        radiusScale: 50,
         radiusMinPixels: 2,
-        getColor: getColor,
+        getColor: getColor
     };
     deckglLayer.setProps({
         layers: [scatterplotLayer]
