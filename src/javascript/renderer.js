@@ -135,11 +135,21 @@ function handleSliderChange(event) {
     updateTimeDisplay();
   }
 
+// Map creation and utilities ----------------------------------------------------------
+
+layerTemplates = [
+    'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+    'http://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}.png',
+    'https://stamen-tiles.a.ssl.fastly.net/terrain/{z}/{x}/{y}.png'
+]
+const n_templates = layerTemplates.length;
+let nextMapIdx = 1;
+
 function createMap() {
-    var  map = new maptalks.Map('map', {
+    let map = new maptalks.Map('map', {
         center: [-98, 37],
         zoom: 4,
-        minZoom: 3,
+        minZoom: 4,
         maxZoom: 18,
         baseLayer: new maptalks.TileLayer('base', {
         'urlTemplate' : 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
@@ -148,28 +158,48 @@ function createMap() {
         '&copy; <a href="https://carto.com/attributions">CARTO</a>'
         })
     })
+    map.setMaxExtent(map.getExtent());
     return map;
 }
 
-const options = {
-    'position' : 'top-left',
-};
+const map = createMap();
+const maxExtend = map.getExtent()
 
-class ResizeButton extends maptalks.control.Control {
+// Controls ----------------------------------------------------------
+
+class DateDisplay extends maptalks.control.Control {
     buildOn(map) {
-    var div = maptalks.DomUtil.createEl("div");
+    let div = maptalks.DomUtil.createEl("div");
     div.id = "current-year";
-    div.innerHTML = "Current year 1992";
+    div.innerHTML = "Current year: 1992";
     return div;
     }
 }
 
-ResizeButton.mergeOptions(options);
+DateDisplay.mergeOptions({
+    position: 'top-left',
+});
 
-const map = createMap();
+let dateDisplay = new DateDisplay();
+map.addControl(dateDisplay);
 
-var resizeButton = new ResizeButton();
-map.addControl(resizeButton);
+function resizeMap() {
+    map.fitExtent(maxExtend, 0)
+}
+
+function changeMapType() {
+    let newBaseLayer = new maptalks.TileLayer('base', {
+        'urlTemplate' : layerTemplates[nextMapIdx++ % n_templates], // Immer abwechselnd eines der drei Layer
+        'subdomains'  : ['a','b','c'],
+        'attribution'  : '&copy; <a href="http://www.osm.org/copyright">OSM</a> contributors, '+
+        '&copy; <a href="https://carto.com/attributions">CARTO</a>'
+        })
+    map.setBaseLayer(newBaseLayer);
+}
+
+
+
+// Draw fires ----------------------------------------------------------
 
 function updateScatter(value) {
     //Wenn deckgllayer schon vorhanden, dann löschen

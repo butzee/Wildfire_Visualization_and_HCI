@@ -56,7 +56,7 @@ div[aria-label="controls"] {
 select,
 #current-year {
   background-color: rgba(241, 241, 241);
-  border: none;
+  border: 1px solid #86868b;
   color: black;
   padding: 5px 10px;
   text-align: center;
@@ -137,4 +137,31 @@ p {
 .fixed-width {
   width: 150px;
   color: black;
+}
+
+.map-control-container {
+  position:fixed;
+  right:20px;
+  top:70.5px;
+  width:24px;
+  height:55px;
+  overflow:hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.map-control {
+  background-color: rgba(241, 241, 241);
+  border: 1px solid #86868b;
+  color: black;
+  border-radius: 0%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.map-control:hover {
+  background-color: white;
+  border: 1px solid #86868b;
 }

@@ -12,6 +12,8 @@
       <script type="text/javascript" src="../../node_modules/maptalks/dist/maptalks.js"></script>
       <script src="https://cdn.jsdelivr.net/npm/deck.gl@7.1.11/dist.min.js"></script>
       <script type="text/javascript" src="../javascript/maptalks-deckgllayer.js"></script>
+
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
     </head>
 
   <body>
@@ -100,7 +102,11 @@
             <button id="queryButton" class="dropdown-btn">Get Data</button>
       </div>
 
-      <div id="map" class ="main" style="border-style:dotted!"></div>
+      <div id="map" class ="main"></div>
+      <div class="map-control-container">
+        <button class="map-control" onclick="resizeMap()"><span class="material-symbols-outlined">resize</span></button>
+        <button class="map-control" onclick="changeMapType()"><span class="material-symbols-outlined">layers</span></button>
+      </div>
       <div id="load" class="main loader-container"><div class="loader"></div></div>
 
       <div class="bottom">
