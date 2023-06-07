@@ -28,14 +28,12 @@ exports.getFires = (selectedYear, fireCause, fireSizeClass) => {
 
 function getWhereClause(fireCause, fireSizeClass) {
   let whereClause = '';
-  if (fireCause.length > 0 && fireCause[0] !== '0') {
+  if (fireCause[0] !== '-1') {
     whereClause += ` NWCG_GENERAL_CAUSE IN('${fireCause.join("','")}')`;
+    whereClause += ' AND';
   }
 
-  if (fireSizeClass.length > 0 && fireSizeClass[0] !== '-1') {
-    if (whereClause.length > 4) {
-      whereClause += ' AND';
-    }
+  if (fireSizeClass[0] !== '-1') {
     whereClause += ` FIRE_SIZE_CLASS IN('${fireSizeClass.join("','")}')`;
     whereClause += ' AND';
   }
