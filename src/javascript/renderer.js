@@ -142,8 +142,8 @@ function createMap() {
         minZoom: 3,
         maxZoom: 18,
         baseLayer: new maptalks.TileLayer('base', {
-        'urlTemplate' : 'http://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}.png',
-        'subdomains'  : ['a','b','c','d'],
+        'urlTemplate' : 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+        'subdomains'  : ['a','b','c'],
         'attribution'  : '&copy; <a href="http://www.osm.org/copyright">OSM</a> contributors, '+
         '&copy; <a href="https://carto.com/attributions">CARTO</a>'
         })
