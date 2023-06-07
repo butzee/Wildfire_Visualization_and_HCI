@@ -215,13 +215,13 @@ function updateScatter(value) {
         };
         data.push(obj);
     }
-    console.log(data);
 
     map.addLayer(deckglLayer);
-    const COLOR_RANGE = [
-        [255, 191, 191], // Light red
-        [255, 0, 0]      // Dark red
-      ];
+    const COLOR_RANGE = [ // Farben für die Feuergröße
+        [255, 165, 0],
+        [204, 0, 0],
+        [87, 0, 0]
+    ];
     
     const LIGHT_SETTINGS = {
         lightsPosition: [-0.144528, 49.739968, 8000, -3.807751, 54.104682, 8000],
@@ -235,23 +235,22 @@ function updateScatter(value) {
         const normalizedValue = (d.firesize - minFiresize) / (maxFiresize - minFiresize);
         const index = Math.floor(normalizedValue * (COLOR_RANGE.length - 1));
         const color1 = COLOR_RANGE[index];
-        const color2 = COLOR_RANGE[index + 1];
-
-        if (color1 === undefined || color2 === undefined) {
-            // Handle the case when color1 or color2 is undefined
-            console.error('Invalid color values');
-            return [0, 0, 0]; // Return a default color
-          }
+        let color2;
+        if (index !== COLOR_RANGE.length - 1) {
+            color2 = COLOR_RANGE[index + 1];
+        } else {
+            color2 = COLOR_RANGE[index];
+        }
 
         const t = normalizedValue * (COLOR_RANGE.length - 1) - index;
         const r = interpolate(color1[0], color2[0], t);
         const g = interpolate(color1[1], color2[1], t);
         const b = interpolate(color1[2], color2[2], t);
         return [r, g, b];
-      };
+    };
 
     function interpolate(a, b, t) {
-    return Math.round((1 - t) * a + t * b);
+        return Math.round((1 - t) * a + t * b);
     }
 
     const minFiresize = Math.min(...data.map(d => d.firesize));
