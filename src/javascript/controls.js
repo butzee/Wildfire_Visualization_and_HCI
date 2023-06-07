@@ -182,20 +182,3 @@ d3.select("#stop").on("click", function () {
   updateYearDisplay();
   clearInterval(myTimer)
 });
-
-// Nicht genutzt???
-function showYear(selectedYear) {
-  if (selectedYear === "-1") {
-    year = -1
-    d3.select("#start").on("click", timelineYearly);
-    d3.select("#rangeSlider").property("value", 0);
-    updateYearDisplay();
-    clearInterval(myTimer);
-  } else {
-    year = Number(selectedYear)
-    d3.select("#start").on("click", timelineYear);
-    d3.select("#rangeSlider").property("value", 0);
-    document.getElementById("current-year").innerText = "Current year " + year + 1992;
-    clearInterval(myTimer);
-  }
-}
