@@ -114,8 +114,8 @@ function handleCheckboxChangeSpeed(checkbox) {
   checkbox.disabled = true;
   checkbox.removeAttribute('style');
   if (document.getElementById('rangeSlider').value > 0) {
-    d3.select("#pause").on("click")();
-    d3.select("#start").on("click")();
+    d3.select("#start_pause").on("click")();
+    d3.select("#start_pause").on("click")();
   }
 }
 
@@ -181,4 +181,6 @@ d3.select("#stop").on("click", function () {
   d3.select("#rangeSlider").property("value", 0);
   updateYearDisplay();
   clearInterval(myTimer)
+  button = document.getElementById("start_pause");
+  button.firstElementChild.innerHTML = "play_arrow";
 });

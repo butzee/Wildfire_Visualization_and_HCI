@@ -114,7 +114,7 @@
             <label><input type="checkbox" value="0.5" onchange="handleCheckboxChangeSpeed(this)">0.5x</label>
           </div>
 
-          <button id="start" class="btn-controls"><span class="material-symbols-rounded">play_arrow</span></button>
+          <button id="start_pause" class="btn-controls"><span class="material-symbols-rounded">play_arrow</span></button>
           <button id="stop" class="btn-controls"><span class="material-symbols-rounded">stop</span></button>
           <input id="rangeSlider" type="range" name="range" min="0" max="30" step="1" value="0">
         </div>
@@ -137,9 +137,6 @@
         const speedCheckbox = document.getElementById("defaultSpeedOption");
         speedCheckbox.checked = true;
         speedCheckbox.disabled = true;
-
-        document.getElementById("selectedCauses").innerHTML = "All causes";
-        document.getElementById("selectedSizes").innerHTML = "All sizes";
         // STARTE ERSTE QUERY TODO
 
       });

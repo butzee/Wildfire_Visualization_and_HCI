@@ -84,27 +84,46 @@ function updateTimeDisplay() {
     }
 }
 
-d3.select("#start").on("click",
-    function () {
+function isAnimating() {
+    button = document.getElementById("start_pause");
+    return button.firstElementChild.innerHTML === "pause";
+}
+
+function displayNextAnimationState(state) {
+    button = document.getElementById("start_pause");
+    button.firstElementChild.innerHTML = state;
+}
+
+function play() {
+    clearInterval(myTimer);
+    let b = d3.select("#rangeSlider");
+    let maxValue = +b.property("max");
+
+    const speed = Number(Array.from(document.querySelectorAll('#speedDropdownContent input[type="checkbox"]:checked'))[0].value);
+    
+    myTimer = setInterval(function () {
+      let value = +b.property("value");
+      b.property("value", value + 1);
+      updateTimeDisplay();
+      updateScatter(value)
+      if (value === maxValue) {
         clearInterval(myTimer);
-        let b = d3.select("#rangeSlider");
-        let maxValue = +b.property("max");
+      }
+    }, 1000/speed);
+}
 
-        const speed = Number(Array.from(document.querySelectorAll('#speedDropdownContent input[type="checkbox"]:checked'))[0].value);
-        
-        myTimer = setInterval(function () {
-          let value = +b.property("value");
-          b.property("value", value + 1);
-          updateTimeDisplay();
-          updateScatter(value)
-          if (value === maxValue) {
-            clearInterval(myTimer);
-          }
-        }, 1000/speed);
-    });
+function pause() {
+    clearInterval(myTimer);
+}
 
-d3.select("#pause").on("click", function () {
-  clearInterval(myTimer);
+d3.select("#start_pause").on("click", () => {
+    if (!isAnimating()) {
+        play()
+        displayNextAnimationState("pause")
+    } else {
+        pause()
+        displayNextAnimationState("play_arrow")
+    }
 });
 
 
