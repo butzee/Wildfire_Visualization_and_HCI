@@ -28,22 +28,6 @@ class TimelineButton {
   }
 }
 
-/** Close dropdowns when clicking outside */
-document.addEventListener('click', function(event) {
-  for (const option of ['cause', 'size', 'year', 'speed']) {
-    const dropdown = document.getElementById(option + "DropdownContent");
-    const button = document.getElementById(option + "DropdownBtn");
-    if (!button.contains(event.target) && !dropdown.contains(event.target) && dropdown.classList.contains("show-options")) {
-      dropdown.classList.toggle("show-options");
-    }
-  }
-});
-
-function toggleDropdown(dropdown) {
-  var dropdownContent = document.getElementById(dropdown + "DropdownContent");
-  dropdownContent.classList.toggle("show-options");
-}
-
 function anyCheckboxOptionSelected(checkboxes) {
   for (let checkbox of checkboxes) {
     if (checkbox.checked) return true;
@@ -117,11 +101,22 @@ function handleCheckboxChangeSpeed(checkbox) {
   if (!anyCheckboxOptionSelected(checkboxes)) {
     normalSpeedCheckbox.checked = true;
   }
+  d3.select("#updateScatterHelper").on("click")();
+}
 
-  if (document.getElementById('rangeSlider').value > 0) {
-    d3.select("#start_pause").on("click")();
-    d3.select("#start_pause").on("click")();
+function handleCheckboxChangeDisplaySize(checkbox) {
+  const checkboxes = document.querySelectorAll('#displaySizeDropdownContent input[type="checkbox"]');
+  const normalSizeCheckbox = document.querySelector('#displaySizeDropdownContent input[value="1"]');
+  
+  checkboxes.forEach(cb => {
+    if (cb !== checkbox) {
+      cb.checked = false;
+    }
+  });
+  if (!anyCheckboxOptionSelected(checkboxes)) {
+    normalSizeCheckbox.checked = true;
   }
+  d3.select("#updateScatterHelper").on("click")();
 }
 
 function getDate(day, year) {

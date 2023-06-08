@@ -40,8 +40,8 @@ async function getFiresHandler(event, params) {
 // Open File: src/pages/map.html
 const createWindow = () => {
   const win = new BrowserWindow({
-    width: 1900,
-    height: 600,
+    width: 1400,
+    height: 800,
     webPreferences: {
         // Attaches script to Renderer Process
         preload: path.join(__dirname, './preload.js'),
@@ -49,6 +49,7 @@ const createWindow = () => {
         contextIsolation: true
     }
   })
+  //win.removeMenu();
   // Handle Listerner for invoke call "ping" from Renderer Process
   // return "pong" to Renderer Process
   ipcMain.handle('ping', () => { return "pong";});

@@ -4,8 +4,8 @@ var db = dbmgr.db;
 exports.getFires = (selectedYear, fireCause, fireSizeClass) => {
   const queries = [];
   let whereClause = getWhereClause(fireCause, fireSizeClass);
-  let sqlStatement = `SELECT OBJECTID, DISCOVERY_DOY, CONT_DOY, FIRE_SIZE, FIRE_SIZE_CLASS, LONGITUDE, LATITUDE FROM Fires WHERE ${whereClause} FIRE_YEAR = `
-
+  let sqlStatement = `SELECT OBJECTID, NWCG_REPORTING_UNIT_NAME, FIRE_NAME, DISCOVERY_DATE, DISCOVERY_DOY, NWCG_CAUSE_CLASSIFICATION, NWCG_GENERAL_CAUSE, CONT_DATE, CONT_DOY, FIRE_SIZE, FIRE_SIZE_CLASS, LONGITUDE, LATITUDE, STATE FROM Fires WHERE ${whereClause} FIRE_YEAR = `
+  console.log(sqlStatement);
   if (Number(selectedYear[0]) !== Number("-1")) {
     sqlStatement += `${Number(selectedYear[0])}`;
     queries.push(fetchDataFromDatabase(sqlStatement));

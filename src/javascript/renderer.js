@@ -47,6 +47,7 @@ buttonSQL.addEventListener('click', async () => {
         }
 
         console.log("done");
+        console.log(yearsArray);
     } catch (error) {
         console.error(error);
     }
@@ -152,6 +153,9 @@ d3.select("#stop").on("click", function () {
     updateTimeDisplay();
 });
 
+d3.select("#updateScatterHelper").on("click", function () {
+    updateScatter(document.getElementById('rangeSlider').value);
+});
 
 function handleSliderChange(event) {
     if (!isDragging) {
@@ -162,7 +166,6 @@ function handleSliderChange(event) {
   }
 
 // Map creation and utilities ----------------------------------------------------------
-
 layerTemplates = [
     'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
     'http://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}.png',
@@ -189,15 +192,18 @@ function createMap() {
 }
 
 const map = createMap();
+var deckglLayer = new maptalks.DeckGLLayer('kkkk', {'zIndex': 1 }).addTo(map);
+var markerLayer  = new maptalks.VectorLayer('marker', {'zIndex': 9999}).addTo(map);
+
 const maxExtend = map.getExtent()
 
 // Controls ----------------------------------------------------------
 
 class DateDisplay extends maptalks.control.Control {
     buildOn(map) {
-    let div = maptalks.DomUtil.createEl("div");
-    div.id = "current-year";
-    div.innerHTML = "Current year: 1992";
+        let div = maptalks.DomUtil.createEl("div");
+        div.id = "current-year";
+        div.innerHTML = "Current year: 1992";
     return div;
     }
 }
@@ -223,26 +229,34 @@ function changeMapType() {
     map.setBaseLayer(newBaseLayer);
 }
 
-
-
 // Draw fires ----------------------------------------------------------
 
 function updateScatter(value) {
     //Wenn deckgllayer schon vorhanden, dann löschen
-    if (map.getLayer('kkkk')) {
-        map.removeLayer('kkkk');
-    }
+    deckglLayer.setProps({
+        layers: []
+    });
+    markerLayer.clear();
     const data = [];
-    const deckglLayer = new maptalks.DeckGLLayer('kkkk', {});
+    //const deckglLayer = new maptalks.DeckGLLayer('kkkk', { });
     for (let i = 0; i < yearsArray[value].length; i++) {
         const obj = {
-        firesize: yearsArray[value][i].FIRE_SIZE,
-        coordinates: [yearsArray[value][i].LONGITUDE, yearsArray[value][i].LATITUDE]
+            firesize: yearsArray[value][i].FIRE_SIZE,
+            coordinates: [yearsArray[value][i].LONGITUDE, yearsArray[value][i].LATITUDE],
+            nwcg_general_cause: yearsArray[value][i].NWCG_GENERAL_CAUSE,
+            discovery_date: yearsArray[value][i].DISCOVERY_DATE,
+            cont_date: yearsArray[value][i].CONT_DATE,
+            nwcg_cause_classification: yearsArray[value][i].NWCG_CAUSE_CLASSIFICATION,
+            fire_name: yearsArray[value][i].FIRE_NAME,
+            state: yearsArray[value][i].STATE,
+            fire_size_class: yearsArray[value][i].FIRE_SIZE_CLASS,
+            nwcg_reporting_unit_name: yearsArray[value][i].NWCG_REPORTING_UNIT_NAME,
+            objectid: yearsArray[value][i].OBJECTID
         };
         data.push(obj);
     }
 
-    map.addLayer(deckglLayer);
+    //map.addLayer(deckglLayer);
     const COLOR_RANGE = [ // Farben für die Feuergröße
         [255, 165, 0],
         [204, 0, 0],
@@ -281,8 +295,8 @@ function updateScatter(value) {
 
     const minFiresize = Math.min(...data.map(d => d.firesize));
     const maxFiresize = Math.max(...data.map(d => d.firesize));
-
-    const scale = areAllYearsDisplayed() ? 10 : 50;
+    
+    const scale = Number(Array.from(document.querySelectorAll('#displaySizeDropdownContent input[type="checkbox"]:checked'))[0].value);
 
     const scatterplotLayer = {
         layerType: 'ScatterplotLayer',
@@ -296,7 +310,49 @@ function updateScatter(value) {
         opacity: 0.7,
         radiusScale: scale,
         radiusMinPixels: 2,
-        getColor: getColor
+        getColor: getColor,
+        onClick: (info, event)  => {
+            markerLayer.clear();
+            var marker = new maptalks.Marker([info.object.coordinates[0], info.object.coordinates[1]]).addTo(markerLayer);
+            marker.setInfoWindow({
+                'title'     : 'InfoWindow',
+                'autoCloseOn' : 'click',
+                'single' : true,
+                'custom' : true,
+                'content'   :
+                    '<table class="tg">'+
+                    '<thead>'+
+                    '<tr>'+
+                        '<td class="tg-first-col">' + "<b>Object ID:</b><br>"+info.object.objectid+'</td>'+
+                        '<td class="tg-second-col">' + "<br><b>Firename:</b><br>"+info.object.fire_name+'</td>'+
+                    '</tr>'+
+                    '</thead>'+
+                    '<tbody>'+
+                    '<tr>'+
+                        '<td class="tg-first-col">' + "<br><b>Discovery Date:</b><br>"+info.object.discovery_date +'</td>'+
+                        '<td class="tg-second-col">' + "<br><b>Containment Date:</b><br>"+info.object.cont_date +'</td>'+
+                    '</tr>'+
+                    '<tr>'+
+                        '<td class="tg-first-col">' + "<br><b>Longitude:</b><br>"+info.object.coordinates[0]+'</td>'+
+                        '<td class="tg-second-col">' + "<br><b>Latitude:</b><br>"+info.object.coordinates[1] +'</td>'+
+                    '</tr>'+
+                    '<tr>'+
+                        '<td class="tg-first-col">' + "<br><b>Firesize:</b><br>"+info.object.firesize + "m"+'<sup>2</sup></td>'+
+                        '<td class="tg-second-col">' + "<br><b>Fire Size Class:</b><br>"+info.object.fire_size_class +'</td>'+
+                    '</tr>'+
+                    '<tr>'+
+                        '<td class="tg-first-col">' + "<b>General Cause:</b><br>"+info.object.nwcg_general_cause +'</td>'+
+                        '<td class="tg-second-col">' + "<br><b>Classification:</b><br>"+info.object.nwcg_cause_classification +'</td>'+
+                    '</tr>'+
+                    '<tr>'+
+                        '<td class="tg-first-col">' + "<br><b>State:</b><br>"+info.object.state +'</td>'+
+                        '<td class="tg-second-col">' + "<b><br>Reporting Unit:</b><br>"+info.object.nwcg_reporting_unit_name +'</td>'+
+                    '</tr>'+
+                    '</tbody>'+
+                    '</table>'
+            });
+            marker.openInfoWindow();
+        }
     };
     deckglLayer.setProps({
         layers: [scatterplotLayer]

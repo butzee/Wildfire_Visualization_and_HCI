@@ -34,14 +34,6 @@ var DeckGLLayer = function (_maptalks$Layer) {
 
         return _possibleConstructorReturn(this, _maptalks$Layer.apply(this, arguments));
     }
-
-    // getDeckGL() {
-    //     const render = this._getRenderer();
-    //     if (render) {
-    //         return render.deckgl;
-    //     }
-    // }
-
     DeckGLLayer.prototype.setProps = function setProps(props) {
         var render = this._getRenderer();
         this.props = maptalks.Util.extend({}, props);
@@ -51,18 +43,6 @@ var DeckGLLayer = function (_maptalks$Layer) {
         }
         return this;
     };
-
-    // onAdd() {
-    //     let self = this;
-    //     function animimation() {
-    //         const render = self._getRenderer();
-    //         if (render) {
-    //             // render.sync();
-    //         }
-    //         self.syncAnimation = requestAnimationFrame(animimation);
-    //     }
-    //     animimation();
-    // }
 
     DeckGLLayer.prototype.onRemove = function onRemove() {
         if (this.syncAnimation) cancelAnimationFrame(this.syncAnimation);
