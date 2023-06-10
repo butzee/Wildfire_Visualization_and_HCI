@@ -1,17 +1,3 @@
-// Renderer has access to the following:
-// Api variable from preload.js
-document.addEventListener("DOMContentLoaded", async () => {
-    console.log("Render test");
-    console.log(electronAPI.info());
-});
-
-// Send Message via exposed api from preload.js to main.js and receive answer
-const func = async () => {
-    const response = await window.electronAPI.ping();
-    console.log(response);
-}
-func();
-
 const buttonSQL = document.getElementById('queryButton');
 let yearsArray;
 
@@ -232,31 +218,25 @@ function changeMapType() {
 // Draw fires ----------------------------------------------------------
 
 function updateScatter(value) {
-    //Wenn deckgllayer schon vorhanden, dann löschen
     deckglLayer.setProps({
         layers: []
     });
     markerLayer.clear();
-    const data = [];
-    //const deckglLayer = new maptalks.DeckGLLayer('kkkk', { });
-    for (let i = 0; i < yearsArray[value].length; i++) {
-        const obj = {
-            firesize: yearsArray[value][i].FIRE_SIZE,
-            coordinates: [yearsArray[value][i].LONGITUDE, yearsArray[value][i].LATITUDE],
-            nwcg_general_cause: yearsArray[value][i].NWCG_GENERAL_CAUSE,
-            discovery_date: yearsArray[value][i].DISCOVERY_DATE,
-            cont_date: yearsArray[value][i].CONT_DATE,
-            nwcg_cause_classification: yearsArray[value][i].NWCG_CAUSE_CLASSIFICATION,
-            fire_name: yearsArray[value][i].FIRE_NAME,
-            state: yearsArray[value][i].STATE,
-            fire_size_class: yearsArray[value][i].FIRE_SIZE_CLASS,
-            nwcg_reporting_unit_name: yearsArray[value][i].NWCG_REPORTING_UNIT_NAME,
-            objectid: yearsArray[value][i].OBJECTID
-        };
-        data.push(obj);
-    }
 
-    //map.addLayer(deckglLayer);
+    const data = yearsArray[value].map((yearData) => ({
+        firesize: yearData.FIRE_SIZE,
+        coordinates: [yearData.LONGITUDE, yearData.LATITUDE],
+        nwcg_general_cause: yearData.NWCG_GENERAL_CAUSE,
+        discovery_date: yearData.DISCOVERY_DATE,
+        cont_date: yearData.CONT_DATE,
+        nwcg_cause_classification: yearData.NWCG_CAUSE_CLASSIFICATION,
+        fire_name: yearData.FIRE_NAME,
+        state: yearData.STATE,
+        fire_size_class: yearData.FIRE_SIZE_CLASS,
+        nwcg_reporting_unit_name: yearData.NWCG_REPORTING_UNIT_NAME,
+        objectid: yearData.OBJECTID
+      }));
+
     const COLOR_RANGE = [ // Farben für die Feuergröße
         [255, 165, 0],
         [204, 0, 0],
@@ -271,32 +251,22 @@ function updateScatter(value) {
         lightsStrength: [0.8, 0.0, 0.8, 0.0],
         numberOfLights: 2
     };
-    const getColor = d => {
+    const getColor = (d) => {
         const normalizedValue = (d.firesize - minFiresize) / (maxFiresize - minFiresize);
         const index = Math.floor(normalizedValue * (COLOR_RANGE.length - 1));
-        const color1 = COLOR_RANGE[index];
-        let color2;
-        if (index !== COLOR_RANGE.length - 1) {
-            color2 = COLOR_RANGE[index + 1];
-        } else {
-            color2 = COLOR_RANGE[index];
-        }
-
+        const [color1, color2 = COLOR_RANGE[index]] = COLOR_RANGE.slice(index, index + 2);
         const t = normalizedValue * (COLOR_RANGE.length - 1) - index;
-        const r = interpolate(color1[0], color2[0], t);
-        const g = interpolate(color1[1], color2[1], t);
-        const b = interpolate(color1[2], color2[2], t);
+        const interpolate = (a, b) => Math.round((1 - t) * a + t * b);
+        const r = interpolate(color1[0], color2[0]);
+        const g = interpolate(color1[1], color2[1]);
+        const b = interpolate(color1[2], color2[2]);
         return [r, g, b];
     };
-
-    function interpolate(a, b, t) {
-        return Math.round((1 - t) * a + t * b);
-    }
 
     const minFiresize = Math.min(...data.map(d => d.firesize));
     const maxFiresize = Math.max(...data.map(d => d.firesize));
     
-    const scale = Number(Array.from(document.querySelectorAll('#displaySizeDropdownContent input[type="checkbox"]:checked'))[0].value);
+    const scale = Number(document.querySelector('#displaySizeDropdownContent input[type="checkbox"]:checked').value);
 
     const scatterplotLayer = {
         layerType: 'ScatterplotLayer',
@@ -314,42 +284,41 @@ function updateScatter(value) {
         onClick: (info, event)  => {
             markerLayer.clear();
             var marker = new maptalks.Marker([info.object.coordinates[0], info.object.coordinates[1]]).addTo(markerLayer);
+            
+            const rows = [
+                { label: 'Object ID:', value: info.object.objectid },
+                { label: 'Firename:', value: info.object.fire_name },
+                { label: 'Discovery Date:', value: info.object.discovery_date },
+                { label: 'Containment Date:', value: info.object.cont_date },
+                { label: 'Longitude:', value: info.object.coordinates[0] },
+                { label: 'Latitude:', value: info.object.coordinates[1] },
+                { label: 'Firesize:', value: `${info.object.firesize}m<sup>2</sup>` },
+                { label: 'Fire Size Class:', value: info.object.fire_size_class },
+                { label: 'General Cause:', value: info.object.nwcg_general_cause },
+                { label: 'Classification:', value: info.object.nwcg_cause_classification },
+                { label: 'State:', value: info.object.state },
+                { label: 'Reporting Unit:', value: info.object.nwcg_reporting_unit_name }
+            ];
+
+            const tableContent = rows.map(row => `
+                <tr>
+                    <td class="tg-first-col"><b>${row.label}</b></td>
+                    <td class="tg-second-col">${row.value}</td>
+                </tr>
+            `).join('');
+            
+            const infoContent = `
+                <table class="tg">
+                    ${tableContent}
+                </table>
+            `;
+            
             marker.setInfoWindow({
                 'title'     : 'InfoWindow',
                 'autoCloseOn' : 'click',
                 'single' : true,
                 'custom' : true,
-                'content'   :
-                    '<table class="tg">'+
-                    '<thead>'+
-                    '<tr>'+
-                        '<td class="tg-first-col">' + "<b>Object ID:</b><br>"+info.object.objectid+'</td>'+
-                        '<td class="tg-second-col">' + "<br><b>Firename:</b><br>"+info.object.fire_name+'</td>'+
-                    '</tr>'+
-                    '</thead>'+
-                    '<tbody>'+
-                    '<tr>'+
-                        '<td class="tg-first-col">' + "<br><b>Discovery Date:</b><br>"+info.object.discovery_date +'</td>'+
-                        '<td class="tg-second-col">' + "<br><b>Containment Date:</b><br>"+info.object.cont_date +'</td>'+
-                    '</tr>'+
-                    '<tr>'+
-                        '<td class="tg-first-col">' + "<br><b>Longitude:</b><br>"+info.object.coordinates[0]+'</td>'+
-                        '<td class="tg-second-col">' + "<br><b>Latitude:</b><br>"+info.object.coordinates[1] +'</td>'+
-                    '</tr>'+
-                    '<tr>'+
-                        '<td class="tg-first-col">' + "<br><b>Firesize:</b><br>"+info.object.firesize + "m"+'<sup>2</sup></td>'+
-                        '<td class="tg-second-col">' + "<br><b>Fire Size Class:</b><br>"+info.object.fire_size_class +'</td>'+
-                    '</tr>'+
-                    '<tr>'+
-                        '<td class="tg-first-col">' + "<b>General Cause:</b><br>"+info.object.nwcg_general_cause +'</td>'+
-                        '<td class="tg-second-col">' + "<br><b>Classification:</b><br>"+info.object.nwcg_cause_classification +'</td>'+
-                    '</tr>'+
-                    '<tr>'+
-                        '<td class="tg-first-col">' + "<br><b>State:</b><br>"+info.object.state +'</td>'+
-                        '<td class="tg-second-col">' + "<b><br>Reporting Unit:</b><br>"+info.object.nwcg_reporting_unit_name +'</td>'+
-                    '</tr>'+
-                    '</tbody>'+
-                    '</table>'
+                'content': infoContent
             });
             marker.openInfoWindow();
         }
