@@ -76,6 +76,8 @@ function showLoadingAnimation() {
 }
 
 function getDate(day, year) {
+    console.log("TEST")
+  console.log(day, year)
   const date = new Date(year, 0);
   date.setDate(day);
   const options = { day: 'numeric', month: 'numeric', year: 'numeric' };
@@ -87,7 +89,7 @@ function updateTimeDisplay() {
     document.getElementById("current-year").innerText = "Current year: " + String(Number(document.getElementById('rangeSlider').value) + 1992);
   } else {
     const day = Number(document.getElementById('rangeSlider').value) + 1;
-    const year = Array.from(document.querySelectorAll('#yearDropdownContent input[type="checkbox"]')).map(cb => cb.value)[0];
+    const year = document.querySelector('#yearDropdownContent input[type="checkbox"]:checked').value
     document.getElementById("current-year").innerText = "Current date: " + getDate(day, year);
   }
 }
@@ -104,7 +106,8 @@ function displayNextAnimationState(state) {
 
 function play() {
   clearInterval(myTimer);
-  const maxValue = +d3.select("#rangeSlider").property("max");
+  const b = d3.select("#rangeSlider");
+  const maxValue = +b.property("max");
   const speed = Number(Array.from(document.querySelectorAll('#speedDropdownContent input[type="checkbox"]:checked'))[0].value);
   
   myTimer = setInterval(() => {
