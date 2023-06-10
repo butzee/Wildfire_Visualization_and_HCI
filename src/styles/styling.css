@@ -15,6 +15,14 @@ body, a {
     color: white;
 }
 
+main {
+    overflow-x: hidden;
+}
+
+#map, #map-controls, #bottombar, .topbar {
+    transition: opacity 1s ease-in-out;
+}
+  
 .sidebar, .topbar, .bottombar, .side-decorator {
     font-size: 1.5rem;
     text-shadow: 2px 0 0 #000, 0 -2px 0 #000, 0 2px 0 #000, -2px 0 0 #000;
@@ -33,7 +41,8 @@ body, a {
 }
 .side-decorator {
     font-weight: bold;
-    border: 3px solid #ffffff7a;
+    border-top: 3px solid #ffffff7a;
+    border-bottom: 3px solid #ffffff7a;
 }
 
 .sidebar ul li a{

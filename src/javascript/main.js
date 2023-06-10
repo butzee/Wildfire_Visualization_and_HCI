@@ -59,7 +59,7 @@ const createWindow = () => {
   ipcMain.handle('sql:getFires', getFiresHandler);
 
   // Load the map.html of the app
-  win.loadFile('src/pages/map.html');
+  win.loadFile('src/pages/index.html');
 }
 
 // Create the browser window when the app is ready

@@ -1,29 +1,64 @@
 <!DOCTYPE html>
 <html>
   <head>
-      <meta charset="UTF-8">
-      <title>Task!</title>
-      <meta name="viewport" content="width=device-width, initial-scale=1">
-      <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';" />
-      <link rel="stylesheet" type="text/css" href="../styles/styling.css">
-      <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <meta charset="UTF-8">
+    <title>Task</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="../styles/styling.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
   </head>
 
   <body>
     <main>
-      <div class="side">
-          <div class="side-decorator">Actions</div>
-          <nav aria-label="actions">
-              <button class="btn-sidebar" onclick="location.href='./task.html'">Task</button>
-              <button class="btn-sidebar" onclick="location.href='./overview.html'">Overview</button>
-              <button class="btn-sidebar" onclick="location.href='./map.html'" >Map</button>
-              <button class="btn-sidebar" onclick="location.href='./statistic.html'">Statistics</button>
-          </nav>
-      </div>
+      <div class="sidebar" style="border-right: 3px solid #ffffff7a;">
+        <div class="side-decorator">Navigation</div>
+        <nav class="sidebar_inner">
+          <ul>
+            <li>
+              <a href="./index.html">
+                <span class="material-symbols-outlined">home</span>
+                <span class="action">Home</span>
+              </a>
+            </li>
+            <li>
+              <a href="./task.html">
+                <span class="material-symbols-outlined">task</span>
+                <span class="action">Task</span>
+              </a>
+            </li>
+            <li>
+              <a href="./overview.html">
+                <span class="material-symbols-outlined">overview</span>
+                <span class="action">Manual</span>
+              </a>
+            </li>
+            <li>
+              <a href="./map.html">
+                <span class="material-symbols-outlined">map</span>
+                <span class="action">Map</span>
+              </a>
+            </li>
+            <li>
+              <a href="./map2.html">
+                <span class="material-symbols-outlined">map</span>
+                <span class="action">Map 2</span>
+              </a>
+            </li>
+            <!--  
+            <li class="last">
+              <a href="./map2.html">
+                <span class="material-symbols-outlined">monitoring</span>
+                <span class="action">Graphs</span>
+              </a>
+            </li>    
+            -->         
+          </ul>
+        </nav>
+    </div>
 
       <div class="main">
-          <div class="task">The Task.</div>
+        <div class="task">TASK</div>
       </div>
     </main>
 

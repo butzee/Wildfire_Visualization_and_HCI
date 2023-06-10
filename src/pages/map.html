@@ -12,57 +12,56 @@
       <script type="text/javascript" src="../../node_modules/maptalks/dist/maptalks.js"></script>
       <script src="https://cdn.jsdelivr.net/npm/deck.gl@7.1.11/dist.min.js"></script>
       <script type="text/javascript" src="../javascript/maptalks-deckgllayer.js"></script>
-
     </head>
   <body>
     <main>
-      <div class="sidebar">
-          <div class="side-decorator">Navigation</div>
-          <nav class="sidebar_inner">
-            <ul>
-              <li>
-                <a href="./index.html">
-                  <span class="material-symbols-outlined">home</span>
-                  <span class="action">Home</span>
-                </a>
-              </li>
-              <li>
-                <a href="./task.html">
-                  <span class="material-symbols-outlined">task</span>
-                  <span class="action">Task</span>
-                </a>
-              </li>
-              <li>
-                <a href="./overview.html">
-                  <span class="material-symbols-outlined">overview</span>
-                  <span class="action">Manual</span>
-                </a>
-              </li>
-              <li>
-                <a href="./map.html">
-                  <span class="material-symbols-outlined">map</span>
-                  <span class="action">Map</span>
-                </a>
-              </li>
-              <li>
-                <a href="./map2.html">
-                  <span class="material-symbols-outlined">map</span>
-                  <span class="action">Map 2</span>
-                </a>
-              </li>
-              <!--  
-              <li class="last">
-                <a href="./map2.html">
-                  <span class="material-symbols-outlined">monitoring</span>
-                  <span class="action">Graphs</span>
-                </a>
-              </li>    
-              -->         
-            </ul>
-          </nav>
-      </div>
+      <div id="sidebar" class="sidebar">
+        <div class="side-decorator">Navigation</div>
+        <nav class="sidebar_inner">
+          <ul>
+            <li>
+              <a onclick="changePage(event,'index.html')">
+                <span class="material-symbols-outlined">home</span>
+                <span class="action">Home</span>
+              </a>
+            </li>
+            <li>
+              <a onclick="changePage(event, 'task.html' )">
+                <span class="material-symbols-outlined">task</span>
+                <span class="action">Task</span>
+              </a>
+            </li>
+            <li>
+              <a onclick="changePage(event, 'overview.html')">
+                <span class="material-symbols-outlined">overview</span>
+                <span class="action">Manual</span>
+              </a>
+            </li>
+            <li>
+              <a onclick="changePage(event, 'map.html')">
+                <span class="material-symbols-outlined">map</span>
+                <span class="action">Map</span>
+              </a>
+            </li>
+            <li>
+              <a onclick="changePage(event, 'map2.html')">
+                <span class="material-symbols-outlined">map</span>
+                <span class="action">Map 2</span>
+              </a>
+            </li>
+            <!--  
+            <li class="last">
+              <a href="./map2.html">
+                <span class="material-symbols-outlined">monitoring</span>
+                <span class="action">Graphs</span>
+              </a>
+            </li>    
+            -->         
+          </ul>
+        </nav>
+    </div>
 
-      <div class="topbar">
+      <div class="topbar" style="opacity: 0;">
             <div class="dropdown" >
               <input type="hidden" class="dropdown-year" value="-1">
               <span class="dropdown-btn" onclick="toggleDropdown(event)" id="yearDropdownBtn">1. Select year</span>
@@ -101,7 +100,7 @@
             </div>
 
             <div class="dropdown">
-              <span class="dropdown-btn" class="action-button" onclick="toggleDropdown(event)"id="causeDropdownBtn">2. Select causes</span>
+              <span class="dropdown-btn action-button" onclick="toggleDropdown(event)"id="causeDropdownBtn">2. Select causes</span>
               <div class="dropdown-content" onmouseleave="hideDropdown(event)" id="causeDropdownContent">
                 <label><input type="checkbox" id="causeCheckbox" value="-1" onchange="handleCheckboxChangeCause(this)">All causes</label>
                 <label><input type="checkbox" value="Power generation/transmission/distribution" onchange="handleCheckboxChangeCause(this)">Power generation/ transmission/ distribution</label>
@@ -121,7 +120,7 @@
             </div>
 
             <div class="dropdown">
-              <span class="dropdown-btn" class="action-button" onclick="toggleDropdown(event)" id="sizeDropdownBtn">3. Select sizes</span>
+              <span class="dropdown-btn action-button" onclick="toggleDropdown(event)" id="sizeDropdownBtn">3. Select sizes</span>
               <div class="dropdown-content" onmouseleave="hideDropdown(event)" id="sizeDropdownContent">
                 <label><input type="checkbox" id="sizeCheckbox" value="-1" onchange="handleCheckboxChangeSize(this)">All sizes</label>
                 <label><input type="checkbox" value="A" onchange="handleCheckboxChangeSize(this)">A</label>
@@ -136,16 +135,16 @@
             <span id="queryButton" class="dropdown-btn2">Fetch Data</span>
       </div>
 
-      <div id="map" class ="main"></div>
+      <div id="map" class ="main" style="opacity: 0;"></div>
       
-      <div class="map-control-container">
+      <div id="map-controls" style="opacity: 0;" class="map-control-container">
         <button class="map-control" onclick="resizeMap()"><span class="material-symbols-outlined">resize</span></button>
         <button class="map-control" onclick="changeMapType()"><span class="material-symbols-outlined">layers</span></button>
       </div>
 
       <div id="load" class="loader-container"><div class="loader"></div></div>
 
-      <div class="bottom">
+      <div id="bottombar" class="bottom" style="opacity: 0;">
         <div aria-label="controls">
           <div class="dropdown">
             <span class="action-button" onclick="toggleDropdown(event)" style="padding: 0%;"><span class="material-symbols-rounded">aspect_ratio</span></button>
@@ -194,6 +193,13 @@
         displaySizeCheckbox.checked = true;
         const speedCheckbox = document.getElementById("defaultSpeedOption");
         speedCheckbox.checked = true;
+
+        const elementsToFadeIn = document.querySelectorAll(
+          "#map, #map-controls, #bottombar, .topbar"
+        );
+        elementsToFadeIn.forEach((element) => {
+          element.style.opacity = '1';
+        });
       });
 
       function toggleDropdown(event) {
@@ -209,6 +215,21 @@
         if (dropdown) {
           dropdown.classList.remove('show');
         }
+      }
+
+      function changePage(event, href) {        
+        event.preventDefault(); // Prevent the page from changing immediately
+        const elementsToMoveOut = document.querySelectorAll(
+          "#map, #map-controls, #bottombar, .topbar"
+        );
+        elementsToMoveOut.forEach((element) => {
+          element.style.opacity = '0';
+        });
+        const main = document.querySelector(".main");
+        main.addEventListener("transitionend", () => {
+          // Transition animation has finished, now navigate to the new page
+          window.location.href = href
+        });
       }
       </script>
   </body>
