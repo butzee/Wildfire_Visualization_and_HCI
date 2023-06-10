@@ -114,6 +114,18 @@
 
       <div class="bottom">
         <div aria-label="controls">
+          <div class="dropdown">
+          <span class="action-button" onclick="toggleDropdown(event)" style="padding: 0%;"><span class="material-symbols-rounded">aspect_ratio</span></button>
+            <div class="dropdown-content" style="bottom: 36px; min-width: 50px;" id="displaySizeDropdownContent">
+            <label>Displayed Firesize:</label>
+            <label><input type="checkbox" value="50" onchange="handleCheckboxChangeDisplaySize(this)">50x</label>
+            <label><input type="checkbox" value="25" onchange="handleCheckboxChangeDisplaySize(this)">25x</label>
+            <label><input type="checkbox" value="10" onchange="handleCheckboxChangeDisplaySize(this)">10x</label>
+            <label><input type="checkbox" value="5" onchange="handleCheckboxChangeDisplaySize(this)">5x</label>
+            <label><input type="checkbox" id="defaultSizeOption" value="1" onchange="handleCheckboxChangeDisplaySize(this)">1x</label>
+          </div>
+        </div>
+
           <button id="speedDropdownBtn" class="dropdown-btn" style="padding: 0%;"onclick="toggleDropdown('speed')"><span class="material-symbols-rounded">speed</span></button>
           <div class="dropdown-content" style="bottom: 36px; min-width: 50px;" id="speedDropdownContent">
             <label><input type="checkbox" value="2" onchange="handleCheckboxChangeSpeed(this)">2x</label>
@@ -142,7 +154,8 @@
         sizeCheckbox.checked = true;
         const yearCheckbox = document.getElementById("yearCheckbox");
         yearCheckbox.checked = true;
-
+        const displaySizeCheckbox = document.getElementById("defaultSizeOption");
+        displaySizeCheckbox.checked = true;
         const speedCheckbox = document.getElementById("defaultSpeedOption");
         speedCheckbox.checked = true;
       });

@@ -44,7 +44,7 @@ div[aria-label="filters"] {
 div[aria-label="controls"] {
   height: 100%;
   display: grid;
-  grid-template-columns: repeat(3, auto) 1fr;
+  grid-template-columns: repeat(4, auto) 1fr;
   grid-gap: 0.25rem;
 }
 
