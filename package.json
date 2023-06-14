@@ -4,6 +4,9 @@
   "description": "Electron App to visualize a dataset.",
   "main": "src/javascript/main.js",
   "build": {
+    "win": {
+      "icon": "./assets/fire.ico"
+    },
     "extraFiles": [
       {
         "from": "data.sqlite",

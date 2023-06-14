@@ -46,6 +46,7 @@ const createWindow = () => {
     'minHeight': 800,
     'maxWidth': 1500,
     'maxHeight': 800,
+    icon: __dirname + '/assets/fire.ico',
     webPreferences: {
         // Attaches script to Renderer Process
         preload: path.join(__dirname, './preload.js'),
