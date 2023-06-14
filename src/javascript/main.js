@@ -40,8 +40,12 @@ async function getFiresHandler(event, params) {
 // Open File: src/pages/map.html
 const createWindow = () => {
   const win = new BrowserWindow({
-    width: 1400,
+    width: 1500,
     height: 800,
+    'minWidth': 1500,
+    'minHeight': 800,
+    'maxWidth': 1500,
+    'maxHeight': 800,
     webPreferences: {
         // Attaches script to Renderer Process
         preload: path.join(__dirname, './preload.js'),

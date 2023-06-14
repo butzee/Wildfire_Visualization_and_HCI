@@ -4,10 +4,10 @@
   "description": "Electron App to visualize a dataset.",
   "main": "src/javascript/main.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "electron .",
     "rebuild": "electron-rebuild -f -w better-sqlite3",
-    "build": "electron-builder --win --x64"
+    "postinstall": "electron-builder install-app-deps",
+      "pack": "electron-builder -w"
   },
   "author": "Pascal",
   "license": "ISC",

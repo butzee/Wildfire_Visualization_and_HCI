@@ -16,7 +16,9 @@ function changePageMap(event, href) {
 function changePage(event, href) {
   event.preventDefault(); // Prevent the page from changing immediately
   const mainWindow = document.querySelector(".mainwindow");
-  mainWindow.style.opacity = '0'; // Fade out the main window
+  //border left invisible:
+
+  mainWindow.style.transform = 'translateY(-100%)';
 
   // Add the transitionend event listener to mainWindow
   mainWindow.addEventListener("transitionend", () => {

@@ -5,14 +5,14 @@
     <title>Home</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" href="../styles/styling2.css">
-    <link rel="stylesheet" type="text/css" href="../styles/home.css">
+    <link rel="stylesheet" type="text/css" href="../styles/pages.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
   </head>
 
   <body>
     <main>
-      <div class="sidebar">
+      <div class="sidebar" style="border-right: 3px solid #ffffff7a;">
           <div class="side-decorator">Navigation</div>
           <nav class="sidebar_inner">
             <ul>
@@ -44,12 +44,12 @@
           </nav>
       </div>
 
-      <div class="mainwindow" style="border-left: 3px solid #ffffff7a; opacity: 0;">
+      <div class="mainwindow">
         <div class="card-container">
           <div class="column-cards-container">
             <div class="card">
+              <div class="title">Motivation</div>
               <div class="container">
-                <h4><b>Motivation</b></h4> 
                 <p>As of the development of this application (June 2023), the city of New York is coated in thick red smoke.</p>
                 <p>The reason are huge wildfires, which in the last few years have almost become a normal part in the life of millions of americans.</p>
                 <p>Wildfires can become very dangerous for both nature and humans, especially since the rapid increase of temperatures, caused by climate change,
@@ -61,8 +61,8 @@
           </div>
           <div class="column-cards-container">
             <div class="card">
+              <div class="title">About the application</div>
               <div class="container">
-                <h4><b>About the application</b></h4>
                   <p>This application visualizes wildfires in the US from 1992 till 2020. It enables the rendering of either cumulated wildfires for each year, or even
                     wildfires for each day of a selected year.</p>
                   <p>It features the options to filter the rendered wildfires by a large set of causes, including e.g. arson, as well as burned acres.</p>
@@ -72,8 +72,8 @@
               </div>
             </div>
             <div class="card">
+              <div class="title">The dataset</div>
               <div class="container">
-                <h4><b>The dataset</b></h4>
                 <p>The application is based on the 6th version of the spatial wildfire occurence dataset, publicated by the U.S. Department of Agriculture.</p>
                 <p>Features include spatial location, wildfire size, date of occurence and containment of wildfires.</p>
                 <p>Source:<br/>Short, Karen C. 2022. Spatial wildfire occurrence data for the United States, 1992-2020 [FPA_FOD_20221014]. 6th Edition. Fort Collins, CO: Forest Service Research Data Archive. https://doi.org/10.2737/RDS-2013-0009.6</p>
@@ -89,7 +89,10 @@
     <script>
       document.addEventListener("DOMContentLoaded", function() {
         const mainWindow = document.querySelector(".mainwindow");
-        mainWindow.style.opacity = '1'; // Fade out the main window
+        mainWindow.style.transform = 'translateY(-100%)';
+        setTimeout(function() {
+          mainWindow.style.transform = 'translateY(0%)';
+        }, 100);
       });
     </script>
 
