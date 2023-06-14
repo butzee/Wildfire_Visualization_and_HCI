@@ -4,7 +4,7 @@
       <meta charset="UTF-8">
       <title>US Wildfire History</title>
       <meta name="viewport" content="width=device-width, initial-scale=1">
-      <link rel="stylesheet" type="text/css" href="../styles/styling.css">
+      <link rel="stylesheet" type="text/css" href="../styles/map.css">
       <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
       <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
       <link rel="stylesheet" href="../../node_modules/maptalks/dist/maptalks.css">
@@ -134,7 +134,7 @@
       <div id="bottombar" class="bottom">
         <div aria-label="controls">
           <div class="dropdown">
-            <span class="dropdown-btn" onclick="toggleDropdown(event)" style="padding: 0%;"><span class="material-symbols-rounded">circles</span></button>
+            <span onclick="toggleDropdown(event)" style="padding: 0%;"><span class="material-symbols-rounded buttomUp">circles</span></button>
             <div class="dropdown-content" onmouseleave="hideDropdown(event)" style="bottom: 100%; min-width: 80px; overflow: hidden;" id="displaySizeDropdownContent">
               <label>Displayed Firesize:</label>
               <label><input type="checkbox" value="50" onchange="handleCheckboxChangeDisplaySize(this)">50x</label>
@@ -146,7 +146,7 @@
           </div>
 
           <div class="dropdown" >
-            <span class="dropdown-btn" onclick="toggleDropdown(event)" style="padding: 0%; height: 24px; width: 24px;"><span class="material-symbols-rounded">speed</span></span>
+            <span onclick="toggleDropdown(event)" style="padding: 0%; height: 24px; width: 24px;"><span class="material-symbols-rounded dropup buttomUp">speed</span></span>
             <div class="dropdown-content" onmouseleave="hideDropdown(event)" style="bottom: 100%; min-width: 80px;overflow: hidden;" id="speedDropdownContent">
               <label>Animation Speed:</label> 
               <label><input type="checkbox" value="2" onchange="handleCheckboxChangeSpeed(this)">2x</label>
