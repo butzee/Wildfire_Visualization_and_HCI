@@ -7,6 +7,12 @@
     "win": {
       "icon": "./assets/fire.ico"
     },
+    "mac": {
+      "icon": "./assets/fire.icns"
+    },
+    "linux": {
+      "icon": "./assets/fire.png"
+    },
     "extraFiles": [
       {
         "from": "data.sqlite",
@@ -18,7 +24,7 @@
     "start": "electron .",
     "rebuild": "electron-rebuild -f -w better-sqlite3",
     "postinstall": "electron-builder install-app-deps",
-    "build": "electron-builder --win --x64"
+    "build": "electron-builder --linux --mac --win --x64"
   },
   "author": "Pascal",
   "license": "ISC",
