@@ -108,15 +108,15 @@
 
             <div class="dropdown">
               <span class="dropdown-btn action-button" onclick="toggleDropdown(event)" id="sizeDropdownBtn">3. Select sizes</span>
-              <div class="dropdown-content" onmouseleave="hideDropdown(event)" id="sizeDropdownContent">
+              <div class="dropdown-content" onmouseleave="hideDropdown(event)" id="sizeDropdownContent" style="width: 220px;">
                 <label><input type="checkbox" id="sizeCheckbox" value="-1" onchange="handleCheckboxChangeSize(this)">All sizes</label>
-                <label><input type="checkbox" value="A" onchange="handleCheckboxChangeSize(this)">A</label>
-                <label><input type="checkbox" value="B" onchange="handleCheckboxChangeSize(this)">B</label>
-                <label><input type="checkbox" value="C" onchange="handleCheckboxChangeSize(this)">C</label>
-                <label><input type="checkbox" value="D" onchange="handleCheckboxChangeSize(this)">D</label>
-                <label><input type="checkbox" value="E" onchange="handleCheckboxChangeSize(this)">E</label>
-                <label><input type="checkbox" value="F" onchange="handleCheckboxChangeSize(this)">F</label>
-                <label><input type="checkbox" value="G" onchange="handleCheckboxChangeSize(this)">G</label>
+                <label><input type="checkbox" value="A" onchange="handleCheckboxChangeSize(this)">A (&lt;= 0.25 acres)</label>
+                <label><input type="checkbox" value="B" onchange="handleCheckboxChangeSize(this)">B (0.26-9.9 acres)</label>
+                <label><input type="checkbox" value="C" onchange="handleCheckboxChangeSize(this)">C (10.0-99.9 acres)</label>
+                <label><input type="checkbox" value="D" onchange="handleCheckboxChangeSize(this)">D (100-299 acres)</label>
+                <label><input type="checkbox" value="E" onchange="handleCheckboxChangeSize(this)">E (300-999 acres)</label>
+                <label><input type="checkbox" value="F" onchange="handleCheckboxChangeSize(this)">F (1000-4999 acres)</label>
+                <label><input type="checkbox" value="G" onchange="handleCheckboxChangeSize(this)">G (5000+ acres)</label>
               </div>
             </div>
             <span id="queryButton" class="dropdown-btn2">Fetch Data</span>
