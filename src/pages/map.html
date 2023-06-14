@@ -57,10 +57,6 @@
         </nav>
     </div>
       <div class="topbar" style="opacity: 0;">
-            <label class="switch" style="width: 5rem; height: 1.5rem;">
-              <input type="checkbox" onclick="checkMapType()" checked>
-              <span class="slider round"></span>
-            </label>
             <div class="dropdown" >
               <input type="hidden" class="dropdown-year" value="-1">
               <span class="dropdown-btn" onclick="toggleDropdown(event)" id="yearDropdownBtn">1. Select year</span>
@@ -139,6 +135,7 @@
       <div id="map-controls" style="opacity: 0;" class="map-control-container">
         <button class="map-control" onclick="resizeMap()"><span class="material-symbols-outlined">resize</span></button>
         <button class="map-control" onclick="changeMapType()"><span class="material-symbols-outlined">layers</span></button>
+        <button class="map-control" onclick="changeDisplayType()"><span id="display" class="material-symbols-outlined">scatter_plot</span></button>
       </div>
 
       <div id="load" class="loader-container"><div class="loader"></div></div>
