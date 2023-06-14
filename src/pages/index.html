@@ -5,6 +5,7 @@
     <title>Home</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" href="../styles/styling2.css">
+    <link rel="stylesheet" type="text/css" href="../styles/home.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
   </head>
@@ -38,28 +39,44 @@
                   <span class="material-symbols-outlined">map</span>
                   <span class="action">Map</span>
                 </a>
-              </li>
-              <!--  
-              <li class="last">
-                <a href="./map2.html">
-                  <span class="material-symbols-outlined">monitoring</span>
-                  <span class="action">Graphs</span>
-                </a>
               </li>    
-              -->         
             </ul>
           </nav>
       </div>
 
       <div class="mainwindow" style="border-left: 3px solid #ffffff7a; opacity: 0;">
-        <div class="index">HOME
-          <br>
-          asdfasdf
-          <br>  
-          asdfasdf
-
-          asdfasdf
-
+        <div class="card-container">
+          <div class="column-cards-container">
+            <div class="card">
+              <div class="container">
+                <h4><b>Task</b></h4> 
+                <p>This project was developed from the task to create an interactive visualization application, which originated from the Lecture "Visualization and HCI".</p>
+                <p>Therefore, a more complex application was required, stretching beyond static illustrations and simple graph, which is why this program enables highly
+                  interactive visualizations of the underlying data, including customizable scaling, playback speed and filtering options.</p>
+                <p>The design, project idea and user experience orignated from the Five Design-Sheet methodology, which was mandatory in order to pass the module.</p>
+              </div>
+            </div>
+          </div>
+          <div class="column-cards-container">
+            <div class="card">
+              <div class="container">
+                <h4><b>Problems</b></h4>
+                <p>The major problem of this project was the size of the underlying dataset, spanning 2.3 million database rows. A visualization of wildfires per year, each
+                  year being display for one second, would therefore require loading and rendering over 80.000 data points in under half a second.</p>
+                <p>If the whole thing would've taken longer, the end-user wouldn't be able to really observe any data.</p>
+                <p>Another problem was missing data for a big portion of the fires, which had to be either imputed or removed.</p>
+              </div>
+            </div>
+            <div class="card">
+              <div class="container">
+                <h4><b>Techniques</b></h4>
+                <p>To enable a seamless user experience, the JavaScript library Maptalks was used to illustrate the map and allow the robust rendering of a large quantity of data.</p>
+                <p>The application also utilizes special DeckGL plugin for Maptalks, which makes the rendering of thousand of datapoints per second possible.</p>
+                <p>Only this, and a prefetching of exactly the data needed for the current visualization, brings the smooth illustration of 2.3 million wildfires to
+                  almost any computer.</p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </main>
