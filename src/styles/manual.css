@@ -14,9 +14,10 @@
 .feature-container .card {
     flex-grow: 2;
     margin-right: 2%;
+    height: 350px;
 }
 
 img {
-    max-height: 500px;
+    max-height: 450px;
     width: auto;
 }
