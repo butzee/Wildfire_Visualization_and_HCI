@@ -139,7 +139,7 @@ main {
 .dropdown {
     position: relative;
     display: inline-block;
-  }
+}
 
 .dropdown-btn, .dropdown-btn2, #current-year   {
     background:#627488;
@@ -195,11 +195,11 @@ main {
     }
 }
 
-.dropdown-btn:hover, .action-button:hover {
+.dropdown-btn:hover {
     animation: glow 0.4s ease-in-out  forwards;
 }
 
-.dropdown-btn:active, .action-button:active {
+.dropdown-btn:active {
     animation: glow-active 0.4s ease-in-out  forwards;
 }
 
