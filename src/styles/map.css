@@ -274,6 +274,10 @@ label:hover {
     animation: glowBtnUp 0.4s ease-in-out  forwards;
 }
 
+.dropdown .material-symbols-rounded {
+    vertical-align: middle;
+  }
+
 @keyframes glowBtnUp {
     0% {
         box-shadow: 0 0 2px 1px #88A1BD22;

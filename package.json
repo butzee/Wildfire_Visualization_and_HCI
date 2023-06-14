@@ -3,11 +3,19 @@
   "version": "1.0.0",
   "description": "Electron App to visualize a dataset.",
   "main": "src/javascript/main.js",
+  "build": {
+    "extraFiles": [
+      {
+        "from": "data.sqlite",
+        "to": "./resources/."
+      }
+    ]
+  },
   "scripts": {
     "start": "electron .",
     "rebuild": "electron-rebuild -f -w better-sqlite3",
     "postinstall": "electron-builder install-app-deps",
-      "pack": "electron-builder -w"
+    "build": "electron-builder --win --x64"
   },
   "author": "Pascal",
   "license": "ISC",
