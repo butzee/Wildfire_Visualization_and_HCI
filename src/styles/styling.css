@@ -224,6 +224,7 @@ main {
     transform: translateX(-50%);
     margin-top: 10px;
   }
+  
 input[type="checkbox"] {
     outline: 2px solid black;
     background-color: #88A1BD;

@@ -22,14 +22,11 @@ main {
 }
 
 .mainwindow {
-    transition: opacity 1s ease-in-out;
-}
-
-
-.mainwindow {
     display:flex;
     height: 100%;
     width: calc(100% - 13rem);
+    transition: transform 2s, opacity 3s;
+    transform: translateY(-100%);
 }
 
 .sidebar, .side-decorator {
@@ -136,13 +133,35 @@ main {
 }
 
 /* SIDEBAR ENDE */
-
-.column-cards-container {
-    padding-left: 2rem;
+.card-container {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    overflow-y: hidden;
 }
 
+
+.column-cards-container {
+    padding: 1rem;
+}
+
+.card {   
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.title {
+    width: 100%;
+    text-align: center;
+    border-bottom: 1px solid white;
+    font-weight: bold;
+    font-size: large;
+}
 /*Cards sind scrollable mit fester höhe */
 .container {
     height: 100%;
     overflow-y: auto;
+    text-align: justify;
 }

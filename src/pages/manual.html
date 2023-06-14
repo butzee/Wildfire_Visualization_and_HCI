@@ -5,6 +5,7 @@
     <title>Manual</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" href="../styles/styling2.css">
+    <link rel="stylesheet" type="text/css" href="../styles/pages.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
   </head>
@@ -52,8 +53,11 @@
     <script>
       document.addEventListener("DOMContentLoaded", function() {
         const mainWindow = document.querySelector(".mainwindow");
-        mainWindow.style.opacity = '1'; // Fade out the main window
+        mainWindow.style.transform = 'translateY(-100%)';
+        setTimeout(function() {
+          mainWindow.style.transform = 'translateY(0%)';
+        }, 100);
       });
-      </script>
+    </script>
   </body>
 </html>
