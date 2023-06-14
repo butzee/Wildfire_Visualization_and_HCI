@@ -5,10 +5,10 @@
   "main": "src/javascript/main.js",
   "build": {
     "win": {
-      "icon": "./assets/fire.ico"
+      "icon": "./assets/fire.png"
     },
     "mac": {
-      "icon": "./assets/fire.icns"
+      "icon": "./assets/fire.png"
     },
     "linux": {
       "icon": "./assets/fire.png"
