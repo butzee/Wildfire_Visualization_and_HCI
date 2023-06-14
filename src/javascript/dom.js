@@ -12,6 +12,11 @@ buttonSQL.addEventListener('click', async () => {
   const year = getSelectedValues('#yearDropdownContent input[type="checkbox"]');
   const causeOptions = getSelectedValues('#causeDropdownContent input[type="checkbox"]');
   const sizeOptions = getSelectedValues('#sizeDropdownContent input[type="checkbox"]');
+  var button = document.getElementById("displayType");
+  if (button.classList.contains('disabled')) {
+    button.classList.remove('disabled');
+    button.style.color = "white";
+  }
   try {
     showLoadingAnimation();
     yearsArray = await window.electronAPI.getFires(year, causeOptions, sizeOptions);

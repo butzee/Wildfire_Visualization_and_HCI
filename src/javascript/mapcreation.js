@@ -59,11 +59,14 @@ map.on('click', function (e) {
 })
 
 function changeDisplayType() {
-  scatter = !scatter;
-  map.removeLayer(scatter ? clusterLayer : [deckglLayer, markerLayer]);
-  map.addLayer(scatter ? [deckglLayer, markerLayer] : clusterLayer);
-  scatter ? updateScatter(document.getElementById('rangeSlider').value) : updateCluster(document.getElementById('rangeSlider').value);
-  scatter ? document.getElementById("display").innerHTML = "scatter_plot" : document.getElementById("display").innerHTML = "circles";
+  var button = document.getElementById("displayType");
+  if (!button.classList.contains('disabled')) {
+    scatter = !scatter;
+    map.removeLayer(scatter ? clusterLayer : [deckglLayer, markerLayer]);
+    map.addLayer(scatter ? [deckglLayer, markerLayer] : clusterLayer);
+    scatter ? updateScatter(document.getElementById('rangeSlider').value) : updateCluster(document.getElementById('rangeSlider').value);
+    scatter ? document.getElementById("display").innerHTML = "scatter_plot" : document.getElementById("display").innerHTML = "circles";
+  }
 }
 
   // Controls

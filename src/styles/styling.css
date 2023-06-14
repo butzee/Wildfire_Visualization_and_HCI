@@ -320,13 +320,10 @@ label:hover {
     justify-content: center;
   }
   
-  .map-control:hover {
+  .map-control:hover:not(.disabled) {
     border: 2px solid white;
   }
   
-
-
-
 /* Buttons */
 
 button {

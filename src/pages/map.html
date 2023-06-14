@@ -44,15 +44,7 @@
                 <span class="material-symbols-outlined">map</span>
                 <span class="action">Map</span>
               </a>
-            </li>
-            <!--  
-            <li class="last">
-              <a href="./map2.html">
-                <span class="material-symbols-outlined">monitoring</span>
-                <span class="action">Graphs</span>
-              </a>
             </li>    
-            -->         
           </ul>
         </nav>
     </div>
@@ -130,12 +122,12 @@
             <span id="queryButton" class="dropdown-btn2">Fetch Data</span>
       </div>
 
-      <div id="map" class ="main" style="opacity: 0;"></div>
+      <div id="map" class ="main" style="opacity:0;"></div>
       
       <div id="map-controls" style="opacity: 0;" class="map-control-container">
         <button class="map-control" onclick="resizeMap()"><span class="material-symbols-outlined">resize</span></button>
         <button class="map-control" onclick="changeMapType()"><span class="material-symbols-outlined">layers</span></button>
-        <button class="map-control" onclick="changeDisplayType()"><span id="display" class="material-symbols-outlined">scatter_plot</span></button>
+        <button class="map-control disabled" id="displayType" onclick="changeDisplayType()" style="color: grey;"><span id="display" class="material-symbols-outlined">scatter_plot</span></button>
       </div>
 
       <div id="load" class="loader-container"><div class="loader"></div></div>
