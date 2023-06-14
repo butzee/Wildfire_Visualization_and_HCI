@@ -6,17 +6,18 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "electron .",
-    "rebuild": "electron-rebuild -f -w better-sqlite3"
+    "rebuild": "electron-rebuild -f -w better-sqlite3",
+    "build": "electron-builder --win --x64"
   },
   "author": "Pascal",
   "license": "ISC",
   "devDependencies": {
     "electron": "^24.1.2",
+    "electron-builder": "^23.6.0",
     "electron-rebuild": "^3.2.9"
   },
   "dependencies": {
     "better-sqlite3": "^8.4.0",
-    "electron-builder": "^24.2.1",
     "maptalks": "^1.0.0-rc.20",
     "maptalks.markercluster": "^0.8.5",
     "node-gyp": "^9.3.1",

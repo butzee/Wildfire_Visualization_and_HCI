@@ -5,6 +5,7 @@
       <title>US Wildfire History</title>
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <link rel="stylesheet" type="text/css" href="../styles/styling.css">
+      <link rel="stylesheet" type="text/css" href="../styles/toggle.css">
       <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
       <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
       <link rel="stylesheet" href="../../node_modules/maptalks/dist/maptalks.css">
@@ -12,6 +13,7 @@
       <script type="text/javascript" src="../../node_modules/maptalks/dist/maptalks.js"></script>
       <script src="https://cdn.jsdelivr.net/npm/deck.gl@7.1.11/dist.min.js"></script>
       <script type="text/javascript" src="../javascript/maptalks-deckgllayer.js"></script>
+      <script type="text/javascript" src="../../node_modules/maptalks.markercluster/dist/maptalks.markercluster.min.js"></script>
     </head>
   <body>
     <main>
@@ -43,12 +45,6 @@
                 <span class="action">Map</span>
               </a>
             </li>
-            <li>
-              <a onclick="changePage(event, 'map2.html')">
-                <span class="material-symbols-outlined">map</span>
-                <span class="action">Map 2</span>
-              </a>
-            </li>
             <!--  
             <li class="last">
               <a href="./map2.html">
@@ -60,8 +56,11 @@
           </ul>
         </nav>
     </div>
-
       <div class="topbar" style="opacity: 0;">
+            <label class="switch" style="width: 5rem; height: 1.5rem;">
+              <input type="checkbox" onclick="checkMapType()" checked>
+              <span class="slider round"></span>
+            </label>
             <div class="dropdown" >
               <input type="hidden" class="dropdown-year" value="-1">
               <span class="dropdown-btn" onclick="toggleDropdown(event)" id="yearDropdownBtn">1. Select year</span>
@@ -177,60 +176,12 @@
       <div id="updateScatterHelper"></div>
     </main>
     
-    <script src="../javascript/renderer.js"></script>
     <script src="../javascript/controls.js"></script>
-    
-    <script>
-      document.addEventListener("DOMContentLoaded", function() {
-        // Pre-click the checkbox
-        const causeCheckbox = document.getElementById("causeCheckbox");
-        causeCheckbox.checked = true;
-        const sizeCheckbox = document.getElementById("sizeCheckbox");
-        sizeCheckbox.checked = true;
-        const yearCheckbox = document.getElementById("yearCheckbox");
-        yearCheckbox.checked = true;
-        const displaySizeCheckbox = document.getElementById("defaultSizeOption");
-        displaySizeCheckbox.checked = true;
-        const speedCheckbox = document.getElementById("defaultSpeedOption");
-        speedCheckbox.checked = true;
-
-        const elementsToFadeIn = document.querySelectorAll(
-          "#map, #map-controls, #bottombar, .topbar"
-        );
-        elementsToFadeIn.forEach((element) => {
-          element.style.opacity = '1';
-        });
-      });
-
-      function toggleDropdown(event) {
-        var dropdown = event.target.closest('.dropdown').querySelector('.dropdown-content');
-        if (dropdown) {
-          dropdown.classList.toggle('show');
-        }
-      }
-
-      function hideDropdown(event) {
-        var dropdown = event.target.closest('.dropdown').querySelector('.dropdown-content');
-
-        if (dropdown) {
-          dropdown.classList.remove('show');
-        }
-      }
-
-      function changePage(event, href) {        
-        event.preventDefault(); // Prevent the page from changing immediately
-        const elementsToMoveOut = document.querySelectorAll(
-          "#map, #map-controls, #bottombar, .topbar"
-        );
-        elementsToMoveOut.forEach((element) => {
-          element.style.opacity = '0';
-        });
-        const main = document.querySelector(".main");
-        main.addEventListener("transitionend", () => {
-          // Transition animation has finished, now navigate to the new page
-          window.location.href = href
-        });
-      }
-      </script>
+    <script src="../javascript/cluster.js" type="text/javascript"></script>
+    <script src="../javascript/scatterplot.js" type="text/javascript"></script>
+    <script src="../javascript/dom.js" type="text/javascript"></script>
+    <script src="../javascript/mapcreation.js" type="text/javascript"></script>
+    <script src="../javascript/mapchange.js" type="text/javascript"></script>
+    <script src="../javascript/onload.js" type="text/javascript"></script>
   </body>
 </html>

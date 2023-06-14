@@ -1,6 +1,6 @@
 const { app, BrowserWindow, ipcMain} = require('electron')
 const path = require('path')
-const testMgr = require('../../models/testmgr');
+const testMgr = require('../models/testmgr');
 
 async function getFiresHandler(event, params) {
   try {
@@ -59,7 +59,7 @@ const createWindow = () => {
   ipcMain.handle('sql:getFires', getFiresHandler);
 
   // Load the map.html of the app
-  win.loadFile('src/pages/index.html');
+  win.loadFile('src/pages/map.html');
 }
 
 // Create the browser window when the app is ready
