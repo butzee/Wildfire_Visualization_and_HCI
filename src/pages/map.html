@@ -134,7 +134,7 @@
       <div id="bottombar" class="bottom">
         <div aria-label="controls">
           <div class="dropdown">
-            <span onclick="toggleDropdown(event)" style="padding: 0%;"><span class="material-symbols-rounded buttomUp">circles</span></button>
+            <span class="material-symbols-rounded dropUp-btn" onclick="toggleDropdown(event)" c>circles</span>
             <div class="dropdown-content" onmouseleave="hideDropdown(event)" style="bottom: 100%; min-width: 80px; overflow: hidden;" id="displaySizeDropdownContent">
               <label>Displayed Firesize:</label>
               <label><input type="checkbox" value="50" onchange="handleCheckboxChangeDisplaySize(this)">50x</label>
@@ -146,7 +146,7 @@
           </div>
 
           <div class="dropdown" >
-            <span onclick="toggleDropdown(event)" style="padding: 0%; height: 24px; width: 24px;"><span class="material-symbols-rounded dropup buttomUp">speed</span></span>
+            <span class="material-symbols-rounded dropUp-btn" onclick="toggleDropdown(event)" >speed</span>
             <div class="dropdown-content" onmouseleave="hideDropdown(event)" style="bottom: 100%; min-width: 80px;overflow: hidden;" id="speedDropdownContent">
               <label>Animation Speed:</label> 
               <label><input type="checkbox" value="2" onchange="handleCheckboxChangeSpeed(this)">2x</label>
@@ -157,8 +157,8 @@
             </div>
           </div>
 
-          <span id="start_pause" class="dropdown-btn2" style="padding: 0%; height: 24px; width: 24px;"><span class="material-symbols-rounded">play_arrow</span></span>
-          <span id="stop" class="dropdown-btn2" style="padding: 0%; height: 24px; width: 24px;"><span class="material-symbols-rounded">stop</span></span>
+          <span id="start_pause" class="dropdown-btn2" style="padding:0px; height: 24px; width: 24px;"><span class="material-symbols-rounded">play_arrow</span></span>
+          <span id="stop" class="dropdown-btn2" style="padding:0px;height: 24px; width: 24px;"><span class="material-symbols-rounded">stop</span></span>
           <input id="rangeSlider" type="range" name="range" min="0" max="30" step="1" value="0">
       </div>
       <div id="updateScatterHelper"></div>
