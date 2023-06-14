@@ -27,6 +27,7 @@ buttonSQL.addEventListener('click', async () => {
   } catch (error) {
     console.error(error);
   }
+  stopButton.on("click")();
   scatter ? updateScatter(0) : updateCluster(0);
   updateTimeDisplay();
 });
