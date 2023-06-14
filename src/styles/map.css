@@ -223,6 +223,7 @@ main {
     left: 50%;
     transform: translateX(-50%);
     margin-top: 10px;
+    border-radius: .375rem;
   }
 
 input[type="checkbox"] {
@@ -396,6 +397,7 @@ main {
     justify-content: center;
     align-items: center;
     display: none;
+    background-color: rgba(128, 128, 128, 0.5);
 }
 
 .loader-container.show-options {
