@@ -12,12 +12,12 @@
 
   <body>
     <main>
-      <div id="sidebar" class="sidebar">
+      <div class="sidebar">
           <div class="side-decorator">Navigation</div>
           <nav class="sidebar_inner">
             <ul>
               <li>
-                <a onclick="changePage(event,'index.html')">
+                <a onclick="changePage(event,'home.html')">
                   <span class="material-symbols-outlined">home</span>
                   <span class="action">Home</span>
                 </a>
@@ -29,7 +29,7 @@
                 </a>
               </li>
               <li>
-                <a onclick="changePage(event, 'overview.html')">
+                <a onclick="changePage(event, 'manual.html')">
                   <span class="material-symbols-outlined">overview</span>
                   <span class="action">Manual</span>
                 </a>
@@ -81,26 +81,14 @@
       </div>
     </main>
 
-    <script src="../../renderer.js"></script>
+    <script src="../javascript/mapchange.js"></script>
 
     <script>
       document.addEventListener("DOMContentLoaded", function() {
         const mainWindow = document.querySelector(".mainwindow");
         mainWindow.style.opacity = '1'; // Fade out the main window
       });
-      
-      function changePage(event, href) {
-        event.preventDefault(); // Prevent the page from changing immediately
-        const mainWindow = document.querySelector(".mainwindow");
-        mainWindow.style.opacity = '0'; // Fade out the main window
-
-        // Add the transitionend event listener to mainWindow
-        mainWindow.addEventListener("transitionend", () => {
-          // Transition animation has finished, now navigate to the new page
-          window.location.href = href
-        });
-      }
-      </script>
+    </script>
 
   </body>
 </html>

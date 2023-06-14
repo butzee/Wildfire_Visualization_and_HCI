@@ -136,3 +136,13 @@ main {
 }
 
 /* SIDEBAR ENDE */
+
+.column-cards-container {
+    padding-left: 2rem;
+}
+
+/*Cards sind scrollable mit fester höhe */
+.container {
+    height: 100%;
+    overflow-y: auto;
+}
