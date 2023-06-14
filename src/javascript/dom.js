@@ -9,6 +9,7 @@ let isDragging = false;
 let myTimer;
 
 buttonSQL.addEventListener('click', async () => {
+  stopButton.on("click")();
   const year = getSelectedValues('#yearDropdownContent input[type="checkbox"]');
   const causeOptions = getSelectedValues('#causeDropdownContent input[type="checkbox"]');
   const sizeOptions = getSelectedValues('#sizeDropdownContent input[type="checkbox"]');
