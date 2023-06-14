@@ -24,7 +24,7 @@ class TimelineButton {
       if (value === this.maxValue) {
         clearInterval(this.timer);
       }
-    }, 1000);
+    }, 1500/timefactor);
   }
 }
 
@@ -102,6 +102,8 @@ function handleCheckboxChangeSpeed(checkbox) {
     normalSpeedCheckbox.checked = true;
   }
   d3.select("#updateScatterHelper").on("click")();
+  d3.select("#start_pause").on("click")();
+  d3.select("#start_pause").on("click")();
 }
 
 function handleCheckboxChangeDisplaySize(checkbox) {
@@ -148,6 +150,7 @@ const updateYearDisplay = () => {
 function timelineYearly() {
   clearInterval(myTimer);
   let b = d3.select("#rangeSlider");
+  const speed = Number(Array.from(document.querySelectorAll('#speedDropdownContent input[type="checkbox"]:checked'))[0].value);
   b.property("min", 0)
   b.property("max", 30)
   let maxValue = +b.property("max");
@@ -158,13 +161,14 @@ function timelineYearly() {
     if (value === maxValue) {
       clearInterval(myTimer);
     }
-  }, 1500);
+  }, 1500/speed);
 }
 
 function timelineYear() {
   // Zeitleiste im täglichen Modus
   clearInterval(myTimer);
   let b = d3.select("#rangeSlider");
+  const speed = Number(Array.from(document.querySelectorAll('#speedDropdownContent input[type="checkbox"]:checked'))[0].value);
   b.property("min", 1)
   b.property("max", 365) // Slider geht über jeden Tag des Jahres
   let maxValue = +b.property("max");
@@ -174,5 +178,5 @@ function timelineYear() {
     if (value === maxValue) {
       clearInterval(myTimer);
     }
-  }, 1000);
+  }, 1500/speed);
 }

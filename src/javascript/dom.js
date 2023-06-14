@@ -123,7 +123,7 @@ function play() {
     } else {
         b.property("value", value);
     }
-  }, 1000 / speed);
+  }, 1000/speed);
 }
 
 function pause() {
