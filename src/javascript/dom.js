@@ -146,7 +146,6 @@ function toggleDropdown(event) {
 
 function hideDropdown(event) {
   var dropdown = event.target.closest('.dropdown').querySelector('.dropdown-content');
-
   if (dropdown) {
     dropdown.classList.remove('show');
   }

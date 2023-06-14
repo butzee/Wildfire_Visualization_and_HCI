@@ -213,7 +213,7 @@ main {
 
 .dropdown-content {
     display: none;
-    position: absolute ;
+    position: absolute;
     width: 160px;
     padding: 12px 16px;
     z-index: 1;
@@ -225,7 +225,7 @@ main {
     margin-top: 10px;
     border-radius: .375rem;
   }
-  
+
 input[type="checkbox"] {
     outline: 2px solid black;
     background-color: #88A1BD;
@@ -240,10 +240,6 @@ input[type="checkbox"] {
     box-shadow: 0 0 10px 5px #88A1BD;
 }
 
-.dropdown {
-    position: relative;
-}
-  
 
 label {
     display: block;
@@ -252,7 +248,6 @@ label {
 }
 
 label:hover {
-    font-weight: bold;
     border-color: #5484EB;
     box-shadow: 0 0 10px 10px #5484EB;
 }
@@ -263,8 +258,44 @@ label:hover {
 
 
 /* TOPBAR ENDE */
+.dropUp {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+}
 
+.dropUp-btn {
+    background:#627488;
+    border-radius: .375rem;
+    padding: 1px 1px;
+}
 
+.dropUp-btn:hover {
+    animation: glowBtnUp 0.4s ease-in-out  forwards;
+}
+
+@keyframes glowBtnUp {
+    0% {
+        box-shadow: 0 0 2px 1px #88A1BD22;
+        background-color: #88A1BD13;
+    }
+    25% {
+        box-shadow: 0 0 4px 2px #88A1BD4c;
+        background-color: #88A1BD4c;
+    }
+    50% {
+        box-shadow: 0 0 6px 3px #88A1BD72;
+        background-color: #88A1BD7c;
+    }
+    75% {
+        box-shadow: 0 0 8px 4px #88A1BDba;
+        background-color: #88A1BDbb;
+    }
+    100% {
+        box-shadow: 0 0 10px 5px #88A1BD;;
+        background-color: #88A1BD;;
+    }
+}
 .bottom {
     padding: 1rem;
   }
@@ -299,7 +330,7 @@ label:hover {
     font-family: sans-serif;
   }
   
-  /* Map Control Container */
+ /* Map Control Container */
   
   .map-control-container {
     position: fixed;
@@ -326,6 +357,7 @@ label:hover {
     border: 2px solid white;
   }
   
+
 /* Buttons */
 
 button {
