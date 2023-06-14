@@ -160,7 +160,7 @@ main {
     font-size: large;
 }
 /*Cards sind scrollable mit fester höhe */
-.container {
+.inner-card-container {
     height: 100%;
     overflow-y: auto;
     text-align: justify;

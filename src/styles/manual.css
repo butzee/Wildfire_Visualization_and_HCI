@@ -1,0 +1,22 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.feature-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+}
+
+.feature-container .card {
+    flex-grow: 2;
+    margin-right: 2%;
+}
+
+img {
+    max-height: 500px;
+    width: auto;
+}
