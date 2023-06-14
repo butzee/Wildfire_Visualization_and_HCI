@@ -9,7 +9,6 @@ let isDragging = false;
 let myTimer;
 
 buttonSQL.addEventListener('click', async () => {
-  stopButton.on("click")();
   const year = getSelectedValues('#yearDropdownContent input[type="checkbox"]');
   const causeOptions = getSelectedValues('#causeDropdownContent input[type="checkbox"]');
   const sizeOptions = getSelectedValues('#sizeDropdownContent input[type="checkbox"]');
@@ -28,6 +27,7 @@ buttonSQL.addEventListener('click', async () => {
   } catch (error) {
     console.error(error);
   }
+  stopButton.on("click")();
   scatter ? updateScatter(0) : updateCluster(0);
   updateTimeDisplay();
 });
