@@ -146,37 +146,3 @@ const updateYearDisplay = () => {
   }
   document.getElementById("current-year").innerText = text;
 };
-
-function timelineYearly() {
-  clearInterval(myTimer);
-  let b = d3.select("#rangeSlider");
-  const speed = Number(Array.from(document.querySelectorAll('#speedDropdownContent input[type="checkbox"]:checked'))[0].value);
-  b.property("min", 0)
-  b.property("max", 30)
-  let maxValue = +b.property("max");
-  myTimer = setInterval(function () {
-    let value = +b.property("value");
-    b.property("value", value + 1);
-    updateYearDisplay();
-    if (value === maxValue) {
-      clearInterval(myTimer);
-    }
-  }, 1500/speed);
-}
-
-function timelineYear() {
-  // Zeitleiste im täglichen Modus
-  clearInterval(myTimer);
-  let b = d3.select("#rangeSlider");
-  const speed = Number(Array.from(document.querySelectorAll('#speedDropdownContent input[type="checkbox"]:checked'))[0].value);
-  b.property("min", 1)
-  b.property("max", 365) // Slider geht über jeden Tag des Jahres
-  let maxValue = +b.property("max");
-  myTimer = setInterval(function () {
-    let value = +b.property("value");
-    b.property("value", value + 1);
-    if (value === maxValue) {
-      clearInterval(myTimer);
-    }
-  }, 1500/speed);
-}
