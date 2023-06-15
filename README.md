@@ -1,3 +1,5 @@
+# Wildfire Visualization and HCI
+
 ## NodeJs Installation Guide
 
 This guide provides step-by-step instructions to install Node.js version 18.16.0 on different operating systems. Follow the instructions below based on your operating system:
