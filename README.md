@@ -2,6 +2,8 @@
 
 If you find the installation process cumbersome and just want to quickly explore the application and its functions, you can skip the installation steps and directly jump to the [Application Usage Guide](#application-usage-guide). This guide will provide detailed instructions on how to use the application and its various features.
 
+The icon used is from [Fire icons created by Freepik - Flaticon](https://www.flaticon.com/free-icons/fire).
+
 ## Installation and Running Guide
 
 ### NodeJs Installation
