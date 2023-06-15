@@ -84,7 +84,8 @@ This application can be started using various methods. Choose the option that su
 #### Option 1: Using NPM
 1. Open the command prompt or terminal.
 2. Navigate to the application directory.
-3. Run the command `npm run start` to start the application.
+3. Run the command `npm install` to install the required dependencies.
+4. After the installation is complete, run the command `npm run start` to start the application.
 
 #### Option 2: Compilation as a Standalone File
 1. Open the command prompt or terminal.
