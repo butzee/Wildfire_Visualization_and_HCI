@@ -55,7 +55,7 @@ main {
 }
 
 .sidebar ul li a .action {
-	margin-left: 5px; /* Abstand zwischen Icon und Text */
+	margin-left: 5px;
 }
 
 .sidebar ul li a:hover{

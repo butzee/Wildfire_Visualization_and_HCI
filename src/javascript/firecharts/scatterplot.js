@@ -1,9 +1,11 @@
-const COLOR_RANGE = [ // Farben für die Feuergröße
-    [255, 165, 0],
-    [204, 0, 0],
-    [87, 0, 0]
+// Define the color range for fire size
+const COLOR_RANGE = [
+    [255, 165, 0], // Orange
+    [204, 0, 0],   // Red
+    [87, 0, 0]     // Dark red
 ];
 
+// Define light settings for the scatterplot layer
 const LIGHT_SETTINGS = {
     lightsPosition: [-0.144528, 49.739968, 8000, -3.807751, 54.104682, 8000],
     ambientRatio: 0.4,
@@ -13,12 +15,14 @@ const LIGHT_SETTINGS = {
     numberOfLights: 2
 };
 
+// Function to update the scatterplot layer based on the selected value
 function updateScatter(value) {
-    deckglLayer.setProps({
-        layers: []
-    });
+    // Clear existing layers and markers
+    deckglLayer.setProps({ layers: [] });
     markerLayer.clear();
-    const data = yearsArray[value].map(({ FIRE_SIZE, LONGITUDE, LATITUDE, NWCG_GENERAL_CAUSE,DISCOVERY_DATE,CONT_DATE, NWCG_CAUSE_CLASSIFICATION, FIRE_NAME, FIRE_SIZE_CLASS, STATE, NWCG_REPORTING_UNIT_NAME, OBJECTID}) => ({
+
+    // Retrieve data for the selected year and map it to the desired format
+    const data = yearsArray[value].map(({ FIRE_SIZE, LONGITUDE, LATITUDE, NWCG_GENERAL_CAUSE, DISCOVERY_DATE, CONT_DATE, NWCG_CAUSE_CLASSIFICATION, FIRE_NAME, FIRE_SIZE_CLASS, STATE, NWCG_REPORTING_UNIT_NAME, OBJECTID }) => ({
         firesize: FIRE_SIZE,
         coordinates: [LONGITUDE, LATITUDE],
         nwcg_general_cause: NWCG_GENERAL_CAUSE,
@@ -30,7 +34,9 @@ function updateScatter(value) {
         fire_size_class: FIRE_SIZE_CLASS,
         nwcg_reporting_unit_name: NWCG_REPORTING_UNIT_NAME,
         objectid: OBJECTID
-      }));
+    }));
+
+    // Define the color for each data point based on the fire size
     const getColor = (d) => {
         const normalizedValue = (d.firesize - minFiresize) / (maxFiresize - minFiresize);
         const index = Math.floor(normalizedValue * (COLOR_RANGE.length - 1));
@@ -39,9 +45,14 @@ function updateScatter(value) {
         const interpolate = (a, b) => Math.round((1 - t) * a + t * b);
         return color1.map((c, i) => interpolate(c, color2[i]));
     };
+    // Calculate the minimum and maximum fire sizes in the data
     const minFiresize = data.reduce((min, d) => Math.min(min, d.firesize), Infinity);
-    const maxFiresize = data.reduce((max, d) => Math.max(max, d.firesize), -Infinity);    
+    const maxFiresize = data.reduce((max, d) => Math.max(max, d.firesize), -Infinity);
+
+    // Get the scale value from the selected display size checkbox
     const scale = Number(document.querySelector('#displaySizeDropdownContent input[type="checkbox"]:checked').value);
+
+    // Define the scatterplot layer
     const scatterplotLayer = {
         layerType: 'ScatterplotLayer',
         id: 'heatmap',
@@ -54,10 +65,15 @@ function updateScatter(value) {
         opacity: 0.7,
         radiusScale: scale,
         radiusMinPixels: 2,
-        getColor: getColor,
-        onClick: (info, event)  => {
+        getColor: getColor, // Assuming the getColor function is defined elsewhere
+        onClick: (info, event) => {
+            // Clear existing markers
             markerLayer.clear();
+
+            // Create a marker at the clicked coordinates
             var marker = new maptalks.Marker([info.object.coordinates[0], info.object.coordinates[1]]).addTo(markerLayer);
+
+            // Prepare the information content for the marker's info window
             const rows = [
                 { label: 'Object ID:', value: info.object.objectid },
                 { label: 'Firename:', value: info.object.fire_name },
@@ -72,26 +88,31 @@ function updateScatter(value) {
                 { label: 'State:', value: info.object.state },
                 { label: 'Reporting Unit:', value: info.object.nwcg_reporting_unit_name }
             ];
+
             const tableContent = rows.map(row => `
                 <tr>
                     <td class="tg-first-col"><b>${row.label}</b></td>
                     <td class="tg-second-col">${row.value}</td>
                 </tr>
             `).join('');
+
             const infoContent = `
                 <table class="tg">
                     ${tableContent}
                 </table>
             `;
+
+            // Set the info window content and open it
             marker.setInfoWindow({
-                'title'     : 'InfoWindow',
-                'autoCloseOn' : 'click',
-                'single' : true,
-                'custom' : true,
+                'title': 'InfoWindow',
+                'autoCloseOn': 'click',
+                'single': true,
+                'custom': true,
                 'content': infoContent
             });
             marker.openInfoWindow();
         }
     };
-    deckglLayer.setProps({layers: [scatterplotLayer]});
+    // Set the scatterplot layer as the only layer in deckgl
+    deckglLayer.setProps({ layers: [scatterplotLayer] });
 }
