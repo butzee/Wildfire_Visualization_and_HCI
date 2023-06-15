@@ -24,7 +24,9 @@
     "start": "electron .",
     "rebuild": "electron-rebuild -f -w better-sqlite3",
     "postinstall": "electron-builder install-app-deps",
-    "build": "electron-builder --win --linux --mac --x64"
+    "build-mac": "electron-builder --mac",
+    "build-win": "electron-builder --win",
+    "build-lin": "electron-builder --linux"
   },
   "author": "Pascal und Tim :)",
   "license": "ISC",

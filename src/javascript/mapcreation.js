@@ -8,7 +8,7 @@ const layerTemplates = [
 ];
 const n_templates = layerTemplates.length;
 let nextMapIdx = 1;
-  
+
 function createMap() {
   const map = new maptalks.Map('map', {
     center: [-98, 37],

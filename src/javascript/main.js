@@ -54,7 +54,7 @@ const createWindow = () => {
         contextIsolation: true
     }
   })
-  //win.removeMenu();
+  win.removeMenu();
   // Handle Listerner for invoke call "ping" from Renderer Process
   // return "pong" to Renderer Process
   ipcMain.handle('ping', () => { return "pong";});
