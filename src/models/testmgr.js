@@ -18,7 +18,7 @@ exports.getFires = (selectedYear, fireCause, fireSizeClass) => {
   console.log(sqlStatement)
   return Promise.all(queries)
   .then(results => {
-    return results.map(result => result);//TODO: Reich return results aus?
+    return results.map(result => result);
   })
   .catch(error => {
     console.error(error);

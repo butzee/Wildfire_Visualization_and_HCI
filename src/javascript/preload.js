@@ -2,9 +2,7 @@ const { contextBridge, ipcRenderer } = require('electron');
 
 // Bridge different process types together
 // Exposes global Methods to the Renderer Process via global variable called "api"
-
 const getFires = (param1, param2, param3 ) => {
-  console.log("Info: "+param1+" "+param2+" "+param3);
   return ipcRenderer.invoke('sql:getFires', [param1, param2, param3]);
 }
 
@@ -12,8 +10,5 @@ const getFires = (param1, param2, param3 ) => {
 // the ipcRenderer without exposing the entire object
 // Send Messages to Main and reseive messaages from main
 contextBridge.exposeInMainWorld('electronAPI', {
-  info: infomethode,
-  ping: pingmethode,
   getFires: getFires,
-  displayFireyear: displayFireyear
 });
