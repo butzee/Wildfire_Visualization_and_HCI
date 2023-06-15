@@ -28,6 +28,6 @@ function createMap() {
 }
 
 const map = createMap(); // Create a map instance
-
+const maxExtend = map.getExtent(); // Get the maximum extent of the map
 const dateDisplay = new DateDisplay(); // Create a DateDisplay control
 map.addControl(dateDisplay); // Add the DateDisplay control to the map
