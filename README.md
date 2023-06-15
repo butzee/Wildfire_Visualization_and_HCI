@@ -115,9 +115,9 @@ For each operating system, follow the respective steps:
 
 ##### macOS
 1. Open the 'dist' folder in the application directory.
-2. Inside the 'dist' folder, locate the 'mac' folder.
-3. Open the 'mac' folder.
-4. Run the 'mac-arm64' executable file to start the application directly.
+2. Inside the 'dist' folder, locate the 'mac-arm64' folder.
+3. Open the 'mac-arm64' folder.
+4. Run the 'vhci' executable file to start the application directly.
 
 > Note: The specific installer or application file names mentioned above may vary based on your CPU architecture and the application version.
 
