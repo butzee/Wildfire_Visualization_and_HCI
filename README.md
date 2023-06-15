@@ -1,10 +1,12 @@
 # Wildfire Visualization and HCI
 
-## NodeJs Installation Guide
+## Installation and Running Guide
+
+### NodeJs Installation
 
 This guide provides step-by-step instructions to install Node.js version 18.16.0 on different operating systems. Follow the instructions below based on your operating system:
 
-### Linux
+#### Linux
 
 1. Open the terminal.
 2. Run the following command to download the Node.js binary package:
@@ -33,7 +35,7 @@ This guide provides step-by-step instructions to install Node.js version 18.16.0
    source ~/.bashrc
    ```
 
-### Mac
+#### Mac
 
 1. Open the terminal.
 2. Run the following command to install the Node Version Manager (NVM):
@@ -50,7 +52,7 @@ This guide provides step-by-step instructions to install Node.js version 18.16.0
    nvm use 18.16.0
    ```
 
-### Windows
+#### Windows
 
 To install Node.js version 18.16.0 on Windows, you can use the official Node.js installer. Here are the steps:
 
@@ -73,16 +75,16 @@ To install Node.js version 18.16.0 on Windows, you can use the official Node.js 
 12. Wait for the installation to complete.
 13. Once the installation is finished, click "Finish
 
-## Application Startup Options
+### Application Startup Options
 
 This application can be started using various methods. Choose the option that suits your needs:
 
-### Option 1: Using NPM
+#### Option 1: Using NPM
 1. Open the command prompt or terminal.
 2. Navigate to the application directory.
 3. Run the command `npm run start` to start the application.
 
-### Option 2: Compilation as a Standalone File
+#### Option 2: Compilation as a Standalone File
 1. Open the command prompt or terminal.
 2. Navigate to the application directory.
 3. Choose the appropriate command based on your operating system:
@@ -93,23 +95,23 @@ This application can be started using various methods. Choose the option that su
    - Run the application directly without installation.
    - Install the application using an installer.
 
-### Option 3: Running the Application Directly
+#### Option 3: Running the Application Directly
 For each operating system, follow the respective steps:
 
-#### Windows
+##### Windows
 1. Open the 'dist' folder in the application directory.
 2. Inside the 'dist' folder, locate the 'win-unpacked' folder.
 3. Open the 'win-unpacked' folder.
 4. Run the 'vhci.exe' executable file to start the application.
 
-#### Linux
+##### Linux
 1. Open the 'dist' folder in the application directory.
 2. Inside the 'dist' folder, locate the 'linux-unpacked' folder.
 3. Open the 'linux-unpacked' folder.
 4. Run the 'vhci' executable file either from the command line or by double-clicking.
    - Alternatively, you can directly execute the application by running the 'vhci-1.0.0.AppImage' file located in the 'dist' folder.
 
-#### macOS
+##### macOS
 1. Open the 'dist' folder in the application directory.
 2. Inside the 'dist' folder, locate the 'mac' folder.
 3. Open the 'mac' folder.
