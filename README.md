@@ -2,8 +2,6 @@
 
 If you find the installation process cumbersome and just want to quickly explore the application and its functions, you can skip the installation steps and directly jump to the [Application Usage Guide](#application-usage-guide). This guide will provide detailed instructions on how to use the application and its various features.
 
-The icon used is from [Fire icons created by Freepik - Flaticon](https://www.flaticon.com/free-icons/fire).
-
 ## Installation and Running Guide
 
 ### NodeJs Installation
@@ -79,17 +77,17 @@ To install Node.js version 18.16.0 on Windows, you can use the official Node.js 
 12. Wait for the installation to complete.
 13. Once the installation is finished, click "Finish
 
-### Application Startup Options
+### Application Startup Steps
 
-This application can be started using various methods. Choose the option that suits your needs:
+This application can be started using various methods. If you choose to build and start the application using npm, please download the `RDS-2013-0009.6_SQLITE.zip` file from the following link: [Download RDS-2013-0009.6_SQLITE.zip](https://www.fs.usda.gov/rds/archive/products/RDS-2013-0009.6/RDS-2013-0009.6_SQLITE.zip). Once downloaded, unzip the file, rename it to "data.zip" and ensure that the unzipped database file remains in the same directory as the zip file. This SQLite database contains the wildfire data required for accurate visualizations and analyses of the wildfire occurrences. Choose the option that suits your needs:
 
-#### Option 1: Using NPM
+#### Step 1: Using NPM
 1. Open the command prompt or terminal.
 2. Navigate to the application directory.
 3. Run the command `npm install` to install the required dependencies.
 4. After the installation is complete, run the command `npm run start` to start the application.
 
-#### Option 2: Compilation as a Standalone File
+#### Step 2: Compilation as a Standalone File
 1. Open the command prompt or terminal.
 2. Navigate to the application directory.
 3. Choose the appropriate command based on your operating system:
@@ -100,7 +98,7 @@ This application can be started using various methods. Choose the option that su
    - Run the application directly without installation.
    - Install the application using an installer.
 
-#### Option 3: Running the Application Directly
+#### Step 3: Running the Application Directly
 For each operating system, follow the respective steps:
 
 ##### Windows
@@ -124,8 +122,15 @@ For each operating system, follow the respective steps:
 
 > Note: The specific installer or application file names mentioned above may vary based on your CPU architecture and the application version.
 
-Choose the startup option that best suits your requirements to begin using the application.
+#### Step 4: Using Generated Installers
 
+After running the respective command for your operating system from Step 2, the generated installers can be found under the "dist" folder. Depending on the operating system used, the installer files will have the following names:
+
+- For Linux (x64 architecture): "vhci_1.0.0_amd64.snap"
+- For macOS (Apple Silicon architecture): "vhci_1.0.0_arm64.dmg"
+- For Windows: "vhci Setup 1.0.0.exe"
+
+These installers provide a convenient way to install and run the application on your system.
 
 ## Application Usage Guide
 
@@ -193,3 +198,8 @@ The application incorporates the following resources and techniques:
 - Missing data for a substantial portion of the fires required imputation or removal during the development process.
 
 Please refer to the application interface for further instructions on using specific features and visualizations.
+
+### Others
+
+- The icon used is from [Fire icons created by Freepik - Flaticon](https://www.flaticon.com/free-icons/fire).
+- The wildfire occurrence data used in this project is sourced from the "Spatial wildfire occurrence data for the United States, 1992-2020" dataset, specifically the 6th Edition [FPA_FOD_20221014]. This dataset is provided by the Forest Service Research Data Archive in Fort Collins, CO. The data can be accessed at: [Spatial wildfire](https://doi.org/10.2737/RDS-2013-0009.6). We would like to express our gratitude to Short, Karen C. for their valuable contribution.
