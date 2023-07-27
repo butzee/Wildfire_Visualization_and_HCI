@@ -79,7 +79,7 @@ To install Node.js version 18.16.0 on Windows, you can use the official Node.js 
 
 ### Application Startup Steps
 
-This application can be started using various methods. If you choose to build and start the application using npm, please download the `RDS-2013-0009.6_SQLITE.zip` file from the following link: [Download RDS-2013-0009.6_SQLITE.zip](https://www.fs.usda.gov/rds/archive/products/RDS-2013-0009.6/RDS-2013-0009.6_SQLITE.zip). Once downloaded, unzip the file, rename it to "data.sqlite" and ensure that the unzipped database file remains in the same directory as this readme. This SQLite database contains the wildfire data required for accurate visualizations and analyses of the wildfire occurrences. Choose the option that suits your needs:
+This application can be started using various methods. If you choose to build and start the application using npm, please download the zip file from the following link: [Archive.zip](https://sync.academiccloud.de/index.php/s/h9FpzOV3q9gCXry). Once downloaded, unzip the files and copy them to the same directory this readme is in (root directory). This SQLite database contains the wildfire data required for accurate visualizations and analyses of the wildfire occurrences. Choose the option that suits your needs:
 
 #### Step 1: Using NPM
 1. Open the command prompt or terminal.
